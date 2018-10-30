@@ -21,13 +21,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
-import bsi.ufrpe.br.cared.cuidador.gui.CuidadorListActivity;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.usuario.dominio.Usuario;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button botaoCadastro;
     private EditText emailLogin;
     private EditText senhaLogin;
     private Button botaoLogar;
@@ -47,17 +45,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        botaoCadastro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, CadastroActivity.class));
-                finish();
-            }
-        });
     }
 
     private void setView() {
-        botaoCadastro = findViewById(R.id.cadastroId);
         botaoLogar = findViewById(R.id.loginId);
         emailLogin = findViewById(R.id.emailId);
         senhaLogin = findViewById(R.id.senhaId);
@@ -114,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                 Pessoa pessoa = dataSnapshot.getValue(Pessoa.class);
                 Sessao.setPessoa(0, pessoa);
                 dialog.dismiss();
-                startActivity(new Intent(LoginActivity.this, CuidadorListActivity.class));
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             }
 
             @Override
@@ -131,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 Cuidador cuidador = dataSnapshot.getValue(Cuidador.class);
                 Sessao.setPessoa(1, cuidador);
                 dialog.dismiss();
-                startActivity(new Intent(LoginActivity.this, HomeTesteActivity.class));
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             }
 
             @Override

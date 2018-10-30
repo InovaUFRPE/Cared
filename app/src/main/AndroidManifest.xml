@@ -10,17 +10,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".usuario.gui.LoginActivity">
+        <activity android:name=".usuario.gui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".usuario.gui.LoginActivity" />
         <activity android:name=".usuario.gui.CadastroActivity" />
         <activity android:name=".usuario.gui.HomeTesteActivity" />
-        <activity android:name=".cuidador.gui.CuidadorListActivity"></activity>
-        <activity android:name=".cuidador.gui.PerfilCuidadorActivity"></activity>
+        <activity android:name=".cuidador.gui.CuidadorListActivity" />
+        <activity android:name=".cuidador.gui.PerfilCuidadorActivity" />
+        <activity
+            android:name=".usuario.gui.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
