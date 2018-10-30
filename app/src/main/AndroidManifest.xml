@@ -26,7 +26,8 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".usuario.gui.CadastroCuidadorActivity" />
-        <activity android:name=".usuario.gui.CadastroPessoaActivity"></activity>
+        <activity android:name=".usuario.gui.CadastroPessoaActivity" />
+        <activity android:name=".pessoa.gui.PessoaPerfilActivity"></activity>
     </application>
 
 </manifest>

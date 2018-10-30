@@ -30,8 +30,8 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
 
     private void setTela(){
         nome = findViewById(R.id.nomeCuidadorPerfilId);
-        cidade = findViewById(R.id.cidadeCuidadorPerfilId);
-        servicos = findViewById(R.id.descricaoCuidadorPerfilId);
+//        cidade = findViewById(R.id.cidadeCuidadorPerfilId);
+//        servicos = findViewById(R.id.descricaoCuidadorPerfilId);
         setCuidador();
     }
 

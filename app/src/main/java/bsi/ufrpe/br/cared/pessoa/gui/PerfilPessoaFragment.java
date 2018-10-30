@@ -23,9 +23,9 @@ public class PerfilPessoaFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        TextView nome = getView().findViewById(R.id.nomePessoaPerfilId);
-        TextView telefone = getView().findViewById(R.id.TelefonePessoaPerfilId);
-        nome.setText(Sessao.getPessoa().getNome());
-        telefone.setText(Sessao.getPessoa().getTelefone());
+//        TextView nome = getView().findViewById(R.id.nomePessoaPerfilId);
+//        TextView telefone = getView().findViewById(R.id.TelefonePessoaPerfilId);
+//        nome.setText(Sessao.getPessoa().getNome());
+//        telefone.setText(Sessao.getPessoa().getTelefone());
     }
 }
