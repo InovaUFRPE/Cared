@@ -15,16 +15,14 @@ import com.google.firebase.auth.AuthResult;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.servico.ServicoValidacao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.usuario.dominio.Usuario;
 
 public class CadastroPessoaActivity extends AppCompatActivity {
-    private EditText nome;
-    private EditText cpf;
-    private EditText telefone;
-    private EditText email;
-    private EditText senha;
+    private EditText campoNome, campoCPF, campoTelefone, campoEmail, campoSenha;
     private Button btConfirmar;
+    private ServicoValidacao servicoValidacao = new ServicoValidacao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +38,20 @@ public class CadastroPessoaActivity extends AppCompatActivity {
     }
 
     private void setView(){
-        nome = findViewById(R.id.nomeId);
-        cpf = findViewById(R.id.cpfId);
-        telefone = findViewById(R.id.telefoneId);
-        email = findViewById(R.id.emailId);
-        senha = findViewById(R.id.senhaId);
-        btConfirmar = findViewById(R.id.confirmarId);
+        this.campoNome = findViewById(R.id.nomeId);
+        this.campoCPF = findViewById(R.id.cpfId);
+        this.campoTelefone = findViewById(R.id.telefoneId);
+        this.campoEmail = findViewById(R.id.emailId);
+        this.campoSenha = findViewById(R.id.senhaId);
+        this.btConfirmar = findViewById(R.id.confirmarId);
     }
 
     private void cirarConta(){
-        Sessao.getFirebaseAuth().createUserWithEmailAndPassword(email.getText().toString().trim().toLowerCase(),
-                senha.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        if (!this.vericarCampos()){
+            return;
+        }
+        Sessao.getFirebaseAuth().createUserWithEmailAndPassword(campoEmail.getText().toString().trim().toLowerCase(),
+                campoSenha.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -71,14 +72,40 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         Usuario usuario = new Usuario(0, Sessao.getUserId());
         Sessao.getDatabaseUser().child(Sessao.getUserId()).setValue(usuario);
         Pessoa pessoa = new Pessoa();
-        pessoa.setNome(nome.getText().toString().trim());
-        pessoa.setCpf(cpf.getText().toString().trim());
-        pessoa.setTelefone(telefone.getText().toString().trim());
+        pessoa.setNome(campoNome.getText().toString().trim());
+        pessoa.setCpf(campoCPF.getText().toString().trim());
+        pessoa.setTelefone(campoTelefone.getText().toString().trim());
         pessoa.setUserId(Sessao.getUserId());
         Sessao.setPessoa(0, pessoa);
     }
 
     private void clickConfirmar(){
         cirarConta();
+    }
+
+    private boolean vericarCampos(){
+        String nome = campoNome.getText().toString().trim();
+        String cpf = campoCPF.getText().toString().trim();
+        String telefone = campoTelefone.getText().toString().trim();
+        String email = campoEmail.getText().toString().trim();
+        String senha = campoSenha.getText().toString().trim();
+        if (servicoValidacao.verificarCampoVazio(nome)) {
+            this.campoNome.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(cpf)){
+            this.campoCPF.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(telefone)){
+            this.campoTelefone.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(email)){
+            this.campoEmail.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(senha)){
+            this.campoSenha.setError("Campo vazio");
+            return false;
+        } else {
+            return true;
+        }
     }
 }

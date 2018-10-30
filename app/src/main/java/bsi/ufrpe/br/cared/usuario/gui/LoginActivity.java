@@ -22,14 +22,15 @@ import com.google.firebase.database.ValueEventListener;
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.servico.ServicoValidacao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.usuario.dominio.Usuario;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText emailLogin;
-    private EditText senhaLogin;
+    private EditText emailLogin, senhaLogin;
     private Button botaoLogar;
     private ProgressDialog dialog;
+    private ServicoValidacao servicoValidacao = new ServicoValidacao();
 
 
     @Override
@@ -48,13 +49,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setView() {
-        botaoLogar = findViewById(R.id.loginId);
-        emailLogin = findViewById(R.id.emailId);
-        senhaLogin = findViewById(R.id.senhaId);
+        this.botaoLogar = findViewById(R.id.loginId);
+        this.emailLogin = findViewById(R.id.emailId);
+        this.senhaLogin = findViewById(R.id.senhaId);
 
     }
 
     private void logIn() {
+        if (!this.vericarCampos()) {
+            return;
+        }
         dialog = new ProgressDialog(LoginActivity.this);
         dialog.setMessage("Please wait...");
         dialog.setCanceledOnTouchOutside(false);
@@ -132,5 +136,19 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private boolean vericarCampos(){
+        String email = emailLogin.getText().toString().trim();
+        String senha = senhaLogin.getText().toString().trim();
+        if (servicoValidacao.verificarCampoVazio(email)) {
+            this.emailLogin.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(senha)){
+            this.senhaLogin.setError("Campo vazio");
+            return false;
+        } else {
+            return true;
+        }
     }
 }

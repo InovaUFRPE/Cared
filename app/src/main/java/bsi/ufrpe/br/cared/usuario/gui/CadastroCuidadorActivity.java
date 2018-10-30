@@ -17,20 +17,14 @@ import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.endereco.dominio.Endereco;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.servico.ServicoValidacao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.usuario.dominio.Usuario;
 
 public class CadastroCuidadorActivity extends AppCompatActivity {
-    private EditText nome;
-    private EditText cpf;
-    private EditText telefone;
-    private EditText email;
-    private EditText senha;
-    private EditText rua;
-    private EditText numero;
-    private EditText cidade;
-    private EditText servico;
+    private EditText campoNome, campoCPF, campoTelefone, campoEmail, campoSenha, campoRua, campoNumero, campoCidade, campoServico;
     private Button btConfirmar;
+    private ServicoValidacao servicoValidacao = new ServicoValidacao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,21 +40,24 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
     }
 
     private void setView(){
-        nome = findViewById(R.id.nomeId);
-        cpf = findViewById(R.id.cpfId);
-        telefone = findViewById(R.id.telefoneId);
-        email = findViewById(R.id.emailId);
-        senha = findViewById(R.id.senhaId);
-        btConfirmar = findViewById(R.id.confirmarId);
-        rua = findViewById(R.id.ruaId);
-        numero = findViewById(R.id.numeroId);
-        cidade = findViewById(R.id.cidadeId);
-        servico = findViewById(R.id.servicoId);
+        this.campoNome = findViewById(R.id.nomeId);
+        this.campoCPF = findViewById(R.id.cpfId);
+        this.campoTelefone = findViewById(R.id.telefoneId);
+        this.campoEmail = findViewById(R.id.emailId);
+        this.campoSenha = findViewById(R.id.senhaId);
+        this.btConfirmar = findViewById(R.id.confirmarId);
+        this.campoRua = findViewById(R.id.ruaId);
+        this.campoNumero = findViewById(R.id.numeroId);
+        this.campoCidade = findViewById(R.id.cidadeId);
+        this.campoServico = findViewById(R.id.servicoId);
     }
 
     private void cirarConta(){
-        Sessao.getFirebaseAuth().createUserWithEmailAndPassword(email.getText().toString().trim().toLowerCase(),
-                senha.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        if (!this.vericarCampos()) {
+            return;
+        }
+        Sessao.getFirebaseAuth().createUserWithEmailAndPassword(campoEmail.getText().toString().trim().toLowerCase(),
+                campoSenha.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -81,18 +78,18 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
         Usuario usuario = new Usuario(1, Sessao.getUserId());
         Sessao.getDatabaseUser().child(Sessao.getUserId()).setValue(usuario);
         Pessoa pessoa = new Pessoa();
-        pessoa.setNome(nome.getText().toString().trim());
-        pessoa.setCpf(cpf.getText().toString().trim());
-        pessoa.setTelefone(telefone.getText().toString().trim());
+        pessoa.setNome(campoNome.getText().toString().trim());
+        pessoa.setCpf(campoCPF.getText().toString().trim());
+        pessoa.setTelefone(campoTelefone.getText().toString().trim());
         pessoa.setUserId(Sessao.getUserId());
         Endereco endereco = new Endereco();
-        endereco.setCidade(cidade.getText().toString().trim());
-        endereco.setNumero(numero.getText().toString().trim());
-        endereco.setRua(rua.getText().toString().trim());
+        endereco.setCidade(campoCidade.getText().toString().trim());
+        endereco.setNumero(campoNumero.getText().toString().trim());
+        endereco.setRua(campoRua.getText().toString().trim());
         Cuidador cuidador = new Cuidador();
         cuidador.setEndereco(endereco);
         cuidador.setPessoa(pessoa);
-        cuidador.setServico(servico.getText().toString().trim());
+        cuidador.setServico(campoServico.getText().toString().trim());
         cuidador.setUserId(Sessao.getUserId());
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(cuidador);
         Sessao.setPessoa(1, cuidador);
@@ -100,5 +97,47 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
 
     private void clickConfirmar(){
         cirarConta();
+    }
+
+    private boolean vericarCampos(){
+        String nome = campoNome.getText().toString().trim();
+        String cpf = campoCPF.getText().toString().trim();
+        String telefone = campoTelefone.getText().toString().trim();
+        String email = campoEmail.getText().toString().trim();
+        String senha = campoSenha.getText().toString().trim();
+        String rua = campoRua.getText().toString().trim();
+        String numero = campoNumero.getText().toString().trim();
+        String cidade = campoCidade.getText().toString().trim();
+        String servico = campoServico.getText().toString().trim();
+        if (servicoValidacao.verificarCampoVazio(nome)) {
+            this.campoNome.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(cpf)){
+            this.campoCPF.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(telefone)){
+            this.campoTelefone.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(email)){
+            this.campoEmail.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(senha)){
+            this.campoSenha.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(rua)){
+            this.campoRua.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(numero)){
+            this.campoNumero.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(cidade)){
+            this.campoCidade.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(servico)){
+            this.campoServico.setError("Campo vazio");
+            return false;
+        } else {
+            return true;
+        }
     }
 }
