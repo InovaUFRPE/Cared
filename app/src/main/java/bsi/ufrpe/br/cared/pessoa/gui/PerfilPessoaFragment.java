@@ -12,7 +12,7 @@ import android.widget.TextView;
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.infra.Sessao;
 
-public class PerfilPessoaFragmet extends Fragment {
+public class PerfilPessoaFragment extends Fragment {
 
     @Nullable
     @Override
@@ -23,7 +23,9 @@ public class PerfilPessoaFragmet extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        TextView textView = (TextView) getView().findViewById(R.id.nomePessoaPerfilId);
-        textView.setText(Sessao.getPessoa().getNome());
+        TextView nome = getView().findViewById(R.id.nomePessoaPerfilId);
+        TextView telefone = getView().findViewById(R.id.TelefonePessoaPerfilId);
+        nome.setText(Sessao.getPessoa().getNome());
+        telefone.setText(Sessao.getPessoa().getTelefone());
     }
 }

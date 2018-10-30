@@ -17,8 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import bsi.ufrpe.br.cared.R;
+import bsi.ufrpe.br.cared.cuidador.gui.PerfilCuidadorFragment;
 import bsi.ufrpe.br.cared.infra.Sessao;
-import bsi.ufrpe.br.cared.pessoa.gui.PerfilPessoaFragmet;
+import bsi.ufrpe.br.cared.pessoa.gui.PerfilPessoaFragment;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -95,11 +96,11 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_perfil) {
             if(Sessao.getTipo() == 0) {
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.frameLayout, new PerfilPessoaFragmet());
+                ft.replace(R.id.frameLayout, new PerfilPessoaFragment());
                 ft.commit();
             }else{
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.frameLayout, new PerfilPessoaFragmet());
+                ft.replace(R.id.frameLayout, new PerfilCuidadorFragment());
                 ft.commit();
             }
         } else if (id == R.id.nav_home) {

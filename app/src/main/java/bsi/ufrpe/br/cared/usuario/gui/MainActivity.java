@@ -29,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cliqueSouContratante (View view){
-        this.trocaTela(LoginActivity.class);
+        this.trocaTela(CadastroPessoaActivity.class);
     }
 
     public void cliqueSouCuidador (View view){
-        this.trocaTela(LoginActivity.class);
+        this.trocaTela(CadastroCuidadorActivity.class);
     }
 
     public void cliqueFazerLogin (View view){

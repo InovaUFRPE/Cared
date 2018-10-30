@@ -78,8 +78,8 @@ public class Sessao {
     }
 
     public static void logout(){
-        getFirebaseAuth().signOut();
         setPessoa(2, null);
+        getFirebaseAuth().signOut();
     }
 
     public static void setCuidadorPerfil(Cuidador cuidador){

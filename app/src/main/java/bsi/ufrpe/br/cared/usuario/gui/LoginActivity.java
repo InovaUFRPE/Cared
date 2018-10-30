@@ -55,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void logIn() {
+        dialog = new ProgressDialog(LoginActivity.this);
+        dialog.setMessage("Please wait...");
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
         Sessao.getFirebaseAuth().signInWithEmailAndPassword(emailLogin.getText().toString().toLowerCase().trim(),
                 senhaLogin.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -64,16 +68,13 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("SignInSucces", "signInWithEmail:success");
                             FirebaseUser user = Sessao.getFirebaseAuth().getCurrentUser();
-                            dialog = new ProgressDialog(LoginActivity.this);
-                            dialog.setMessage("Please wait...");
-                            dialog.setCanceledOnTouchOutside(false);
-                            dialog.show();
                             getUserData();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("SignInFails", "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                         }
                     }
                 });
@@ -105,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                 Sessao.setPessoa(0, pessoa);
                 dialog.dismiss();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                finish();
             }
 
             @Override
@@ -122,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                 Sessao.setPessoa(1, cuidador);
                 dialog.dismiss();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                finish();
             }
 
             @Override
