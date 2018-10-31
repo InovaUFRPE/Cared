@@ -24,12 +24,10 @@ public class PerfilCuidadorFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         TextView nome = getView().findViewById(R.id.nomeCuidadorPerfilId);
-//        TextView cidade = getView().findViewById(R.id.cidadeCuidadorPerfilId);
-//        TextView telefone = getView().findViewById(R.id.telefoneCuidadorPerfilId);
-//        TextView descicao = getView().findViewById(R.id.descricaoCuidadorPerfilId);
+        TextView cidade = getView().findViewById(R.id.enderecoCuidadoraId);
+        TextView descicao = getView().findViewById(R.id.descricaoId);
         nome.setText(Sessao.getCuidador().getPessoa().getNome());
-//        cidade.setText(Sessao.getCuidador().getEndereco().getCidade());
-//        telefone.setText(Sessao.getCuidador().getPessoa().getTelefone());
-//        descicao.setText(Sessao.getCuidador().getServico());
+        cidade.setText(Sessao.getCuidador().getEndereco().getCidade());
+        descicao.setText(Sessao.getCuidador().getServico());
     }
 }
