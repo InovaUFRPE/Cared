@@ -4,13 +4,15 @@ public class Agendamento {
     private Horario horario;
     private String cuidadorId;
     private String pacienteId;
+    private double valor;
 
     public Agendamento() {}
 
-    public Agendamento(Horario horario, String cuidadorId, String pacienteId) {
+    public Agendamento(Horario horario, String cuidadorId, String pacienteId, double valor) {
         this.horario = horario;
         this.cuidadorId = cuidadorId;
         this.pacienteId = pacienteId;
+        this.valor = valor;
     }
 
     public Horario getHorario() {
@@ -35,5 +37,13 @@ public class Agendamento {
 
     public void setPacienteId(String pacienteId) {
         this.pacienteId = pacienteId;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 }

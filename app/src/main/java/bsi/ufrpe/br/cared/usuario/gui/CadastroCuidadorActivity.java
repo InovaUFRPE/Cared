@@ -1,5 +1,6 @@
 package bsi.ufrpe.br.cared.usuario.gui;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.usuario.dominio.Usuario;
 
 public class CadastroCuidadorActivity extends AppCompatActivity {
-    private EditText campoNome, campoCPF, campoTelefone, campoEmail, campoSenha, campoRua, campoNumero, campoCidade, campoServico;
+    private EditText campoNome, campoCPF, campoTelefone, campoEmail, campoSenha, campoRua, campoNumero, campoCidade, campoServico, campoValor;
     private Button btConfirmar;
     private ServicoValidacao servicoValidacao = new ServicoValidacao();
 
@@ -40,20 +41,21 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
     }
 
     private void setView(){
-        this.campoNome = findViewById(R.id.nomeId);
-        this.campoCPF = findViewById(R.id.cpfId);
-        this.campoTelefone = findViewById(R.id.telefoneId);
-        this.campoEmail = findViewById(R.id.emailId);
-        this.campoSenha = findViewById(R.id.senhaId);
-        this.btConfirmar = findViewById(R.id.confirmarId);
-        this.campoRua = findViewById(R.id.ruaId);
-        this.campoNumero = findViewById(R.id.numeroId);
-        this.campoCidade = findViewById(R.id.cidadeId);
-        this.campoServico = findViewById(R.id.servicoId);
+        campoNome = findViewById(R.id.nomeId);
+        campoCPF = findViewById(R.id.cpfId);
+        campoTelefone = findViewById(R.id.telefoneId);
+        campoEmail = findViewById(R.id.emailId);
+        campoSenha = findViewById(R.id.senhaId);
+        btConfirmar = findViewById(R.id.confirmarId);
+        campoRua = findViewById(R.id.ruaId);
+        campoNumero = findViewById(R.id.numeroId);
+        campoCidade = findViewById(R.id.cidadeId);
+        campoServico = findViewById(R.id.servicoId);
+        campoValor = findViewById(R.id.precoId);
     }
 
     private void cirarConta(){
-        if (!this.vericarCampos()) {
+        if (!vericarCampos()) {
             return;
         }
         Sessao.getFirebaseAuth().createUserWithEmailAndPassword(campoEmail.getText().toString().trim().toLowerCase(),
@@ -110,34 +112,40 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
         String cidade = campoCidade.getText().toString().trim();
         String servico = campoServico.getText().toString().trim();
         if (servicoValidacao.verificarCampoVazio(nome)) {
-            this.campoNome.setError("Campo vazio");
+            campoNome.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(cpf)){
-            this.campoCPF.setError("Campo vazio");
+            campoCPF.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(telefone)){
-            this.campoTelefone.setError("Campo vazio");
+            campoTelefone.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(email)){
-            this.campoEmail.setError("Campo vazio");
+            campoEmail.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(senha)){
-            this.campoSenha.setError("Campo vazio");
+            campoSenha.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(rua)){
-            this.campoRua.setError("Campo vazio");
+            campoRua.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(numero)){
-            this.campoNumero.setError("Campo vazio");
+            campoNumero.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(cidade)){
-            this.campoCidade.setError("Campo vazio");
+            campoCidade.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(servico)){
-            this.campoServico.setError("Campo vazio");
+            campoServico.setError("Campo vazio");
             return false;
         } else {
             return true;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

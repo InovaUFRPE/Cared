@@ -49,14 +49,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setView() {
-        this.botaoLogar = findViewById(R.id.loginId);
-        this.emailLogin = findViewById(R.id.emailId);
-        this.senhaLogin = findViewById(R.id.senhaId);
+        botaoLogar = findViewById(R.id.loginId);
+        emailLogin = findViewById(R.id.emailId);
+        senhaLogin = findViewById(R.id.senhaId);
 
     }
 
     private void logIn() {
-        if (!this.vericarCampos()) {
+        if (!vericarCampos()) {
             return;
         }
         dialog = new ProgressDialog(LoginActivity.this);
@@ -142,13 +142,19 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailLogin.getText().toString().trim();
         String senha = senhaLogin.getText().toString().trim();
         if (servicoValidacao.verificarCampoVazio(email)) {
-            this.emailLogin.setError("Campo vazio");
+            emailLogin.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(senha)){
-            this.senhaLogin.setError("Campo vazio");
+            senhaLogin.setError("Campo vazio");
             return false;
         } else {
             return true;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

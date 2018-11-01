@@ -1,5 +1,6 @@
 package bsi.ufrpe.br.cared.usuario.gui;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,16 +39,16 @@ public class CadastroPessoaActivity extends AppCompatActivity {
     }
 
     private void setView(){
-        this.campoNome = findViewById(R.id.nomeId);
-        this.campoCPF = findViewById(R.id.cpfId);
-        this.campoTelefone = findViewById(R.id.telefoneId);
-        this.campoEmail = findViewById(R.id.emailId);
-        this.campoSenha = findViewById(R.id.senhaId);
-        this.btConfirmar = findViewById(R.id.confirmarId);
+        campoNome = findViewById(R.id.nomeId);
+        campoCPF = findViewById(R.id.cpfId);
+        campoTelefone = findViewById(R.id.telefoneId);
+        campoEmail = findViewById(R.id.emailId);
+        campoSenha = findViewById(R.id.senhaId);
+        btConfirmar = findViewById(R.id.confirmarId);
     }
 
     private void cirarConta(){
-        if (!this.vericarCampos()){
+        if (!vericarCampos()){
             return;
         }
         Sessao.getFirebaseAuth().createUserWithEmailAndPassword(campoEmail.getText().toString().trim().toLowerCase(),
@@ -90,22 +91,28 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         String email = campoEmail.getText().toString().trim();
         String senha = campoSenha.getText().toString().trim();
         if (servicoValidacao.verificarCampoVazio(nome)) {
-            this.campoNome.setError("Campo vazio");
+            campoNome.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(cpf)){
-            this.campoCPF.setError("Campo vazio");
+            campoCPF.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(telefone)){
-            this.campoTelefone.setError("Campo vazio");
+            campoTelefone.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(email)){
-            this.campoEmail.setError("Campo vazio");
+            campoEmail.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(senha)){
-            this.campoSenha.setError("Campo vazio");
+            campoSenha.setError("Campo vazio");
             return false;
         } else {
             return true;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

@@ -9,14 +9,16 @@ public class Cuidador {
     private Endereco endereco;
     private String servico;
     private String userId;
+    private double valor;
 
     public Cuidador() {}
 
-    public Cuidador(Pessoa pessoa, Endereco endereco, String servico, String userId) {
+    public Cuidador(Pessoa pessoa, Endereco endereco, String servico, String userId, double valor) {
         this.pessoa = pessoa;
         this.endereco = endereco;
         this.servico = servico;
         this.userId = userId;
+        this.valor = valor;
     }
 
     public Pessoa getPessoa() {
@@ -49,5 +51,13 @@ public class Cuidador {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 }

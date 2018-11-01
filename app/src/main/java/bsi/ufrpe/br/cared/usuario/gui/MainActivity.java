@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public void trocaTela (Class tela){
         Intent intent = new Intent(this,tela);
         startActivity(intent);
-
+        finish();
     }
 
     public void cliqueSouContratante (View view){

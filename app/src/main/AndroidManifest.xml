@@ -18,7 +18,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".usuario.gui.LoginActivity" />
-        <activity android:name=".usuario.gui.HomeTesteActivity" />
         <activity android:name=".cuidador.gui.CuidadorListActivity" />
         <activity android:name=".cuidador.gui.PerfilCuidadorActivity" />
         <activity
