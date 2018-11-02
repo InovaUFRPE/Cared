@@ -15,6 +15,8 @@ public class Sessao {
     private static DatabaseReference databasePessoa;
     private static DatabaseReference databaseUser;
     private static DatabaseReference databaseCuidador;
+    private static DatabaseReference databaseHorarioDisponivel;
+    private static DatabaseReference databaseAgendamento;
     private static final Map<String, Object> values = new HashMap<>();
 
     private Sessao(){}
@@ -38,6 +40,20 @@ public class Sessao {
             databaseCuidador = FirebaseDatabase.getInstance().getReference("cuidador");
         }
         return databaseCuidador;
+    }
+
+    public static DatabaseReference getDatabaseHorarioDisponivel() {
+        if(databaseHorarioDisponivel == null){
+            databaseHorarioDisponivel = FirebaseDatabase.getInstance().getReference("horariodisponivel");
+        }
+        return databaseHorarioDisponivel;
+    }
+
+    public static DatabaseReference getDatabaseAgendamento() {
+        if(databaseAgendamento == null){
+            databaseAgendamento = FirebaseDatabase.getInstance().getReference("agendamento");
+        }
+        return databaseAgendamento;
     }
 
     public static FirebaseAuth getFirebaseAuth(){

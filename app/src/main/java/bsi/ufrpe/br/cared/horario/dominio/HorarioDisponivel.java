@@ -3,13 +3,15 @@ package bsi.ufrpe.br.cared.horario.dominio;
 public class HorarioDisponivel {
     private Horario horario;
     private String userId;
+    private String id;
 
     public HorarioDisponivel() {
     }
 
-    public HorarioDisponivel(Horario horario, String userId) {
+    public HorarioDisponivel(Horario horario, String userId, String id) {
         this.horario = horario;
         this.userId = userId;
+        this.id = id;
     }
 
     public Horario getHorario() {
@@ -26,5 +28,13 @@ public class HorarioDisponivel {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
