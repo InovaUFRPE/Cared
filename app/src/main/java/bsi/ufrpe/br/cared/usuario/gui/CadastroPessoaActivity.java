@@ -78,6 +78,8 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         pessoa.setTelefone(campoTelefone.getText().toString().trim());
         pessoa.setUserId(Sessao.getUserId());
         Sessao.setPessoa(0, pessoa);
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 
     private void clickConfirmar(){

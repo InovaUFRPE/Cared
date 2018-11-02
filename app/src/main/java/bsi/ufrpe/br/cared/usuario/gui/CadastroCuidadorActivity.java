@@ -95,6 +95,8 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
         cuidador.setUserId(Sessao.getUserId());
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(cuidador);
         Sessao.setPessoa(1, cuidador);
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 
     private void clickConfirmar(){
