@@ -19,6 +19,7 @@ import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.endereco.dominio.Endereco;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.infra.servico.ServicoValidacao;
+import bsi.ufrpe.br.cared.infra.servico.ValidaCPF;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.usuario.dominio.Usuario;
 
@@ -26,6 +27,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
     private EditText campoNome, campoCPF, campoTelefone, campoEmail, campoSenha, campoRua, campoNumero, campoCidade, campoServico, campoValor;
     private Button btConfirmar;
     private ServicoValidacao servicoValidacao = new ServicoValidacao();
+    private ValidaCPF validaCPF = new ValidaCPF();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,17 +118,26 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
         if (servicoValidacao.verificarCampoVazio(nome)) {
             campoNome.setError("Campo vazio");
             return false;
-        } else if(servicoValidacao.verificarCampoVazio(cpf)){
+        } else if(servicoValidacao.verificarCampoVazio(cpf)) {
             campoCPF.setError("Campo vazio");
             return false;
-        } else if(servicoValidacao.verificarCampoVazio(telefone)){
+        } else if(validaCPF.isCPF(cpf)){
+            campoCPF.setError("CPF inválido");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(telefone)) {
             campoTelefone.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificaTamanhoTelefone(telefone)){
+            campoTelefone.setError("Informa um número válido");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(email)){
             campoEmail.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(senha)){
             campoSenha.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificaTamanhoSenha(senha)){
+            campoSenha.setError("Inserir no mínimo 6 dígitos");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(rua)){
             campoRua.setError("Campo vazio");
@@ -137,7 +148,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
         } else if(servicoValidacao.verificarCampoVazio(cidade)){
             campoCidade.setError("Campo vazio");
             return false;
-        } else if(servicoValidacao.verificarCampoVazio(servico)){
+        } else if(servicoValidacao.verificarCampoVazio(servico)) {
             campoServico.setError("Campo vazio");
             return false;
         } else {
