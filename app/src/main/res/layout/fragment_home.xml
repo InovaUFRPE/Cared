@@ -6,6 +6,9 @@
         android:id="@+id/btVisualizarCuidadoresId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Visualizar Cuidadores"/>
+        android:text="Visualizar Cuidadores"
+        android:background="@color/colorButton"
+        android:textColor="@color/colorTextButton"
+        android:layout_margin="3dp"/>
 
 </LinearLayout>
