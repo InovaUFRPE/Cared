@@ -8,4 +8,18 @@ public class ServicoValidacao {
             return false;
         }
     }
+    public boolean verificaTamanhoSenha(String campo){
+        if (campo.length() < 6){
+            return true;
+        } else{
+            return false;
+        }
+    }
+    public boolean verificaTamanhoTelefone(String campo){
+        if (campo.length() < 8 || campo.length() > 10){
+            return true;
+        } else{
+            return false;
+        }
+    }
 }
