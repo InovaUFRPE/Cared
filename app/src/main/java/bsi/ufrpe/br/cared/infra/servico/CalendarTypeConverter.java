@@ -11,7 +11,7 @@ public class CalendarTypeConverter {
 
     public static List<CalendarDay> toCalendarDay(Horario horario){
         List<CalendarDay> list = new ArrayList<>();
-        
+
         return list;
     }
 }

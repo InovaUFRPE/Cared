@@ -79,6 +79,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         pessoa.setCpf(campoCPF.getText().toString().trim());
         pessoa.setTelefone(campoTelefone.getText().toString().trim());
         pessoa.setUserId(Sessao.getUserId());
+        Sessao.getDatabasePessoa().child(Sessao.getUserId()).setValue(pessoa);
         Sessao.setPessoa(0, pessoa);
         startActivity(new Intent(this, HomeActivity.class));
         finish();
