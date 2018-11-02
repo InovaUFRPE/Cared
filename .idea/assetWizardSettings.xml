@@ -28,7 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_add_black" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_add_white" />
                             <entry key="sourceFile" value="C:\Users\thiag" />
                           </map>
                         </option>
