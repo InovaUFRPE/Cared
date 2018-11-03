@@ -3,30 +3,30 @@ package bsi.ufrpe.br.cared.horario.dominio;
 import java.util.Calendar;
 
 public class Horario {
-    private Calendar inicio;
-    private Calendar fim;
+    private long inicio;
+    private long fim;
 
     public Horario() {
     }
 
-    public Horario(Calendar inicio, Calendar fim) {
+    public Horario(long inicio, long fim) {
         this.inicio = inicio;
         this.fim = fim;
     }
 
-    public Calendar getInicio() {
+    public long getInicio() {
         return inicio;
     }
 
-    public void setInicio(Calendar inicio) {
+    public void setInicio(long inicio) {
         this.inicio = inicio;
     }
 
-    public Calendar getFim() {
+    public long getFim() {
         return fim;
     }
 
-    public void setFim(Calendar fim) {
+    public void setFim(long fim) {
         this.fim = fim;
     }
 }

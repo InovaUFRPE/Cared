@@ -22,11 +22,13 @@ import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
 import bsi.ufrpe.br.cared.infra.EventDecorator;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.servico.CalendarTypeConverter;
 
 public class CuidadorCalendarActivity extends AppCompatActivity {
     private MaterialCalendarView mcv;
     private EventDecorator eventDecorator;
     private List<CalendarDay> calendarDayList = new ArrayList<>();
+    private List<Agendamento> agendamentoList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,14 @@ public class CuidadorCalendarActivity extends AppCompatActivity {
                 super.decorate(view);
             }
         };
+        mcv.addDecorator(eventDecorator);
         mcv.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView, @NonNull CalendarDay calendarDay, boolean b) {
 
             }
         });
+        getHorarios();
     }
 
     @Override
@@ -74,7 +78,9 @@ public class CuidadorCalendarActivity extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     Agendamento agendamento = dataSnapshot1.getValue(Agendamento.class);
                     if(agendamento.getCuidadorId().equals(Sessao.getUserId())){
-
+                        agendamentoList.add(agendamento);
+                        calendarDayList.addAll(CalendarTypeConverter.toCalendarDayList(agendamento.getHorario()));
+                        restartDecorator();
                     }
                 }
 
@@ -85,5 +91,21 @@ public class CuidadorCalendarActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void restartDecorator(){
+        eventDecorator = new EventDecorator(0, calendarDayList) {
+            @Override
+            public boolean shouldDecorate(CalendarDay day) {
+                return super.shouldDecorate(day);
+            }
+
+            @Override
+            public void decorate(DayViewFacade view) {
+                super.decorate(view);
+            }
+        };
+        mcv.removeDecorators();
+        mcv.addDecorator(eventDecorator);
     }
 }
