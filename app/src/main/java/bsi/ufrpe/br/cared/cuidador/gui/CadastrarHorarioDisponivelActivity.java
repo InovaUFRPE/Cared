@@ -15,8 +15,8 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.util.Calendar;
 
 import bsi.ufrpe.br.cared.R;
-import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
 import bsi.ufrpe.br.cared.horario.dominio.Horario;
+import bsi.ufrpe.br.cared.horario.dominio.HorarioDisponivel;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.infra.servico.CalendarTypeConverter;
 
@@ -42,12 +42,12 @@ public class CadastrarHorarioDisponivelActivity extends AppCompatActivity {
         btCriar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Agendamento agendamento = new Agendamento();
-                agendamento.setCuidadorId(Sessao.getUserId());
-                agendamento.setHorario(new Horario(CalendarTypeConverter.calendarDayToLong(day1), CalendarTypeConverter.calendarDayToLong(day2)));
-                String id = Sessao.getDatabaseAgendamento().push().getKey();
-                agendamento.setId(id);
-                Sessao.getDatabaseAgendamento().child(id).setValue(agendamento);
+                HorarioDisponivel horarioDisponivel = new HorarioDisponivel();
+                horarioDisponivel.setUserId(Sessao.getUserId());
+                horarioDisponivel.setHorario(new Horario(CalendarTypeConverter.calendarDayToLong(day1), CalendarTypeConverter.calendarDayToLong(day2)));
+                String id = Sessao.getDatabaseHorarioDisponivel().push().getKey();
+                horarioDisponivel.setId(id);
+                Sessao.getDatabaseHorarioDisponivel().child(id).setValue(horarioDisponivel);
                 finish();
             }
         });

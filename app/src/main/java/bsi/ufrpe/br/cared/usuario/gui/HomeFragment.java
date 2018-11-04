@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.gui.CuidadorListActivity;
+import bsi.ufrpe.br.cared.infra.Sessao;
 
 public class HomeFragment extends Fragment {
 
@@ -31,5 +32,8 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getActivity(), CuidadorListActivity.class));
             }
         });
+        if(Sessao.getTipo() == 1){
+            button.setVisibility(View.GONE);
+        }
     }
 }

@@ -28,7 +28,8 @@
         <activity android:name=".usuario.gui.CadastroPessoaActivity" />
         <activity android:name=".pessoa.gui.PessoaPerfilActivity" />
         <activity android:name=".cuidador.gui.CuidadorCalendarActivity" />
-        <activity android:name=".cuidador.gui.CadastrarHorarioDisponivelActivity"></activity>
+        <activity android:name=".cuidador.gui.CadastrarHorarioDisponivelActivity" />
+        <activity android:name=".cuidador.gui.CalendarioPerfilCuidadorActivity"></activity>
     </application>
 
 </manifest>

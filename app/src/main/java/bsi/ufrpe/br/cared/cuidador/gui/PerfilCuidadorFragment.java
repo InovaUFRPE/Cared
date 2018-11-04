@@ -35,7 +35,7 @@ public class PerfilCuidadorFragment extends Fragment {
         btCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), CuidadorCalendarActivity.class));
+                startActivity(new Intent(getActivity(), CalendarioPerfilCuidadorActivity.class));
             }
         });
     }
