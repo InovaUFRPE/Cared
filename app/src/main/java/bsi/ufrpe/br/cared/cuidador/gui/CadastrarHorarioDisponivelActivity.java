@@ -19,6 +19,7 @@ import bsi.ufrpe.br.cared.horario.dominio.Horario;
 import bsi.ufrpe.br.cared.horario.dominio.HorarioDisponivel;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.infra.servico.CalendarTypeConverter;
+import bsi.ufrpe.br.cared.infra.servico.ConflitoHorarios;
 
 public class CadastrarHorarioDisponivelActivity extends AppCompatActivity {
     private MaterialCalendarView mcv;
@@ -45,11 +46,12 @@ public class CadastrarHorarioDisponivelActivity extends AppCompatActivity {
             public void onClick(View view) {
                 HorarioDisponivel horarioDisponivel = new HorarioDisponivel();
                 horarioDisponivel.setUserId(Sessao.getUserId());
-                Calendar temp = CalendarTypeConverter.setDayEnd(CalendarTypeConverter.calendarDayToCalendar(day2));
-                horarioDisponivel.setHorario(new Horario(CalendarTypeConverter.calendarDayToLong(day1), CalendarTypeConverter.calendarToLong(temp)));
+                Calendar temp2 = CalendarTypeConverter.setDayEnd(CalendarTypeConverter.calendarDayToCalendar(day2));
+                Calendar temp = CalendarTypeConverter.setDayBegin(CalendarTypeConverter.calendarDayToCalendar(day1));
+                horarioDisponivel.setHorario(new Horario(CalendarTypeConverter.calendarToLong(temp), CalendarTypeConverter.calendarToLong(temp2)));
                 String id = Sessao.getDatabaseHorarioDisponivel().push().getKey();
                 horarioDisponivel.setId(id);
-                Sessao.getDatabaseHorarioDisponivel().child(Sessao.getUserId()).child(id).setValue(horarioDisponivel);
+                ConflitoHorarios.newHorarioDisponivel(horarioDisponivel);
                 finish();
             }
         });
