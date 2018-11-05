@@ -59,7 +59,7 @@ public class MeusHorariosAgendadosFragment extends Fragment {
     }
 
     private void getHorarios(){
-        Sessao.getDatabaseAgendamento().addValueEventListener(new ValueEventListener() {
+        Sessao.getDatabaseAgendamento().child(Sessao.getUserId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){

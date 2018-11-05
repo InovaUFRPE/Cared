@@ -69,7 +69,7 @@ public class MeusHorariosDisponiveisFragment extends Fragment {
     }
 
     private void getHorarios(){
-        Sessao.getDatabaseHorarioDisponivel().addValueEventListener(new ValueEventListener() {
+        Sessao.getDatabaseHorarioDisponivel().child(Sessao.getUserId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){

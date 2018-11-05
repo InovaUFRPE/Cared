@@ -4,6 +4,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import bsi.ufrpe.br.cared.horario.dominio.Horario;
@@ -25,7 +26,7 @@ public class CalendarTypeConverter {
     }
 
     public static Calendar calendarDayToCalendar(CalendarDay day){
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = getEmptyCalendar();
         calendar.set(day.getYear(), day.getMonth()-1, day.getDay());
         return calendar;
     }
@@ -40,7 +41,7 @@ public class CalendarTypeConverter {
     }
 
     public static Calendar longToCalendar(long time){
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = getEmptyCalendar();
         calendar.setTimeInMillis(time);
         return calendar;
     }
@@ -51,5 +52,33 @@ public class CalendarTypeConverter {
 
     public static CalendarDay longToCalendarDay(long time){
         return calendarToCalendarDay(longToCalendar(time));
+    }
+
+    public static Calendar getEmptyCalendar(){
+        return new GregorianCalendar();
+    }
+
+    public static Calendar setDayBegin(Calendar calendar){
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
+    }
+
+    public static Calendar setDayEnd(Calendar calendar){
+        calendar.set(Calendar.HOUR, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        return calendar;
+    }
+
+    public static Calendar getTodayStart(){
+        return setDayBegin(Calendar.getInstance());
+    }
+
+    public static Calendar getTodayEnd(){
+        return setDayEnd(Calendar.getInstance());
     }
 }

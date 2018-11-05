@@ -26,7 +26,7 @@ public class CadastrarHorarioDisponivelActivity extends AppCompatActivity {
     private Button btCriar;
     private CalendarDay day1, day2;
     private LinearLayout linearLayout;
-    private Calendar calendar = Calendar.getInstance();
+    private Calendar calendar = CalendarTypeConverter.getTodayStart();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +38,18 @@ public class CadastrarHorarioDisponivelActivity extends AppCompatActivity {
         eFim = findViewById(R.id.eFim);
         btCriar = findViewById(R.id.criar);
         linearLayout = findViewById(R.id.layoutId);
+        telaPadrao();
         mcv = findViewById(R.id.calerdarViewId);
         btCriar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 HorarioDisponivel horarioDisponivel = new HorarioDisponivel();
                 horarioDisponivel.setUserId(Sessao.getUserId());
-                horarioDisponivel.setHorario(new Horario(CalendarTypeConverter.calendarDayToLong(day1), CalendarTypeConverter.calendarDayToLong(day2)));
+                Calendar temp = CalendarTypeConverter.setDayEnd(CalendarTypeConverter.calendarDayToCalendar(day2));
+                horarioDisponivel.setHorario(new Horario(CalendarTypeConverter.calendarDayToLong(day1), CalendarTypeConverter.calendarToLong(temp)));
                 String id = Sessao.getDatabaseHorarioDisponivel().push().getKey();
                 horarioDisponivel.setId(id);
-                Sessao.getDatabaseHorarioDisponivel().child(id).setValue(horarioDisponivel);
+                Sessao.getDatabaseHorarioDisponivel().child(Sessao.getUserId()).child(id).setValue(horarioDisponivel);
                 finish();
             }
         });
@@ -77,6 +79,8 @@ public class CadastrarHorarioDisponivelActivity extends AppCompatActivity {
             public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView, @NonNull CalendarDay calendarDay, boolean b) {
                 day1 = calendarDay;
                 dataInicio.setText(day1.getDay()+"/"+day1.getMonth()+"/"+day1.getYear());
+                day2 = day1;
+                dataFim.setText(day2.getDay()+"/"+day2.getMonth()+"/"+day2.getYear());
                 mcv.setVisibility(View.GONE);
                 linearLayout.setVisibility(View.VISIBLE);
             }
@@ -93,5 +97,22 @@ public class CadastrarHorarioDisponivelActivity extends AppCompatActivity {
                 linearLayout.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    private void telaPadrao(){
+        day1 = CalendarTypeConverter.calendarToCalendarDay(CalendarTypeConverter.getTodayStart());
+        day2 = day1;
+        dataInicio.setText(day1.getDay()+"/"+day1.getMonth()+"/"+day1.getYear());
+        dataFim.setText(day2.getDay()+"/"+day2.getMonth()+"/"+day2.getYear());
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mcv.getVisibility() == View.VISIBLE){
+            mcv.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
+        }else {
+            super.onBackPressed();
+        }
     }
 }
