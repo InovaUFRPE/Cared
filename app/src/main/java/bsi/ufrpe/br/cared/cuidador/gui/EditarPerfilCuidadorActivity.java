@@ -70,28 +70,25 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         String nome = nomeEditar.getText().toString().trim();
         String telefone = telefoneEditar.getText().toString().trim();
         String cpf = cpfEditar.getText().toString().trim();
-        String rua = nomeEditar.getText().toString().trim();
-        String numero = telefoneEditar.getText().toString().trim();
-        String cidade = cpfEditar.getText().toString().trim();
+        String rua = ruaEditar.getText().toString().trim();
+        String numero = numeroEditar.getText().toString().trim();
+        String cidade = cidadeEditar.getText().toString().trim();
         String valor = valorEditar.getText().toString().trim();
         String descricao = descricaoEditar.getText().toString().trim();
         Pessoa pessoa = cuidador.getPessoa();
         Endereco endereco = cuidador.getEndereco();
         cuidador.setServico(descricao);
-        cuidador.setValor(Long.parseLong(valor));
+        cuidador.setValor(Double.parseDouble(valor));
         pessoa.setNome(nome);
         pessoa.setCpf(cpf);
         pessoa.setTelefone(telefone);
         endereco.setCidade(cidade);
         endereco.setNumero(numero);
         endereco.setRua(rua);
+        cuidador.setPessoa(pessoa);
+        cuidador.setEndereco(endereco);
         Sessao.setPessoa(1, cuidador);
-        startActivity(new Intent(EditarPerfilCuidadorActivity.this, PerfilCuidadorFragment.class));
-        EditarPerfilCuidadorActivity.this.finish();
-    }
-
-    public void onBackPressed(){
-        startActivity(new Intent(EditarPerfilCuidadorActivity.this, PerfilCuidadorFragment.class));
-        EditarPerfilCuidadorActivity.this.finish();
+        Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(Sessao.getCuidador());
+        finish();
     }
 }

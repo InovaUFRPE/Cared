@@ -85,7 +85,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <Button
-                    android:id="@+id/btCalendarioId"
+                    android:id="@+id/btContratarId"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/colorButton"

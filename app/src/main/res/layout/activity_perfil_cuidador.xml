@@ -85,12 +85,12 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <Button
-                    android:id="@+id/btCalendarioId"
+                    android:id="@+id/btContratarId"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/colorButton"
                     android:textColor="@color/colorTextButton"
-                    android:text="Horários"
+                    android:text="Contratar"
                     android:textAllCaps="true" />
                 <Button
                     android:id="@+id/btComentariosid"

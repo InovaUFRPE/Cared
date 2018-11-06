@@ -31,7 +31,7 @@ public class PerfilCuidadorFragment extends Fragment {
         nome.setText(Sessao.getCuidador().getPessoa().getNome());
         cidade.setText(Sessao.getCuidador().getEndereco().getCidade());
         descicao.setText(Sessao.getCuidador().getServico());
-        Button btCalendario = getView().findViewById(R.id.btCalendarioId);
+        Button btCalendario = getView().findViewById(R.id.btContratarId);
         btCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

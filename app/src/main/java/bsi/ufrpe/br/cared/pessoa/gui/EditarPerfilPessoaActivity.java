@@ -34,7 +34,7 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
         nomeEditar = findViewById(R.id.nomeId);
         telefoneEditar = findViewById(R.id.telefoneId);
         cpfEditar = findViewById(R.id.cpfId);
-        alterar = findViewById(R.id.confirmarId);
+        alterar = findViewById(R.id.atualizarId);
         setPessoa();
     }
 
@@ -54,12 +54,7 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
         pessoa.setTelefone(telefone);
         pessoa.setCpf(cpf);
         Sessao.setPessoa(0, pessoa);
-        startActivity(new Intent(EditarPerfilPessoaActivity.this, PerfilPessoaFragment.class));
-        EditarPerfilPessoaActivity.this.finish();
-    }
-
-    public void onBackPressed(){
-        startActivity(new Intent(EditarPerfilPessoaActivity.this, PerfilPessoaFragment.class));
-        EditarPerfilPessoaActivity.this.finish();
+        Sessao.getDatabasePessoa().child(Sessao.getUserId()).setValue(Sessao.getPessoa());
+        finish();
     }
 }

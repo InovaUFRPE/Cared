@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void getUserData(){
-        Sessao.getDatabaseUser().child(Sessao.getUserId()).addValueEventListener(new ValueEventListener() {
+        Sessao.getDatabaseUser().child(Sessao.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Usuario usuario = dataSnapshot.getValue(Usuario.class);
@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void getPessoa(String id){
-        Sessao.getDatabasePessoa().child(id).addValueEventListener(new ValueEventListener() {
+        Sessao.getDatabasePessoa().child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Pessoa pessoa = dataSnapshot.getValue(Pessoa.class);
@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void getCuidador(String id){
-        Sessao.getDatabaseCuidador().child(id).addValueEventListener(new ValueEventListener() {
+        Sessao.getDatabaseCuidador().child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Cuidador cuidador = dataSnapshot.getValue(Cuidador.class);
