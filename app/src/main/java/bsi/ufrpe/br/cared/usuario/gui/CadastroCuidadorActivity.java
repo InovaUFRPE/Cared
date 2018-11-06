@@ -93,6 +93,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
         Cuidador cuidador = new Cuidador();
         cuidador.setEndereco(endereco);
         cuidador.setPessoa(pessoa);
+        cuidador.setValor(Long.parseLong(campoValor.getText().toString().trim()));
         cuidador.setServico(campoServico.getText().toString().trim());
         cuidador.setUserId(Sessao.getUserId());
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(cuidador);

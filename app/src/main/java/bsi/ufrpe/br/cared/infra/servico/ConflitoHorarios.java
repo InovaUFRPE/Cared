@@ -16,7 +16,7 @@ public class ConflitoHorarios {
 
     public static void newHorarioDisponivel(final HorarioDisponivel disponivel){
         final Horario horario = disponivel.getHorario();
-        Sessao.getDatabaseHorarioDisponivel().child(Sessao.getUserId()).addValueEventListener(new ValueEventListener() {
+        Sessao.getDatabaseHorarioDisponivel().child(Sessao.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 boolean ok = true;
