@@ -1,5 +1,6 @@
 package bsi.ufrpe.br.cared.pessoa.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,9 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import bsi.ufrpe.br.cared.R;
+import bsi.ufrpe.br.cared.cuidador.gui.EditarPerfilCuidadorActivity;
 import bsi.ufrpe.br.cared.infra.Sessao;
 
 public class PerfilPessoaFragment extends Fragment {
@@ -25,7 +28,15 @@ public class PerfilPessoaFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         TextView nome = getView().findViewById(R.id.nomeIdosoId);
         nome.setText(Sessao.getPessoa().getNome());
+        Button btEditar = getView().findViewById(R.id.btEditarPerfilid);
+        btEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), EditarPerfilPessoaActivity.class));
+            }
+        });
 //        TextView email  = getView().findViewById(R.id.emailPessoaId);
 //        email.setText(Sessao.getPessoa().getEmail());
+
     }
 }
