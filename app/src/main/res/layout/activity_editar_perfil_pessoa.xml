@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pessoa.gui.EditarPerfilPessoaActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dados Pessoais"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="10dp"/>
+            <EditText
+                android:id="@+id/nomeId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome Completo"
+                android:layout_marginTop="5dp"/>
+            <EditText
+                android:id="@+id/cpfId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CPF"
+                android:layout_marginTop="5dp"
+                android:inputType="number"/>
+            <EditText
+                android:id="@+id/telefoneId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telefone"
+                android:layout_marginTop="5dp"
+                android:inputType="number|phone"/>
+            <Button
+                android:id="@+id/atualizarId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Atualizar"
+                android:background="@color/colorButton"
+                android:textColor="@color/colorTextButton"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
