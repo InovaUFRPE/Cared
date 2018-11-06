@@ -25,5 +25,7 @@ public class PerfilPessoaFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         TextView nome = getView().findViewById(R.id.nomeIdosoId);
         nome.setText(Sessao.getPessoa().getNome());
+//        TextView email  = getView().findViewById(R.id.emailPessoaId);
+//        email.setText(Sessao.getPessoa().getEmail());
     }
 }

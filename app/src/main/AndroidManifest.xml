@@ -30,6 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".pessoa.gui.EditarPerfilPessoaActivity" />
+        <activity android:name=".cuidador.gui.EditarPerfilCuidadorActivity"></activity>
     </application>
 
 </manifest>
