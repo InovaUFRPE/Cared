@@ -3,6 +3,7 @@ package bsi.ufrpe.br.cared.pessoa.gui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -21,6 +22,12 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil_pessoa);
         setTela();
+        alterar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setAlterar();
+            }
+        });
     }
 
     private void setTela(){
@@ -47,7 +54,12 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
         pessoa.setTelefone(telefone);
         pessoa.setCpf(cpf);
         Sessao.setPessoa(0, pessoa);
-        startActivity(new Intent(EditarPerfilPessoaActivity.this, PessoaPerfilActivity.class));
+        startActivity(new Intent(EditarPerfilPessoaActivity.this, PerfilPessoaFragment.class));
+        EditarPerfilPessoaActivity.this.finish();
+    }
+
+    public void onBackPressed(){
+        startActivity(new Intent(EditarPerfilPessoaActivity.this, PerfilPessoaFragment.class));
         EditarPerfilPessoaActivity.this.finish();
     }
 }

@@ -38,5 +38,12 @@ public class PerfilCuidadorFragment extends Fragment {
                 startActivity(new Intent(getActivity(), CalendarioPerfilCuidadorActivity.class));
             }
         });
+        Button btEditar = getView().findViewById(R.id.btEditarPerfilid);
+        btEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), EditarPerfilCuidadorActivity.class));
+            }
+        });
     }
 }
