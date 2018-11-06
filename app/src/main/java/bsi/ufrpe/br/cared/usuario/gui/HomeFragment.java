@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import bsi.ufrpe.br.cared.R;
-import bsi.ufrpe.br.cared.cuidador.gui.CuidadorListActivity;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.pessoa.gui.BuscarCuidadorActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), CuidadorListActivity.class));
+                startActivity(new Intent(getActivity(), BuscarCuidadorActivity.class));
             }
         });
         if(Sessao.getTipo() == 1){

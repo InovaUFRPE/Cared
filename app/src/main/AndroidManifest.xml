@@ -10,14 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".usuario.gui.MainActivity"/>
+        <activity android:name=".usuario.gui.MainActivity" />
         <activity android:name=".usuario.gui.LoginActivity" />
-        <activity android:name=".cuidador.gui.CuidadorListActivity" />
         <activity android:name=".cuidador.gui.PerfilCuidadorActivity" />
         <activity
             android:name=".usuario.gui.HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".usuario.gui.CadastroCuidadorActivity" />
         <activity android:name=".usuario.gui.CadastroPessoaActivity" />
         <activity android:name=".pessoa.gui.PessoaPerfilActivity" />
@@ -31,7 +30,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".pessoa.gui.EditarPerfilPessoaActivity" />
-        <activity android:name=".cuidador.gui.EditarPerfilCuidadorActivity"></activity>
+        <activity android:name=".cuidador.gui.EditarPerfilCuidadorActivity" />
+        <activity android:name=".pessoa.gui.BuscarCuidadorActivity"></activity>
     </application>
 
 </manifest>

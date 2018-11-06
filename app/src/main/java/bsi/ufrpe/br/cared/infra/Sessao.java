@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
+import bsi.ufrpe.br.cared.horario.dominio.Horario;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 
 public class Sessao {
@@ -18,6 +19,7 @@ public class Sessao {
     private static DatabaseReference databaseHorarioDisponivel;
     private static DatabaseReference databaseAgendamento;
     private static final Map<String, Object> values = new HashMap<>();
+    private static Horario horario;
 
     private Sessao(){}
 
@@ -104,5 +106,13 @@ public class Sessao {
 
     public static Cuidador getCuidadorPerfil(){
         return (Cuidador) values.get("cuidadorPerfil");
+    }
+
+    public static Horario getHorario() {
+        return horario;
+    }
+
+    public static void setHorario(Horario horario) {
+        Sessao.horario = horario;
     }
 }
