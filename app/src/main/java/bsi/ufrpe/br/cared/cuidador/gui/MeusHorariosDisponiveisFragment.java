@@ -1,6 +1,7 @@
 package bsi.ufrpe.br.cared.cuidador.gui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,7 +52,7 @@ public class MeusHorariosDisponiveisFragment extends Fragment {
             }
         });
         mcv = getView().findViewById(R.id.calendarView);
-        eventDecorator = new EventDecorator(0, calendarDayList) {
+        eventDecorator = new EventDecorator(Color.BLACK, calendarDayList) {
             @Override
             public boolean shouldDecorate(CalendarDay day) {
                 return super.shouldDecorate(day);
@@ -90,7 +91,7 @@ public class MeusHorariosDisponiveisFragment extends Fragment {
     }
 
     private void restartDecorator(){
-        eventDecorator = new EventDecorator(0, calendarDayList) {
+        eventDecorator = new EventDecorator(Color.BLACK, calendarDayList) {
             @Override
             public boolean shouldDecorate(CalendarDay day) {
                 return super.shouldDecorate(day);

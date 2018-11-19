@@ -52,7 +52,7 @@ public class ListaCuidadorFragment extends Fragment {
                 startActivity(new Intent(getActivity(), PerfilCuidadorActivity.class));
             }
         });
-        Sessao.getDatabaseHorarioDisponivel().addValueEventListener(new ValueEventListener() {
+        Sessao.getDatabaseHorarioDisponivel().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
