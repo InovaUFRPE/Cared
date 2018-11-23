@@ -3,16 +3,18 @@ package bsi.ufrpe.br.cared.endereco.dominio;
 public class Endereco {
     private String rua;
     private String numero;
+    private String bairro;
     private String cidade;
     private double lat;
     private double lng;
 
     public Endereco() {}
 
-    public Endereco(String rua, String numero, String cidade) {
+    public Endereco(String rua, String numero, String bairro, String cidade) {
         this.rua = rua;
         this.numero = numero;
         this.cidade = cidade;
+        this.bairro = bairro;
     }
 
     public String getRua() {
@@ -29,6 +31,14 @@ public class Endereco {
 
     public void setNumero(String numero) {
         this.numero = numero;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
     public String getCidade() {

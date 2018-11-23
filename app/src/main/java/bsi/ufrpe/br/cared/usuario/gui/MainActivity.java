@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import bsi.ufrpe.br.cared.R;
+import bsi.ufrpe.br.cared.cuidador.gui.CadastroCuidadorActivity;
 
 public class MainActivity extends AppCompatActivity {
 

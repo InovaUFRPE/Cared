@@ -22,11 +22,11 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
     private EditText ruaEditar;
     private EditText numeroEditar;
     private EditText cidadeEditar;
+    private EditText bairroEditar;
     private EditText valorEditar;
     private EditText descricaoEditar;
     private Button alterar;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +47,7 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         alterar = findViewById(R.id.confirmarId);
         ruaEditar = findViewById(R.id.ruaId);
         numeroEditar = findViewById(R.id.numeroId);
+        bairroEditar = findViewById(R.id.bairroId);
         cidadeEditar = findViewById(R.id.cidadeId);
         valorEditar = findViewById(R.id.precoId);
         descricaoEditar = findViewById(R.id.servicoId);
@@ -60,6 +61,7 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         cpfEditar.setText(cuidador.getPessoa().getCpf());
         ruaEditar.setText(cuidador.getEndereco().getRua());
         numeroEditar.setText(cuidador.getEndereco().getNumero());
+        bairroEditar.setText(cuidador.getEndereco().getBairro());
         cidadeEditar.setText(cuidador.getEndereco().getCidade());
         valorEditar.setText(String.valueOf(cuidador.getValor()));
         descricaoEditar.setText(cuidador.getServico());
@@ -72,6 +74,7 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         String cpf = cpfEditar.getText().toString().trim();
         String rua = ruaEditar.getText().toString().trim();
         String numero = numeroEditar.getText().toString().trim();
+        String bairro = bairroEditar.getText().toString().trim();
         String cidade = cidadeEditar.getText().toString().trim();
         String valor = valorEditar.getText().toString().trim();
         String descricao = descricaoEditar.getText().toString().trim();
@@ -82,6 +85,7 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         pessoa.setNome(nome);
         pessoa.setCpf(cpf);
         pessoa.setTelefone(telefone);
+        endereco.setBairro(bairro);
         endereco.setCidade(cidade);
         endereco.setNumero(numero);
         endereco.setRua(rua);

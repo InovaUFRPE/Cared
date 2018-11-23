@@ -1,4 +1,4 @@
-package bsi.ufrpe.br.cared.usuario.gui;
+package bsi.ufrpe.br.cared.cuidador.gui;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -22,9 +22,10 @@ import bsi.ufrpe.br.cared.infra.servico.ServicoValidacao;
 import bsi.ufrpe.br.cared.infra.servico.ValidaCPF;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.usuario.dominio.Usuario;
+import bsi.ufrpe.br.cared.usuario.gui.MainActivity;
 
 public class CadastroCuidadorActivity extends AppCompatActivity {
-    private EditText campoNome, campoCPF, campoTelefone, campoEmail, campoSenha, campoRua, campoNumero, campoCidade, campoServico, campoValor;
+    private EditText campoNome, campoCPF, campoTelefone, campoEmail, campoSenha, campoRua, campoNumero, campoBairro, campoCidade, campoServico, campoValor;
     private Button btConfirmar;
     private ServicoValidacao servicoValidacao = new ServicoValidacao();
     private ValidaCPF validaCPF = new ValidaCPF();
@@ -51,6 +52,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
         btConfirmar = findViewById(R.id.confirmarId);
         campoRua = findViewById(R.id.ruaId);
         campoNumero = findViewById(R.id.numeroId);
+        campoBairro = findViewById(R.id.bairroId);
         campoCidade = findViewById(R.id.cidadeId);
         campoServico = findViewById(R.id.servicoId);
         campoValor = findViewById(R.id.precoId);
@@ -79,6 +81,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
     }
 
     private void criarUsuario(){
+        String informacao = "Sem Informação";
         Usuario usuario = new Usuario(1, Sessao.getUserId());
         Sessao.getDatabaseUser().child(Sessao.getUserId()).setValue(usuario);
         Pessoa pessoa = new Pessoa();
@@ -87,18 +90,24 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
         pessoa.setTelefone(campoTelefone.getText().toString().trim());
         pessoa.setUserId(Sessao.getUserId());
         Endereco endereco = new Endereco();
-        endereco.setCidade(campoCidade.getText().toString().trim());
-        endereco.setNumero(campoNumero.getText().toString().trim());
         endereco.setRua(campoRua.getText().toString().trim());
+        endereco.setNumero(campoNumero.getText().toString().trim());
+        endereco.setBairro(campoBairro.getText().toString().trim());
+        endereco.setCidade(campoCidade.getText().toString().trim());
         Cuidador cuidador = new Cuidador();
         cuidador.setEndereco(endereco);
         cuidador.setPessoa(pessoa);
         cuidador.setValor(Long.parseLong(campoValor.getText().toString().trim()));
         cuidador.setServico(campoServico.getText().toString().trim());
+        cuidador.setDisponivelDormir(informacao);
+        cuidador.setPossuiCurso(informacao);
+        cuidador.setCursosInformado(informacao);
+        cuidador.setPossuiExperiencia(informacao);
+        cuidador.setResumoExperiencia(informacao);
         cuidador.setUserId(Sessao.getUserId());
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(cuidador);
         Sessao.setPessoa(1, cuidador);
-        startActivity(new Intent(this, HomeActivity.class));
+        startActivity(new Intent(this, ComplementoCadastroActivity.class));
         finish();
     }
 
@@ -114,6 +123,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
         String senha = campoSenha.getText().toString().trim();
         String rua = campoRua.getText().toString().trim();
         String numero = campoNumero.getText().toString().trim();
+        String bairro = campoBairro.getText().toString().trim();
         String cidade = campoCidade.getText().toString().trim();
         String servico = campoServico.getText().toString().trim();
         if (servicoValidacao.verificarCampoVazio(nome)) {
@@ -145,6 +155,9 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
             return false;
         } else if(servicoValidacao.verificarCampoVazio(numero)){
             campoNumero.setError("Campo vazio");
+            return false;
+        } else if(servicoValidacao.verificarCampoVazio(bairro)){
+            campoBairro.setError("Campo vazio");
             return false;
         } else if(servicoValidacao.verificarCampoVazio(cidade)){
             campoCidade.setError("Campo vazio");

@@ -17,7 +17,7 @@
             android:name=".usuario.gui.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".usuario.gui.CadastroCuidadorActivity" />
+        <activity android:name=".cuidador.gui.CadastroCuidadorActivity" />
         <activity android:name=".usuario.gui.CadastroPessoaActivity" />
         <activity android:name=".pessoa.gui.PessoaPerfilActivity" />
         <activity android:name=".cuidador.gui.CadastrarHorarioDisponivelActivity" />
@@ -31,7 +31,8 @@
         </activity>
         <activity android:name=".pessoa.gui.EditarPerfilPessoaActivity" />
         <activity android:name=".cuidador.gui.EditarPerfilCuidadorActivity" />
-        <activity android:name=".pessoa.gui.BuscarCuidadorActivity"></activity>
+        <activity android:name=".pessoa.gui.BuscarCuidadorActivity" />
+        <activity android:name=".cuidador.gui.ComplementoCadastroActivity"></activity>
     </application>
 
 </manifest>

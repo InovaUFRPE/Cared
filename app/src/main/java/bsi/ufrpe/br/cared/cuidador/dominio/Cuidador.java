@@ -8,15 +8,26 @@ public class Cuidador {
     private Pessoa pessoa;
     private Endereco endereco;
     private String servico;
+    private String disponivelDormir;
+    private String possuiCurso;
+    private String curso;
+    private String experiencia;
+    private String resumoExperiencia;
     private String userId;
     private double valor;
 
     public Cuidador() {}
 
-    public Cuidador(Pessoa pessoa, Endereco endereco, String servico, String userId, double valor) {
+    public Cuidador(Pessoa pessoa, Endereco endereco, String servico, String disponivelDormir, String possuiCurso,
+                    String curso, String experiencia, String resumoExperiencia, String userId, double valor) {
         this.pessoa = pessoa;
         this.endereco = endereco;
         this.servico = servico;
+        this.disponivelDormir = disponivelDormir;
+        this.possuiCurso = possuiCurso;
+        this.curso = curso;
+        this.experiencia = experiencia;
+        this.resumoExperiencia = resumoExperiencia;
         this.userId = userId;
         this.valor = valor;
     }
@@ -43,6 +54,46 @@ public class Cuidador {
 
     public void setServico(String servico) {
         this.servico = servico;
+    }
+
+    public String getDisponivelDormir() {
+        return disponivelDormir;
+    }
+
+    public void setDisponivelDormir(String disponivelDormir) {
+        this.disponivelDormir = disponivelDormir;
+    }
+
+    public String getPossuiCurso() {
+        return possuiCurso;
+    }
+
+    public void setPossuiCurso(String possuiCurso) {
+        this.possuiCurso = possuiCurso;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public void setCursosInformado(String curso) {
+        this.curso = curso;
+    }
+
+    public String getExperiencia() {
+        return experiencia;
+    }
+
+    public void setPossuiExperiencia(String experiencia) {
+        this.experiencia = experiencia;
+    }
+
+    public String getResumoExperiencia() {
+        return resumoExperiencia;
+    }
+
+    public void setResumoExperiencia(String resumoExperiencia) {
+        this.resumoExperiencia = resumoExperiencia;
     }
 
     public String getUserId() {

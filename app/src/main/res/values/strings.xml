@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">Cared</string>
+    <string name="app_name">Cuide</string>
     <string name="desc">Cuidado na palma da mão</string>
     <string name="home_contratante">Quero contratar um cuidador</string>
     <string name="home_cuidador">Sou um cuidador</string>
     <string name="home_login">Já possui conta? Fazer Login</string>
+
+    <!--Cadastro-->
+    <string name="cadastro_cuidador_dados">Dados Pessoais</string>
+    <string name="cadastro_cuidador_nome">Nome Completo</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -11,4 +15,6 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+
 </resources>
