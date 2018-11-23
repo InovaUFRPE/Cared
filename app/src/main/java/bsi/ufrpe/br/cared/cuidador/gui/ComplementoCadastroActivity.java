@@ -70,9 +70,4 @@ public class ComplementoCadastroActivity extends AppCompatActivity {
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }
-
-    private void trocarTela(){
-        startActivity(new Intent(this, HomeActivity.class));
-        finish();
-    }
 }
