@@ -3,7 +3,8 @@ package bsi.ufrpe.br.cared.horario.dominio;
 public enum Situacao {
     PENDENTE("Pendente"),
     RECUSADO("Recusado"),
-    ACEITO("Aceito");
+    ACEITO("Aceito"),
+    CANCELADO("Cancelado");
     private final String name;
 
     Situacao(String name) {

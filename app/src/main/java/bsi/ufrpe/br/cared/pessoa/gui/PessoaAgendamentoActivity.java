@@ -1,4 +1,4 @@
-package bsi.ufrpe.br.cared.cuidador.gui;
+package bsi.ufrpe.br.cared.pessoa.gui;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -15,23 +15,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import bsi.ufrpe.br.cared.R;
+import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
 import bsi.ufrpe.br.cared.horario.dominio.Horario;
 import bsi.ufrpe.br.cared.horario.dominio.Situacao;
 import bsi.ufrpe.br.cared.infra.Sessao;
-import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 
-public class AgendamentoActivity extends AppCompatActivity {
+public class PessoaAgendamentoActivity extends AppCompatActivity {
     private TextView nome, horario, situacao;
-    private Button aceitar, recusar;
+    private Button cancelar;
     private Agendamento agendamento;
-    private Pessoa pessoa;
+    private Cuidador cuidador;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cuidador_agendamento);
+        setContentView(R.layout.activity_pessoa_agendamento);
         setTela();
     }
 
@@ -39,38 +39,14 @@ public class AgendamentoActivity extends AppCompatActivity {
         nome = findViewById(R.id.nomeId);
         horario = findViewById(R.id.horarioId);
         situacao = findViewById(R.id.situacaoId);
-        aceitar = findViewById(R.id.aceitarId);
-        recusar = findViewById(R.id.recusarId);
+        cancelar = findViewById(R.id.cancelarId);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickCancelar();
+            }
+        });
         getAgendamento();
-    }
-
-    private void setButtons(){
-        if (agendamento.getSituacao().equals(Situacao.PENDENTE)){
-            aceitar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    clickAceitar();
-                }
-            });
-            recusar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    clickRecusar();
-                }
-            });
-        }else if (agendamento.getSituacao().equals(Situacao.ACEITO)){
-            aceitar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    clickCancelar();
-                }
-            });
-            aceitar.setText("CANCELAR");
-            recusar.setVisibility(View.GONE);
-        }else{
-            aceitar.setVisibility(View.GONE);
-            recusar.setVisibility(View.GONE);
-        }
     }
 
     private String getId(){
@@ -78,16 +54,9 @@ public class AgendamentoActivity extends AppCompatActivity {
         return extra.getString("id");
     }
 
-    private void clickAceitar(){
-        agendamento.setSituacao(Situacao.ACEITO);
-        Sessao.getDatabaseAgendamento().child(agendamento.getCuidadorId()).child(agendamento.getId()).setValue(agendamento);
-        finish();
-    }
-
-    private void clickRecusar(){
-        agendamento.setSituacao(Situacao.RECUSADO);
-        Sessao.getDatabaseAgendamento().child(agendamento.getCuidadorId()).child(agendamento.getId()).setValue(agendamento);
-        finish();
+    private String getCuidadorId(){
+        Bundle extra = getIntent().getExtras();
+        return extra.getString("idC");
     }
 
     private void clickCancelar(){
@@ -96,11 +65,11 @@ public class AgendamentoActivity extends AppCompatActivity {
     }
 
     private void getAgendamento(){
-        Sessao.getDatabaseAgendamento().child(Sessao.getUserId()).child(getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+        Sessao.getDatabaseAgendamento().child(getCuidadorId()).child(getId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 agendamento = dataSnapshot.getValue(Agendamento.class);
-                getPessoa(agendamento.getPacienteId());
+                getPessoa(agendamento.getCuidadorId());
             }
 
             @Override
@@ -111,12 +80,11 @@ public class AgendamentoActivity extends AppCompatActivity {
     }
 
     private void getPessoa(String id){
-        Sessao.getDatabasePessoa().child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+        Sessao.getDatabaseCuidador().child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                pessoa = dataSnapshot.getValue(Pessoa.class);
+                cuidador = dataSnapshot.getValue(Cuidador.class);
                 setTexts();
-                setButtons();
             }
 
             @Override
@@ -126,8 +94,10 @@ public class AgendamentoActivity extends AppCompatActivity {
         });
     }
 
+
+
     private void setTexts(){
-        nome.setText(pessoa.getNome());
+        nome.setText(cuidador.getPessoa().getNome());
         horario.setText(textoHorario(agendamento.getHorario()));
         situacao.setText(agendamento.getSituacao().getName());
     }

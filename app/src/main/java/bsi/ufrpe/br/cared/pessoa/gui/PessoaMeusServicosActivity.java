@@ -1,8 +1,11 @@
 package bsi.ufrpe.br.cared.pessoa.gui;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +38,12 @@ public class PessoaMeusServicosActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         adapter = new PessoaMeusServicosAdapter(agendamentos, cuidadores);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                clickAgendamento(i);
+            }
+        });
         getAgedamentos();
     }
 
@@ -78,5 +87,12 @@ public class PessoaMeusServicosActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void clickAgendamento(int position){
+        Intent intent = new Intent(this, PessoaAgendamentoActivity.class);
+        intent.putExtra("id", agendamentos.get(position).getId());
+        intent.putExtra("idC", agendamentos.get(position).getCuidadorId());
+        startActivity(intent);
     }
 }

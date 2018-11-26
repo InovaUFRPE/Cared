@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".pessoa.gui.PessoaAgendamentoActivity">
+    <TextView
+        android:id="@+id/nomeId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome"
+        android:textSize="25sp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Horário: "/>
+        <TextView
+            android:id="@+id/horarioId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dd/MM/yyyy HH:mm"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/situacaoId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Situação"/>
+    <Button
+        android:id="@+id/cancelarId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorButton"
+        android:textColor="@color/colorTextButton"
+        android:text="Cancelar"
+        android:layout_margin="5dp"/>
+
+
+</LinearLayout>
