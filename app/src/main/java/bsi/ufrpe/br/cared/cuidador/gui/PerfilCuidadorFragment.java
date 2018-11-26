@@ -9,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.infra.Sessao;
@@ -25,12 +28,20 @@ public class PerfilCuidadorFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ImageView foto = getView().findViewById(R.id.fotoPerfilCuidadorActivity);
         TextView nome = getView().findViewById(R.id.nomeCuidadorPerfilId);
         TextView cidade = getView().findViewById(R.id.enderecoCuidadoraId);
-        TextView descicao = getView().findViewById(R.id.descricaoId);
+        TextView bairro = getView().findViewById(R.id.bairroCuidadorId);
+        TextView descricao = getView().findViewById(R.id.emailIdoso);
+        Picasso.get()
+                .load(Sessao.getCuidador().getPessoa().getFoto())
+                .resize(300, 300)
+                .centerCrop()
+                .into(foto);
         nome.setText(Sessao.getCuidador().getPessoa().getNome());
-        cidade.setText(Sessao.getCuidador().getEndereco().getCidade());
-        descicao.setText(Sessao.getCuidador().getServico());
+        descricao.setText(Sessao.getCuidador().getServico());
+        cidade.setText(Sessao.getCuidador().getPessoa().getEndereco().getCidade());
+        bairro.setText(Sessao.getCuidador().getPessoa().getEndereco().getBairro());
         Button btCalendario = getView().findViewById(R.id.btContratarId);
         btCalendario.setOnClickListener(new View.OnClickListener() {
             @Override

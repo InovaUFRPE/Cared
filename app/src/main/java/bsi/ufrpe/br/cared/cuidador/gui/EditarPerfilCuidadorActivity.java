@@ -56,13 +56,14 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
 
     private void setCuidador(){
         Cuidador cuidador = Sessao.getCuidador();
+        Pessoa pessoa = Sessao.getPessoa();
         nomeEditar.setText(cuidador.getPessoa().getNome());
         telefoneEditar.setText(cuidador.getPessoa().getTelefone());
         cpfEditar.setText(cuidador.getPessoa().getCpf());
-        ruaEditar.setText(cuidador.getEndereco().getRua());
-        numeroEditar.setText(cuidador.getEndereco().getNumero());
-        bairroEditar.setText(cuidador.getEndereco().getBairro());
-        cidadeEditar.setText(cuidador.getEndereco().getCidade());
+        ruaEditar.setText(pessoa.getEndereco().getRua());
+        numeroEditar.setText(pessoa.getEndereco().getNumero());
+        bairroEditar.setText(pessoa.getEndereco().getBairro());
+        cidadeEditar.setText(pessoa.getEndereco().getCidade());
         valorEditar.setText(String.valueOf(cuidador.getValor()));
         descricaoEditar.setText(cuidador.getServico());
     }
@@ -79,7 +80,7 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         String valor = valorEditar.getText().toString().trim();
         String descricao = descricaoEditar.getText().toString().trim();
         Pessoa pessoa = cuidador.getPessoa();
-        Endereco endereco = cuidador.getEndereco();
+        Endereco endereco = pessoa.getEndereco();
         cuidador.setServico(descricao);
         cuidador.setValor(Double.parseDouble(valor));
         pessoa.setNome(nome);
@@ -89,8 +90,8 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         endereco.setCidade(cidade);
         endereco.setNumero(numero);
         endereco.setRua(rua);
+        pessoa.setEndereco(endereco);
         cuidador.setPessoa(pessoa);
-        cuidador.setEndereco(endereco);
         Sessao.setPessoa(1, cuidador);
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(Sessao.getCuidador());
         finish();

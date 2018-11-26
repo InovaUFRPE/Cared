@@ -7,22 +7,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
+import com.squareup.picasso.Picasso;
 
 import bsi.ufrpe.br.cared.R;
-import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.infra.servico.ConflitoHorarios;
 
 public class PerfilCuidadorActivity extends AppCompatActivity {
-    private TextView nome;
-    private TextView servicos;
-    private TextView email;
-    private TextView cidade;
-    private Button botaoContratar;
-    private Button botaoComentarios;
-    private TextView nota;
+    private ImageView foto;
+    private TextView nome, servicos, email, cidade, nota;
+    private Button botaoContratar, botaoComentarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +27,10 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
     }
 
     private void setTela(){
+        foto = findViewById(R.id.fotoPerfilCuidadorActivity);
         nome = findViewById(R.id.nomeCuidadorPerfilId);
         cidade = findViewById(R.id.enderecoCuidadoraId);
-        servicos = findViewById(R.id.descricaoId);
+        servicos = findViewById(R.id.emailIdoso);
         botaoContratar = findViewById(R.id.btContratarId);
         botaoContratar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,9 +42,13 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
     }
 
     private void setCuidador(){
+        Picasso.get()
+                .load(Sessao.getCuidadorPerfil().getPessoa().getFoto())
+                .resize(300, 300)
+                .centerCrop()
+                .into(foto);
         nome.setText(Sessao.getCuidadorPerfil().getPessoa().getNome());
         servicos.setText(Sessao.getCuidadorPerfil().getServico());
-        cidade.setText(Sessao.getCuidadorPerfil().getEndereco().getCidade());
     }
 
     private void contratar(){

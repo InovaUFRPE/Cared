@@ -6,7 +6,6 @@ import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 
 public class Cuidador {
     private Pessoa pessoa;
-    private Endereco endereco;
     private String servico;
     private String disponivelDormir;
     private String possuiCurso;
@@ -21,7 +20,6 @@ public class Cuidador {
     public Cuidador(Pessoa pessoa, Endereco endereco, String servico, String disponivelDormir, String possuiCurso,
                     String curso, String experiencia, String resumoExperiencia, String userId, double valor) {
         this.pessoa = pessoa;
-        this.endereco = endereco;
         this.servico = servico;
         this.disponivelDormir = disponivelDormir;
         this.possuiCurso = possuiCurso;
@@ -40,13 +38,6 @@ public class Cuidador {
         this.pessoa = pessoa;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
 
     public String getServico() {
         return servico;
