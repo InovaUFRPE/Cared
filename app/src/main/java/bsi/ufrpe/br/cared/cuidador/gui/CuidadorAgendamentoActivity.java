@@ -21,7 +21,7 @@ import bsi.ufrpe.br.cared.horario.dominio.Situacao;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 
-public class AgendamentoActivity extends AppCompatActivity {
+public class CuidadorAgendamentoActivity extends AppCompatActivity {
     private TextView nome, horario, situacao;
     private Button aceitar, recusar;
     private Agendamento agendamento;
