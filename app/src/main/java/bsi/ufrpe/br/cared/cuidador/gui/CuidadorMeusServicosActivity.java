@@ -85,7 +85,7 @@ public class CuidadorMeusServicosActivity extends AppCompatActivity {
     }
 
     private void clickItem(int position){
-        Intent intent = new Intent(this, AgendamentoActivity.class);
+        Intent intent = new Intent(this, CuidadorAgendamentoActivity.class);
         intent.putExtra("id", agendamentos.get(position).getId());
         startActivity(intent);
     }
