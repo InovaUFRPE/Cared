@@ -1,4 +1,4 @@
-package bsi.ufrpe.br.cared.cuidador.gui;
+package bsi.ufrpe.br.cared.pessoa.gui;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,39 +13,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bsi.ufrpe.br.cared.R;
+import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 
-public class MeusServicosActivity extends AppCompatActivity {
-    private MeusServicosAdapter adapter;
+public class PessoaMeusServicosActivity extends AppCompatActivity {
     private ListView listView;
     private List<Agendamento> agendamentos = new ArrayList<>();
-    private List<Pessoa> pessoas = new ArrayList<>();
+    private List<Cuidador> cuidadores = new ArrayList<>();
+    private PessoaMeusServicosAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meus_servicos);
+        setContentView(R.layout.activity_pessoa_meus_servicos);
         getView();
     }
 
     private void getView(){
         listView = findViewById(R.id.listView);
-        adapter = new MeusServicosAdapter(agendamentos, pessoas);
+        adapter = new PessoaMeusServicosAdapter(agendamentos, cuidadores);
         listView.setAdapter(adapter);
-        getAgendamentos();
+        getAgedamentos();
     }
 
-    private void getAgendamentos(){
-        Sessao.getDatabaseAgendamento().child(Sessao.getUserId()).addValueEventListener(new ValueEventListener() {
+    private void getAgedamentos(){
+        Sessao.getDatabaseAgendamento().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Agendamento> l1 = new ArrayList<>();
+                cuidadores.clear();
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    Agendamento agendamento = dataSnapshot1.getValue(Agendamento.class);
-                    agendamentos.add(agendamento);
-                    getPessoaAgendamento(agendamento.getPacienteId());
+                    for (DataSnapshot dataSnapshot2: dataSnapshot1.getChildren()){
+                        Agendamento agendamento = dataSnapshot2.getValue(Agendamento.class);
+                        if (agendamento.getPacienteId().equals(Sessao.getUserId())){
+                            l1.add(agendamento);
+                            getCuidadorAgendamento(agendamento.getCuidadorId());
+                        }
+                    }
                 }
+                agendamentos.clear();
+                agendamentos.addAll(l1);
             }
 
             @Override
@@ -55,12 +64,12 @@ public class MeusServicosActivity extends AppCompatActivity {
         });
     }
 
-    private void getPessoaAgendamento(String id){
-        Sessao.getDatabasePessoa().child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void getCuidadorAgendamento(String id){
+        Sessao.getDatabaseCuidador().child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Pessoa pessoa = dataSnapshot.getValue(Pessoa.class);
-                pessoas.add(pessoa);
+                Cuidador cuidador = dataSnapshot.getValue(Cuidador.class);
+                cuidadores.add(cuidador);
                 adapter.notifyDataSetChanged();
             }
 

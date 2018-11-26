@@ -36,7 +36,9 @@
         <activity android:name=".cuidador.gui.EditarPerfilCuidadorActivity" />
         <activity android:name=".pessoa.gui.BuscarCuidadorActivity" />
         <activity android:name=".cuidador.gui.ComplementoCadastroActivity" />
-        <activity android:name=".cuidador.gui.MeusServicosActivity"></activity>
+        <activity android:name=".cuidador.gui.CuidadorMeusServicosActivity" />
+        <activity android:name=".cuidador.gui.AgendamentoActivity" />
+        <activity android:name=".pessoa.gui.PessoaMeusServicosActivity"></activity>
     </application>
 
 </manifest>

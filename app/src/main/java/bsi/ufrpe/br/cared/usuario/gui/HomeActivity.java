@@ -17,10 +17,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import bsi.ufrpe.br.cared.R;
-import bsi.ufrpe.br.cared.cuidador.gui.MeusServicosActivity;
+import bsi.ufrpe.br.cared.cuidador.gui.CuidadorMeusServicosActivity;
 import bsi.ufrpe.br.cared.cuidador.gui.PerfilCuidadorFragment;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.pessoa.gui.PerfilPessoaFragment;
+import bsi.ufrpe.br.cared.pessoa.gui.PessoaMeusServicosActivity;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,9 +56,6 @@ public class HomeActivity extends AppCompatActivity
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.frameLayout, new HomeFragment());
         ft.commit();
-//        if (Sessao.getTipo() == 0){
-//            findViewById(R.id.nav_meus_servicos).setVisibility(View.GONE);
-//        }
     }
 
     @Override
@@ -116,7 +115,11 @@ public class HomeActivity extends AppCompatActivity
             startActivity(new Intent(HomeActivity.this, MainActivity.class));
             finish();
         } else if (id == R.id.nav_meus_servicos) {
-            startActivity(new Intent(HomeActivity.this, MeusServicosActivity.class));
+            if (Sessao.getTipo() == 1) {
+                startActivity(new Intent(HomeActivity.this, CuidadorMeusServicosActivity.class));
+            } else {
+                startActivity(new Intent( HomeActivity.this, PessoaMeusServicosActivity.class));
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
