@@ -47,12 +47,30 @@
                 android:hint="Nome Completo"
                 android:layout_marginTop="10dp"/>
             <EditText
+                android:id="@+id/editTextDataNasc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="@string/prompt_data"
+                android:inputType="date"/>
+            <EditText
                 android:id="@+id/cpfUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="CPF"
                 android:layout_marginTop="10dp"
                 android:inputType="number"/>
+            <EditText
+                android:id="@+id/necessidadesUser"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:maxLines="5"
+                android:hint="Descreva sua rotina e necessidades a serem executadas"
+                android:layout_marginTop="10dp"
+                android:inputType="textMultiLine"/>
+
             <EditText
                 android:id="@+id/telefoneUser"
                 android:layout_width="match_parent"

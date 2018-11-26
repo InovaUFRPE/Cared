@@ -35,7 +35,7 @@ import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.usuario.dominio.Usuario;
 
 public class CadastroPessoaActivity extends AppCompatActivity {
-    private EditText campoNome, campoCPF, campoTelefone, campoEmail, campoSenha, campoRua, campoNumero, campoBairro, campoCidade;
+    private EditText campoNome, campoCPF, campoTelefone, campoEmail, campoSenha, campoRua, campoNumero, campoBairro, campoCidade, campoNecessidades, campoDataNasc;
     private ImageView fotoPerfil;
     private Button btConfirmar, selecionarFotoUser;
     private ServicoValidacao servicoValidacao = new ServicoValidacao();
@@ -78,6 +78,8 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         campoBairro = findViewById(R.id.bairroUser);
         campoCidade = findViewById(R.id.cidadeUser);
         btConfirmar = findViewById(R.id.confirmarUser);
+        campoDataNasc = findViewById(R.id.editTextDataNasc);
+        campoNecessidades = findViewById(R.id.necessidadesUser);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -157,6 +159,8 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         pessoa.setNome(campoNome.getText().toString().trim());
         pessoa.setCpf(campoCPF.getText().toString().trim());
         pessoa.setTelefone(campoTelefone.getText().toString().trim());
+        pessoa.setDataNascimento(campoDataNasc.getText().toString().trim());
+        pessoa.setNecessidades(campoNecessidades.getText().toString().trim());
         pessoa.setUserId(Sessao.getUserId());
         Endereco endereco = new Endereco();
         endereco.setRua(campoRua.getText().toString().trim());
@@ -174,35 +178,43 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         criarConta();
     }
 
-    private boolean vericarCampos(){
+    private boolean vericarCampos() {
         String nome = campoNome.getText().toString().trim();
         String cpf = campoCPF.getText().toString().trim();
         String telefone = campoTelefone.getText().toString().trim();
         String email = campoEmail.getText().toString().trim();
         String senha = campoSenha.getText().toString().trim();
+        String necessidade = campoNecessidades.getText().toString().trim();
+        String dataNascimento = campoDataNasc.getText().toString().trim();
         if (servicoValidacao.verificarCampoVazio(nome)) {
             campoNome.setError("Campo vazio");
             return false;
-        } else if(servicoValidacao.verificarCampoVazio(cpf)){
+        } else if (servicoValidacao.verificarCampoVazio(cpf)) {
             campoCPF.setError("Campo vazio");
             return false;
-        } else if(validaCPF.isCPF(cpf)){
+        } else if (validaCPF.isCPF(cpf)) {
             campoCPF.setError("CPF inválido");
             return false;
-        } else if(servicoValidacao.verificarCampoVazio(telefone)){
+        } else if (servicoValidacao.verificarCampoVazio(telefone)) {
             campoTelefone.setError("Campo vazio");
             return false;
-        } else if(servicoValidacao.verificaTamanhoTelefone(telefone)){
+        } else if (servicoValidacao.verificaTamanhoTelefone(telefone)) {
             campoTelefone.setError("Informa um número válido");
             return false;
-        } else if(servicoValidacao.verificarCampoVazio(email)){
+        } else if (servicoValidacao.verificarCampoVazio(email)) {
             campoEmail.setError("Campo vazio");
             return false;
-        } else if(servicoValidacao.verificarCampoVazio(senha)) {
+        } else if (servicoValidacao.verificarCampoVazio(senha)) {
             campoSenha.setError("Campo vazio");
             return false;
-        } else if(servicoValidacao.verificaTamanhoSenha(senha)){
+        } else if (servicoValidacao.verificaTamanhoSenha(senha)) {
             campoSenha.setError("Inserir no mínimo 6 dígitos");
+            return false;
+        } else if (servicoValidacao.verificarCampoVazio(necessidade)) {
+            campoNecessidades.setError("Campo vazio");
+            return false;
+        } else if (servicoValidacao.verificarTamanhoData(dataNascimento)) {
+            campoNecessidades.setError("Data Invalida");
             return false;
         } else {
             return true;
