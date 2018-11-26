@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import bsi.ufrpe.br.cared.R;
+import bsi.ufrpe.br.cared.cuidador.gui.MeusServicosActivity;
 import bsi.ufrpe.br.cared.cuidador.gui.PerfilCuidadorFragment;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.pessoa.gui.PerfilPessoaFragment;
@@ -53,6 +54,9 @@ public class HomeActivity extends AppCompatActivity
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.frameLayout, new HomeFragment());
         ft.commit();
+//        if (Sessao.getTipo() == 0){
+//            findViewById(R.id.nav_meus_servicos).setVisibility(View.GONE);
+//        }
     }
 
     @Override
@@ -111,6 +115,8 @@ public class HomeActivity extends AppCompatActivity
             Sessao.logout();
             startActivity(new Intent(HomeActivity.this, MainActivity.class));
             finish();
+        } else if (id == R.id.nav_meus_servicos) {
+            startActivity(new Intent(HomeActivity.this, MeusServicosActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
