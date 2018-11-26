@@ -29,9 +29,9 @@ public class CuidadorAdapter extends ArrayAdapter<Cuidador> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_cuidador, parent, false);
         ImageView foto = rowView.findViewById(R.id.fotoCuidadorLinha);
-        TextView nomePessoa = rowView.findViewById(R.id.nomeCuidadorId);
-        TextView cidade = rowView.findViewById(R.id.cidadeCuidadorId);
-        TextView descricao = rowView.findViewById(R.id.descricaoCuidadorId);
+        TextView nomePessoa = rowView.findViewById(R.id.nomeCuidadorAdapter);
+        TextView cidade = rowView.findViewById(R.id.cidadeCuidadorAdapter);
+        TextView descricao = rowView.findViewById(R.id.descricaoCuidadorAdapter);
         Picasso.get()
                 .load(elementos.get(position).getPessoa().getFoto())
                 .resize(300, 300)

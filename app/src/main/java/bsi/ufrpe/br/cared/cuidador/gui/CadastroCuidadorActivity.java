@@ -47,6 +47,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
     private Button btConfirmar, selecionarFoto;
     private ServicoValidacao servicoValidacao = new ServicoValidacao();
     private ValidaCPF validaCPF = new ValidaCPF();
+    private String urlFoto;
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
 
@@ -123,7 +124,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("SignInSuccess", "createUserWithEmail:success");
-                    criarUsuario();
+                    inserirImagemBanco();
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("SignInFails", "createUserWithEmail:failure", task.getException());
@@ -134,10 +135,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
         });
     }
 
-    private void criarUsuario(){
-        Usuario usuario = new Usuario(1, Sessao.getUserId());
-        Sessao.getDatabaseUser().child(Sessao.getUserId()).setValue(usuario);
-        final Pessoa pessoa = new Pessoa();
+    private void inserirImagemBanco(){
         if (filePath != null){
             final StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
             ref.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -153,14 +151,21 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Uri> task) {
                     if (task.isSuccessful()){
                         Uri downUri = task.getResult();
-                        String urlFoto = downUri.toString();
-                        pessoa.setFoto(urlFoto);
+                        urlFoto = downUri.toString();
+                        criarUsuario();
                     }
                 }
             });
 
         }
+    }
+
+    private void criarUsuario(){
+        Usuario usuario = new Usuario(1, Sessao.getUserId());
+        Sessao.getDatabaseUser().child(Sessao.getUserId()).setValue(usuario);
+        final Pessoa pessoa = new Pessoa();
         String informacao = "Sem Informação";
+        pessoa.setFoto(urlFoto);
         pessoa.setNome(campoNome.getText().toString().trim());
         pessoa.setCpf(campoCPF.getText().toString().trim());
         pessoa.setTelefone(campoTelefone.getText().toString().trim());

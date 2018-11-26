@@ -40,8 +40,8 @@ public class CadastroPessoaActivity extends AppCompatActivity {
     private Button btConfirmar, selecionarFotoUser;
     private ServicoValidacao servicoValidacao = new ServicoValidacao();
     private ValidaCPF validaCPF = new ValidaCPF();
-    private Uri filePath;
     private String urlFotoUser;
+    private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -107,7 +107,6 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("SignInSuccess", "createUserWithEmail:success");
                     fotonoBanco();
-                    criarUsuario();
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("SignInFails", "createUserWithEmail:failure", task.getException());
@@ -142,6 +141,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     if (task.isSuccessful()){
                         Uri downUri = task.getResult();
                         urlFotoUser = downUri.toString();
+                        criarUsuario();
                     }
                 }
             });
