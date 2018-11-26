@@ -11,6 +11,8 @@ public class Pessoa {
     private String nome;
     private String foto;
     private String cpf;
+    private String necessidades;
+    private String dataNascimento;
     private String telefone;
     private String userId;
     private Endereco endereco;
@@ -72,5 +74,21 @@ public class Pessoa {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getNecessidades() {
+        return necessidades;
+    }
+
+    public void setNecessidades(String necessidades) {
+        this.necessidades = necessidades;
+    }
+
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 }

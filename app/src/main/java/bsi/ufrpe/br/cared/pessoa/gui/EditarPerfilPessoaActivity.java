@@ -16,6 +16,7 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
     private EditText telefoneEditar;
     private EditText cpfEditar;
     private Button alterar;
+    private EditText necessidades;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

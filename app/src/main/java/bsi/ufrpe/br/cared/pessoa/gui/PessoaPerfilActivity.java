@@ -13,7 +13,7 @@ import bsi.ufrpe.br.cared.infra.Sessao;
 
 public class PessoaPerfilActivity extends AppCompatActivity {
     private ImageView fotoIdoso;
-    private TextView nomeIdoso, notaIdoso, emailIdoso, botaoNecessidades, botaoComentarios;
+    private TextView nomeIdoso, notaIdoso, emailIdoso, necessidades, botaoComentarios;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +26,7 @@ public class PessoaPerfilActivity extends AppCompatActivity {
         nomeIdoso = findViewById(R.id.nomeiIdosoPerfil);
         notaIdoso = findViewById(R.id.notaIdoso);
         emailIdoso = findViewById(R.id.emailIdoso);
-        botaoNecessidades = findViewById(R.id.btRelatorioId);
+        necessidades = findViewById(R.id.necessidadesUser);
         botaoComentarios = findViewById(R.id.btComentariosid);
         setIdoso();
     }

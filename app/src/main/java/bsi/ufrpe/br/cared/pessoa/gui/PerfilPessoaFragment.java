@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.usuario.gui.ComentariosActivity;
 
 public class PerfilPessoaFragment extends Fragment {
     @Nullable
@@ -30,26 +31,30 @@ public class PerfilPessoaFragment extends Fragment {
         ImageView fotoIdoso = getView().findViewById(R.id.fotoPerfilIdoso);
         TextView nomeIdoso = getView().findViewById(R.id.nomeiIdosoPerfil);
         TextView notaIdoso = getView().findViewById(R.id.notaIdoso);
-        TextView emailIdoso = getView().findViewById(R.id.emailIdoso);
-        Button botaoNecessidades = getView().findViewById(R.id.btRelatorioId);
+        TextView necessidades = getView().findViewById(R.id.necessidadesUser);
         Button botaoComentarios = getView().findViewById(R.id.btComentariosid);
-        Button btEditar = getView().findViewById(R.id.btEditarPerfilid);
+        Button btEditar = getView().findViewById(R.id.btEditarPerfilPessoa);
+
         Picasso.get()
                 .load(Sessao.getPessoa().getFoto())
                 .resize(300, 300)
                 .centerCrop()
                 .into(fotoIdoso);
         nomeIdoso.setText(Sessao.getPessoa().getNome());
-        //notaIdoso.setText(Sessao.getPessoa().getNota);
-        //emailIdoso.setText(Sessao.getPessoa().getEmail);
-        /*btEditar.setOnClickListener(new View.OnClickListener() {
+        necessidades.setText(Sessao.getPessoa().getNecessidades());
+//        notaIdoso;
+
+        botaoComentarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ComentariosActivity.class));
+            }
+        });
+        btEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), EditarPerfilPessoaActivity.class));
             }
-        });*/
-//        TextView email  = getView().findViewById(R.id.emailPessoaId);
-//       email.setText(Sessao.getPessoa().getEmail());
-
+        });
     }
 }
