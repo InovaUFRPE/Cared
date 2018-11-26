@@ -16,7 +16,7 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
     private EditText telefoneEditar;
     private EditText cpfEditar;
     private Button alterar;
-    private EditText necessidades;
+    private EditText necessidadesEditar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
         telefoneEditar = findViewById(R.id.telefoneId);
         cpfEditar = findViewById(R.id.cpfId);
         alterar = findViewById(R.id.atualizarId);
+        necessidadesEditar = findViewById(R.id.necessidadesId);
         setPessoa();
     }
 
@@ -44,6 +45,7 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
         nomeEditar.setText(pessoa.getNome());
         telefoneEditar.setText(pessoa.getTelefone());
         cpfEditar.setText(pessoa.getCpf());
+        necessidadesEditar.setText(pessoa.getNecessidades());
     }
 
     private void setAlterar(){
@@ -51,9 +53,11 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
         String nome = nomeEditar.getText().toString().trim();
         String telefone = telefoneEditar.getText().toString().trim();
         String cpf = cpfEditar.getText().toString().trim();
+        String necessidades = necessidadesEditar.getText().toString().trim();
         pessoa.setNome(nome);
         pessoa.setTelefone(telefone);
         pessoa.setCpf(cpf);
+        pessoa.setNecessidades(necessidades);
         Sessao.setPessoa(0, pessoa);
         Sessao.getDatabasePessoa().child(Sessao.getUserId()).setValue(Sessao.getPessoa());
         finish();

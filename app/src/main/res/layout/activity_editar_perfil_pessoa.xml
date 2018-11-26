@@ -46,8 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:hint="Necessidades"
-                android:layout_marginTop="5dp"
-                android:inputType="number|phone"/>
+                android:layout_marginTop="5dp" />
             <Button
                 android:id="@+id/atualizarId"
                 android:layout_width="match_parent"
