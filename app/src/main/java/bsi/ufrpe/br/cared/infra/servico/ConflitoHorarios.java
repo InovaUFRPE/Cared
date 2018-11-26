@@ -92,7 +92,6 @@ public class ConflitoHorarios {
                 String aId = Sessao.getDatabaseAgendamento().child(agendamento.getCuidadorId()).push().getKey();
                 agendamento.setId(aId);
                 Sessao.getDatabaseAgendamento().child(agendamento.getCuidadorId()).child(agendamento.getId()).setValue(agendamento);
-                Sessao.getDatabaseAgendamento().child(agendamento.getPacienteId()).child(agendamento.getId()).setValue(agendamento);
             }
 
             @Override

@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
+import bsi.ufrpe.br.cared.horario.dominio.Situacao;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.infra.servico.ConflitoHorarios;
 
@@ -56,6 +57,7 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         agendamento.setHorario(Sessao.getHorario());
         agendamento.setCuidadorId(Sessao.getCuidadorPerfil().getUserId());
         agendamento.setPacienteId(Sessao.getUserId());
+        agendamento.setSituacao(Situacao.PENDENTE);
         ConflitoHorarios.newAgendamento(agendamento);
         finish();
     }
