@@ -28,6 +28,7 @@ import bsi.ufrpe.br.cared.pessoa.gui.PessoaMeusServicosActivity;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FragmentManager fm;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
+        navigationView = (NavigationView) findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
         fm = getSupportFragmentManager();
         if(Sessao.getTipo() == 0) {
@@ -138,5 +139,18 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void irParaPerfil(){
+        if(Sessao.getTipo() == 0) {
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.frameLayout, new PerfilPessoaFragment());
+            ft.commit();
+        }else{
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.frameLayout, new PerfilCuidadorFragment());
+            ft.commit();
+        }
+        navigationView.setCheckedItem(R.id.nav_perfil);
     }
 }

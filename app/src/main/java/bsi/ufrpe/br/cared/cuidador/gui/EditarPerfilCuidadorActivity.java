@@ -56,14 +56,13 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
 
     private void setCuidador(){
         Cuidador cuidador = Sessao.getCuidador();
-        Pessoa pessoa = Sessao.getPessoa();
         nomeEditar.setText(cuidador.getPessoa().getNome());
         telefoneEditar.setText(cuidador.getPessoa().getTelefone());
         cpfEditar.setText(cuidador.getPessoa().getCpf());
-        ruaEditar.setText(pessoa.getEndereco().getRua());
-        numeroEditar.setText(pessoa.getEndereco().getNumero());
-        bairroEditar.setText(pessoa.getEndereco().getBairro());
-        cidadeEditar.setText(pessoa.getEndereco().getCidade());
+        ruaEditar.setText(cuidador.getPessoa().getEndereco().getRua());
+        numeroEditar.setText(cuidador.getPessoa().getEndereco().getNumero());
+        bairroEditar.setText(cuidador.getPessoa().getEndereco().getBairro());
+        cidadeEditar.setText(cuidador.getPessoa().getEndereco().getCidade());
         valorEditar.setText(String.valueOf(cuidador.getValor()));
         descricaoEditar.setText(cuidador.getServico());
     }
@@ -79,19 +78,17 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         String cidade = cidadeEditar.getText().toString().trim();
         String valor = valorEditar.getText().toString().trim();
         String descricao = descricaoEditar.getText().toString().trim();
-        Pessoa pessoa = cuidador.getPessoa();
-        Endereco endereco = pessoa.getEndereco();
+        Endereco endereco = cuidador.getPessoa().getEndereco();
         cuidador.setServico(descricao);
         cuidador.setValor(Double.parseDouble(valor));
-        pessoa.setNome(nome);
-        pessoa.setCpf(cpf);
-        pessoa.setTelefone(telefone);
+        cuidador.getPessoa().setNome(nome);
+        cuidador.getPessoa().setCpf(cpf);
+        cuidador.getPessoa().setTelefone(telefone);
         endereco.setBairro(bairro);
         endereco.setCidade(cidade);
         endereco.setNumero(numero);
         endereco.setRua(rua);
-        pessoa.setEndereco(endereco);
-        cuidador.setPessoa(pessoa);
+        cuidador.getPessoa().setEndereco(endereco);
         Sessao.setPessoa(1, cuidador);
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(Sessao.getCuidador());
         finish();

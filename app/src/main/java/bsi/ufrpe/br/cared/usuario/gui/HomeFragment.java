@@ -25,15 +25,19 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Button button = getView().findViewById(R.id.btVisualizarCuidadoresId);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button btBuscarBuidador = getView().findViewById(R.id.btVisualizarCuidadoresId);
+        btBuscarBuidador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), BuscarCuidadorActivity.class));
             }
         });
-        if(Sessao.getTipo() == 1){
-            button.setVisibility(View.GONE);
-        }
+        Button mp = getView().findViewById(R.id.btMeuPerfil);
+        mp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((HomeActivity)getActivity()).irParaPerfil();
+            }
+        });
     }
 }

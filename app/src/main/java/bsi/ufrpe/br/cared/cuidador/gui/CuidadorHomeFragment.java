@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Button;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.usuario.gui.HomeActivity;
 
 public class CuidadorHomeFragment extends Fragment {
 
@@ -31,13 +33,13 @@ public class CuidadorHomeFragment extends Fragment {
                 startActivity(new Intent(getActivity(), CalendarioPerfilCuidadorActivity.class));
             }
         });
-//        Button meuPerfil = getView().findViewById(R.id.btMeuPerfilid);
-//        meuPerfil.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getActivity(), PerfilCuidadorFragment.class));
-//            }
-//        });  ta dando bug pq não consigo passar o fragment
+        Button meuPerfil = getView().findViewById(R.id.btMeuPerfilid);
+        meuPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((HomeActivity)getActivity()).irParaPerfil();
+            }
+        });
 //        Button meusRendimentos = getView().findViewById(R.id.btMeusRendimentos);
 //        meusRendimentos.setOnClickListener(new View.OnClickListener() {
 //            @Override
