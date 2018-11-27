@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import bsi.ufrpe.br.cared.R;
+import bsi.ufrpe.br.cared.cuidador.gui.CuidadorHomeFragment;
 import bsi.ufrpe.br.cared.cuidador.gui.CuidadorMeusServicosActivity;
 import bsi.ufrpe.br.cared.cuidador.gui.PerfilCuidadorFragment;
 import bsi.ufrpe.br.cared.infra.Sessao;
@@ -53,9 +54,15 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
         fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.frameLayout, new HomeFragment());
-        ft.commit();
+        if(Sessao.getTipo() == 0) {
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.frameLayout, new HomeFragment());
+            ft.commit();
+        }else{
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.frameLayout, new CuidadorHomeFragment());
+            ft.commit();
+        }
     }
 
     @Override
@@ -107,9 +114,15 @@ public class HomeActivity extends AppCompatActivity
                 ft.commit();
             }
         } else if (id == R.id.nav_home) {
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.frameLayout, new HomeFragment());
-            ft.commit();
+            if(Sessao.getTipo() == 0) {
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.add(R.id.frameLayout, new HomeFragment());
+                ft.commit();
+            }else{
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.frameLayout, new CuidadorHomeFragment());
+                ft.commit();
+            }
         } else if (id == R.id.nav_exit) {
             Sessao.logout();
             startActivity(new Intent(HomeActivity.this, MainActivity.class));
