@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity
             ft.commit();
         }else{
             FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.frameLayout, new CuidadorHomeFragment());
+            ft.add(R.id.frameLayout, new CuidadorHomeFragment());
             ft.commit();
         }
     }
@@ -116,7 +116,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_home) {
             if(Sessao.getTipo() == 0) {
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.add(R.id.frameLayout, new HomeFragment());
+                ft.replace(R.id.frameLayout, new HomeFragment());
                 ft.commit();
             }else{
                 FragmentTransaction ft = fm.beginTransaction();
