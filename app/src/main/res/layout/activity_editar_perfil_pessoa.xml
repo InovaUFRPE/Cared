@@ -21,19 +21,29 @@
                 android:textColor="@color/colorPrimary"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="10dp"/>
+            <ImageView
+                android:id="@+id/fotoPessoaEditar"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/profile" />
+
+            <Button
+                android:id="@+id/botaoEditarFotoPessoa"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorButton"
+                android:text="Escolher foto"
+                android:textColor="@color/colorTextButton" />
             <EditText
                 android:id="@+id/nomeId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nome Completo"
                 android:layout_marginTop="5dp"/>
-            <EditText
-                android:id="@+id/cpfId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="CPF"
-                android:layout_marginTop="5dp"
-                android:inputType="number"/>
             <EditText
                 android:id="@+id/telefoneId"
                 android:layout_width="match_parent"
@@ -44,7 +54,7 @@
             <EditText
                 android:id="@+id/necessidadesId"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:hint="Necessidades"
                 android:layout_marginTop="5dp" />
             <Button

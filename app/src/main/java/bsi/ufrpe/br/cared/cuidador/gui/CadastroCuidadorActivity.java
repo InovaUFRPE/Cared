@@ -1,5 +1,6 @@
 package bsi.ufrpe.br.cared.cuidador.gui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -20,11 +21,9 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -43,10 +42,11 @@ import bsi.ufrpe.br.cared.usuario.gui.MainActivity;
 
 public class CadastroCuidadorActivity extends AppCompatActivity {
     private EditText campoNome, campoCPF, campoTelefone, campoEmail, campoSenha, campoRua, campoNumero, campoBairro, campoCidade, campoServico, campoValor;
-    private ImageView imageView;
+    private ImageView fotoCadastroCuidador;
     private Button btConfirmar, selecionarFoto;
     private ServicoValidacao servicoValidacao = new ServicoValidacao();
     private ValidaCPF validaCPF = new ValidaCPF();
+
     private String urlFoto;
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
@@ -73,7 +73,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
     }
 
     private void setView(){
-        imageView = findViewById(R.id.fotoView);
+        fotoCadastroCuidador = findViewById(R.id.fotoView);
         selecionarFoto = findViewById(R.id.escolherFoto);
         campoNome = findViewById(R.id.nomeId);
         campoCPF = findViewById(R.id.cpfId);
@@ -106,7 +106,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
             filePath = data.getData();
             try{
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
-                imageView.setImageBitmap(bitmap);
+                fotoCadastroCuidador.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -136,28 +136,36 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
     }
 
     private void inserirImagemBanco(){
-        if (filePath != null){
-            final StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
-            ref.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()){
-                        throw task.getException();
-                    }
-                    return ref.getDownloadUrl();
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Carregando...");
+        progressDialog.show();
+        final StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+        ref.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()){
+                    throw task.getException();
                 }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()){
-                        Uri downUri = task.getResult();
-                        urlFoto = downUri.toString();
-                        criarUsuario();
-                    }
+                return ref.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()){
+                    Uri downUri = task.getResult();
+                    urlFoto = downUri.toString();
+                    criarUsuario();
+                    progressDialog.dismiss();
+                    Toast.makeText(CadastroCuidadorActivity.this, "Carregado", Toast.LENGTH_SHORT).show();
                 }
-            });
-
-        }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(CadastroCuidadorActivity.this, "Falhou" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void criarUsuario(){
@@ -212,6 +220,9 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
             return false;
         } else if(servicoValidacao.verificarCampoVazio(cpf)) {
             campoCPF.setError("Campo vazio");
+            return false;
+        }else if (fotoCadastroCuidador.getDrawable() == null){
+            Toast.makeText(CadastroCuidadorActivity.this, "Adicione uma foto", Toast.LENGTH_LONG).show();
             return false;
         } else if(validaCPF.isCPF(cpf)){
             campoCPF.setError("CPF inválido");

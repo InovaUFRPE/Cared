@@ -1,5 +1,6 @@
 package bsi.ufrpe.br.cared.usuario.gui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.storage.FirebaseStorage;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import bsi.ufrpe.br.cared.R;
+import bsi.ufrpe.br.cared.cuidador.gui.CadastroCuidadorActivity;
 import bsi.ufrpe.br.cared.endereco.dominio.Endereco;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.infra.servico.ServicoValidacao;
@@ -36,7 +39,7 @@ import bsi.ufrpe.br.cared.usuario.dominio.Usuario;
 
 public class CadastroPessoaActivity extends AppCompatActivity {
     private EditText campoNome, campoCPF, campoTelefone, campoEmail, campoSenha, campoRua, campoNumero, campoBairro, campoCidade, campoNecessidades, campoDataNasc;
-    private ImageView fotoPerfil;
+    private ImageView fotoCadastroPessoa;
     private Button btConfirmar, selecionarFotoUser;
     private ServicoValidacao servicoValidacao = new ServicoValidacao();
     private ValidaCPF validaCPF = new ValidaCPF();
@@ -66,7 +69,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
     }
 
     private void setView(){
-        fotoPerfil = findViewById(R.id.mostrarFoto);
+        fotoCadastroPessoa = findViewById(R.id.mostrarFoto);
         selecionarFotoUser = findViewById(R.id.escolherFotoUser);
         campoNome = findViewById(R.id.nomeUser);
         campoCPF = findViewById(R.id.cpfUser);
@@ -90,7 +93,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             filePath = data.getData();
             try{
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
-                fotoPerfil.setImageBitmap(bitmap);
+                fotoCadastroPessoa.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -127,28 +130,36 @@ public class CadastroPessoaActivity extends AppCompatActivity {
     }
 
     private void fotonoBanco(){
-        if (filePath != null){
-            final StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
-            ref.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()){
-                        throw task.getException();
-                    }
-                    return ref.getDownloadUrl();
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Carregando...");
+        progressDialog.show();
+        final StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+        ref.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()){
+                    throw task.getException();
                 }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()){
-                        Uri downUri = task.getResult();
-                        urlFotoUser = downUri.toString();
-                        criarUsuario();
-                    }
+                return ref.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()){
+                    Uri downUri = task.getResult();
+                    urlFotoUser = downUri.toString();
+                    criarUsuario();
+                    progressDialog.dismiss();
+                    Toast.makeText(CadastroPessoaActivity.this, "Carregado", Toast.LENGTH_SHORT).show();
                 }
-            });
-
-        }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(CadastroPessoaActivity.this, "Falhou" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void criarUsuario(){
@@ -191,6 +202,9 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             return false;
         } else if (servicoValidacao.verificarCampoVazio(cpf)) {
             campoCPF.setError("Campo vazio");
+            return false;
+        }else if (fotoCadastroPessoa.getDrawable() == null){
+            Toast.makeText(CadastroPessoaActivity.this, "Adicione uma foto", Toast.LENGTH_LONG).show();
             return false;
         } else if (validaCPF.isCPF(cpf)) {
             campoCPF.setError("CPF inválido");

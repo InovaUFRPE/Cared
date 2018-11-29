@@ -27,8 +27,8 @@
                 android:layout_gravity="center"
                 android:layout_width="300px"
                 android:layout_height="300px"
-                app:srcCompat="@drawable/profile"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimaryDark" />
 
             <Button
                 android:id="@+id/escolherFotoUser"
