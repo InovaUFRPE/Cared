@@ -30,6 +30,7 @@ import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.endereco.dominio.Endereco;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.TipoUsuario;
 import bsi.ufrpe.br.cared.infra.servico.ServicoValidacao;
 
 public class EditarPerfilCuidadorActivity extends AppCompatActivity {
@@ -169,7 +170,7 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         endereco.setNumero(numero);
         endereco.setRua(rua);
         cuidador.getPessoa().setEndereco(endereco);
-        Sessao.setPessoa(1, cuidador);
+        Sessao.setPessoa(TipoUsuario.CUIDADOR, cuidador);
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(Sessao.getCuidador());
         finish();
     }

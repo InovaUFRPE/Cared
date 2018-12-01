@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.TipoUsuario;
 import bsi.ufrpe.br.cared.infra.servico.ServicoValidacao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.usuario.dominio.Usuario;
@@ -107,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Pessoa pessoa = dataSnapshot.getValue(Pessoa.class);
-                Sessao.setPessoa(0, pessoa);
+                Sessao.setPessoa(TipoUsuario.PESSOA, pessoa);
                 dialog.dismiss();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();
@@ -125,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Cuidador cuidador = dataSnapshot.getValue(Cuidador.class);
-                Sessao.setPessoa(1, cuidador);
+                Sessao.setPessoa(TipoUsuario.CUIDADOR, cuidador);
                 dialog.dismiss();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();

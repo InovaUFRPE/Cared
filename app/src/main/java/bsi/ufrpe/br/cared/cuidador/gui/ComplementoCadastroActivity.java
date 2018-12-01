@@ -10,6 +10,7 @@ import android.widget.EditText;
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.TipoUsuario;
 import bsi.ufrpe.br.cared.usuario.gui.HomeActivity;
 
 public class ComplementoCadastroActivity extends AppCompatActivity {
@@ -66,7 +67,7 @@ public class ComplementoCadastroActivity extends AppCompatActivity {
             cuidador.setPossuiExperiencia(NAO);
         }
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(Sessao.getCuidador());
-        Sessao.setPessoa(1, cuidador);
+        Sessao.setPessoa(TipoUsuario.CUIDADOR, cuidador);
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }

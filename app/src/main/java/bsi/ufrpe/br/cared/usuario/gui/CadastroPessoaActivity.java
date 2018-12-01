@@ -32,6 +32,7 @@ import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.gui.CadastroCuidadorActivity;
 import bsi.ufrpe.br.cared.endereco.dominio.Endereco;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.TipoUsuario;
 import bsi.ufrpe.br.cared.infra.servico.ServicoValidacao;
 import bsi.ufrpe.br.cared.infra.servico.ValidaCPF;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
@@ -180,7 +181,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         endereco.setCidade(campoCidade.getText().toString().trim());
         pessoa.setEndereco(endereco);
         Sessao.getDatabasePessoa().child(Sessao.getUserId()).setValue(pessoa);
-        Sessao.setPessoa(0, pessoa);
+        Sessao.setPessoa(TipoUsuario.PESSOA, pessoa);
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }

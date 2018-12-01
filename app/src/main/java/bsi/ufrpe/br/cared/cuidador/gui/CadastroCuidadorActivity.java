@@ -34,6 +34,7 @@ import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.endereco.dominio.Endereco;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.TipoUsuario;
 import bsi.ufrpe.br.cared.infra.servico.ServicoValidacao;
 import bsi.ufrpe.br.cared.infra.servico.ValidaCPF;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
@@ -195,7 +196,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
         cuidador.setResumoExperiencia(informacao);
         cuidador.setUserId(Sessao.getUserId());
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(cuidador);
-        Sessao.setPessoa(1, cuidador);
+        Sessao.setPessoa(TipoUsuario.CUIDADOR, cuidador);
         startActivity(new Intent(this, ComplementoCadastroActivity.class));
         finish();
     }

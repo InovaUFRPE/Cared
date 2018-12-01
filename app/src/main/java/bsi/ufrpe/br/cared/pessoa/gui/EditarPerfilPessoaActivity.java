@@ -29,6 +29,7 @@ import java.util.UUID;
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.gui.EditarPerfilCuidadorActivity;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.TipoUsuario;
 import bsi.ufrpe.br.cared.infra.servico.ServicoValidacao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 
@@ -147,7 +148,7 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
         pessoa.setTelefone(telefone);
         pessoa.setNecessidades(necessidades);
         pessoa.setFoto(urlFoto);
-        Sessao.setPessoa(0, pessoa);
+        Sessao.setPessoa(TipoUsuario.PESSOA, pessoa);
         Sessao.getDatabasePessoa().child(Sessao.getUserId()).setValue(Sessao.getPessoa());
         finish();
     }

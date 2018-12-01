@@ -73,12 +73,16 @@ public class Sessao {
         values.put(key, value);
     }
 
-    public static void setPessoa(int tipo, Object object){
-        if(tipo == 0){
-            setValue("conta", 0);
+    public static void setPessoa(TipoUsuario usuario, Object object){
+        if(usuario.equals(TipoUsuario.PESSOA)){
+            setValue("conta", usuario);
             setValue("pessoa", object);
+        }else if (usuario.equals(TipoUsuario.CUIDADOR)){
+            setValue("conta", usuario);
+            setValue("cuidador", object);
         }else{
-            setValue("conta", 1);
+            setValue("conta", usuario);
+            setValue("pessoa", object);
             setValue("cuidador", object);
         }
     }
@@ -91,12 +95,12 @@ public class Sessao {
         return (Cuidador) values.get("cuidador");
     }
 
-    public static int getTipo(){
-        return (int) values.get("conta");
+    public static TipoUsuario getTipo(){
+        return (TipoUsuario) values.get("conta");
     }
 
     public static void logout(){
-        setPessoa(2, null);
+        setPessoa(TipoUsuario.NONE, null);
         getFirebaseAuth().signOut();
     }
 

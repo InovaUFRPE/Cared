@@ -21,6 +21,7 @@ import bsi.ufrpe.br.cared.cuidador.gui.CuidadorHomeFragment;
 import bsi.ufrpe.br.cared.cuidador.gui.CuidadorMeusServicosActivity;
 import bsi.ufrpe.br.cared.cuidador.gui.PerfilCuidadorFragment;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.TipoUsuario;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.pessoa.gui.PerfilPessoaFragment;
 import bsi.ufrpe.br.cared.pessoa.gui.PessoaMeusServicosActivity;
@@ -55,7 +56,7 @@ public class HomeActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
         fm = getSupportFragmentManager();
-        if(Sessao.getTipo() == 0) {
+        if(Sessao.getTipo().equals(TipoUsuario.PESSOA)) {
             FragmentTransaction ft = fm.beginTransaction();
             ft.add(R.id.frameLayout, new HomeFragment());
             ft.commit();
@@ -105,7 +106,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_perfil) {
-            if(Sessao.getTipo() == 0) {
+            if(Sessao.getTipo().equals(TipoUsuario.PESSOA)) {
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.frameLayout, new PerfilPessoaFragment());
                 ft.commit();
@@ -115,7 +116,7 @@ public class HomeActivity extends AppCompatActivity
                 ft.commit();
             }
         } else if (id == R.id.nav_home) {
-            if(Sessao.getTipo() == 0) {
+            if(Sessao.getTipo().equals(TipoUsuario.PESSOA)) {
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.frameLayout, new HomeFragment());
                 ft.commit();
@@ -129,7 +130,7 @@ public class HomeActivity extends AppCompatActivity
             startActivity(new Intent(HomeActivity.this, MainActivity.class));
             finish();
         } else if (id == R.id.nav_meus_servicos) {
-            if (Sessao.getTipo() == 1) {
+            if (Sessao.getTipo().equals(TipoUsuario.CUIDADOR)) {
                 startActivity(new Intent(HomeActivity.this, CuidadorMeusServicosActivity.class));
             } else {
                 startActivity(new Intent( HomeActivity.this, PessoaMeusServicosActivity.class));
@@ -142,7 +143,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     public void irParaPerfil(){
-        if(Sessao.getTipo() == 0) {
+        if(Sessao.getTipo().equals(TipoUsuario.PESSOA)) {
             FragmentTransaction ft = fm.beginTransaction();
             ft.replace(R.id.frameLayout, new PerfilPessoaFragment());
             ft.commit();

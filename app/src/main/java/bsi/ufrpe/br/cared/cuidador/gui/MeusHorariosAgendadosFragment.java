@@ -1,5 +1,6 @@
 package bsi.ufrpe.br.cared.cuidador.gui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,6 +59,7 @@ public class MeusHorariosAgendadosFragment extends Fragment {
         mcv.addDecorator(eventDecorator);
         mcv.setCurrentDate(CalendarTypeConverter.calendarToCalendarDay(Calendar.getInstance()));
         getHorarios();
+        clickDay();
     }
 
     private void getHorarios(){
@@ -95,5 +98,16 @@ public class MeusHorariosAgendadosFragment extends Fragment {
         };
         mcv.removeDecorators();
         mcv.addDecorator(eventDecorator);
+    }
+
+    private void clickDay(){
+        mcv.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView, @NonNull CalendarDay calendarDay, boolean b) {
+                Intent intent = new Intent(getActivity(), CuidadorMeusServicosActivity.class);
+                intent.putExtra("day", calendarDay);
+                startActivity(intent);
+            }
+        });
     }
 }
