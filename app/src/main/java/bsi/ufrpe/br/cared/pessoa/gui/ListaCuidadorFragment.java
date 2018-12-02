@@ -41,15 +41,17 @@ public class ListaCuidadorFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        horario = Sessao.getHorario();
         listView = getView().findViewById(R.id.listView);
         adapter = new CuidadorAdapter(cuidadorList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Sessao.setCuidadorPerfil(cuidadorList.get(i));
-                startActivity(new Intent(getActivity(), PerfilCuidadorActivity.class));
+                Intent intent = new Intent(getActivity(), PerfilCuidadorActivity.class);
+                intent.putExtra("id", cuidadorList.get(i).getUserId());
+                intent.putExtra("inicio", horario.getInicio());
+                intent.putExtra("fim", horario.getFim());
+                startActivity(intent);
             }
         });
         Sessao.getDatabaseHorarioDisponivel().addListenerForSingleValueEvent(new ValueEventListener() {
@@ -87,5 +89,9 @@ public class ListaCuidadorFragment extends Fragment {
 
             }
         });
+    }
+
+    public void setHorario(Horario horario){
+        this.horario = horario;
     }
 }

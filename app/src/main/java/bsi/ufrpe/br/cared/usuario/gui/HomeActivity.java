@@ -22,8 +22,8 @@ import bsi.ufrpe.br.cared.cuidador.gui.CuidadorMeusServicosActivity;
 import bsi.ufrpe.br.cared.cuidador.gui.PerfilCuidadorFragment;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.infra.TipoUsuario;
-import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 import bsi.ufrpe.br.cared.pessoa.gui.PerfilPessoaFragment;
+import bsi.ufrpe.br.cared.pessoa.gui.PessoaHomeFragment;
 import bsi.ufrpe.br.cared.pessoa.gui.PessoaMeusServicosActivity;
 
 public class HomeActivity extends AppCompatActivity
@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity
         fm = getSupportFragmentManager();
         if(Sessao.getTipo().equals(TipoUsuario.PESSOA)) {
             FragmentTransaction ft = fm.beginTransaction();
-            ft.add(R.id.frameLayout, new HomeFragment());
+            ft.add(R.id.frameLayout, new PessoaHomeFragment());
             ft.commit();
         }else{
             FragmentTransaction ft = fm.beginTransaction();
@@ -118,7 +118,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_home) {
             if(Sessao.getTipo().equals(TipoUsuario.PESSOA)) {
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.frameLayout, new HomeFragment());
+                ft.replace(R.id.frameLayout, new PessoaHomeFragment());
                 ft.commit();
             }else{
                 FragmentTransaction ft = fm.beginTransaction();

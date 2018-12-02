@@ -1,7 +1,9 @@
 package bsi.ufrpe.br.cared.infra.servico;
 
+import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -10,6 +12,9 @@ import java.util.List;
 import bsi.ufrpe.br.cared.horario.dominio.Horario;
 
 public class CalendarTypeConverter {
+    private static final SimpleDateFormat sdfdh = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    private static final SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
+    private static final SimpleDateFormat sdfh = new SimpleDateFormat("HH:mm");
 
     public static List<CalendarDay> toCalendarDayList(Horario horario){
         List<CalendarDay> list = new ArrayList<>();
@@ -80,5 +85,29 @@ public class CalendarTypeConverter {
 
     public static Calendar getTodayEnd(){
         return setDayEnd(Calendar.getInstance());
+    }
+
+    public static MonthAdapter.CalendarDay calendarToCalendarDay2(Calendar calendar){
+        MonthAdapter.CalendarDay calendarDay = new MonthAdapter.CalendarDay();
+        calendarDay.setDay(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) - 1, calendar.get(Calendar.DAY_OF_MONTH));
+        return calendarDay;
+    }
+
+    public static Calendar CalendarDay2toCalendar(MonthAdapter.CalendarDay calendarDay){
+        Calendar calendar = getEmptyCalendar();
+        calendar.setTimeInMillis(calendarDay.getDateInMillis());
+        return calendar;
+    }
+
+    public static SimpleDateFormat getSdfdh() {
+        return sdfdh;
+    }
+
+    public static SimpleDateFormat getSdfd() {
+        return sdfd;
+    }
+
+    public static SimpleDateFormat getSdfh() {
+        return sdfh;
     }
 }

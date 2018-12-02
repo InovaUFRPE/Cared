@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import bsi.ufrpe.br.cared.R;
-import bsi.ufrpe.br.cared.usuario.gui.HomeFragment;
 
 public class CalendarioPerfilCuidadorActivity extends AppCompatActivity {
     private FragmentManager fm;

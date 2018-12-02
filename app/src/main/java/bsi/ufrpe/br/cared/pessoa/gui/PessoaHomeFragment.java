@@ -1,4 +1,4 @@
-package bsi.ufrpe.br.cared.usuario.gui;
+package bsi.ufrpe.br.cared.pessoa.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import bsi.ufrpe.br.cared.R;
-import bsi.ufrpe.br.cared.infra.Sessao;
-import bsi.ufrpe.br.cared.pessoa.gui.BuscarCuidadorActivity;
+import bsi.ufrpe.br.cared.usuario.gui.HomeActivity;
 
-public class HomeFragment extends Fragment {
+public class PessoaHomeFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_pessoa_home, container, false);
     }
 
     @Override

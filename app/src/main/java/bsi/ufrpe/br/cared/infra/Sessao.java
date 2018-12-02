@@ -19,7 +19,6 @@ public class Sessao {
     private static DatabaseReference databaseHorarioDisponivel;
     private static DatabaseReference databaseAgendamento;
     private static final Map<String, Object> values = new HashMap<>();
-    private static Horario horario;
 
     private Sessao(){}
 
@@ -102,21 +101,5 @@ public class Sessao {
     public static void logout(){
         setPessoa(TipoUsuario.NONE, null);
         getFirebaseAuth().signOut();
-    }
-
-    public static void setCuidadorPerfil(Cuidador cuidador){
-        setValue("cuidadorPerfil", cuidador);
-    }
-
-    public static Cuidador getCuidadorPerfil(){
-        return (Cuidador) values.get("cuidadorPerfil");
-    }
-
-    public static Horario getHorario() {
-        return horario;
-    }
-
-    public static void setHorario(Horario horario) {
-        Sessao.horario = horario;
     }
 }

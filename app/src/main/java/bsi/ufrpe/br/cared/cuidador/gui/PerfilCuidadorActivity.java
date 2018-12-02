@@ -16,15 +16,17 @@ import com.squareup.picasso.Picasso;
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
+import bsi.ufrpe.br.cared.horario.dominio.Horario;
 import bsi.ufrpe.br.cared.horario.dominio.Situacao;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.infra.servico.ConflitoHorarios;
 
 public class PerfilCuidadorActivity extends AppCompatActivity {
     private ImageView foto;
-    private TextView nome, servicos, email, cidade, nota;
+    private TextView nome, servicos, nota;
     private Button botaoContratar, botaoComentarios;
     private Cuidador cuidador;
+    private Horario horario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,7 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
     private void setTela(){
         foto = findViewById(R.id.fotoPerfilCuidadorActivity);
         nome = findViewById(R.id.nomeCuidadorPerfilId);
-        cidade = findViewById(R.id.enderecoCuidadoraId);
-        servicos = findViewById(R.id.emailIdoso);
+        servicos = findViewById(R.id.descricao);
         botaoContratar = findViewById(R.id.btContratarId);
         botaoContratar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,27 +46,30 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
                 contratar();
             }
         });
-        getCuidador(getId());
+        getExtras();
     }
-    private String getId(){
+    private void getExtras(){
         Bundle extra = getIntent().getExtras();
-        return extra.getString("id");
+        horario = new Horario();
+        horario.setInicio(extra.getLong("inicio"));
+        horario.setFim(extra.getLong("fim"));
+        getCuidador(extra.getString("id"));
     }
 
     private void setCuidador(){
         Picasso.get()
-                .load(Sessao.getCuidadorPerfil().getPessoa().getFoto())
+                .load(cuidador.getPessoa().getFoto())
                 .resize(300, 300)
                 .centerCrop()
                 .into(foto);
-        nome.setText(Sessao.getCuidadorPerfil().getPessoa().getNome());
-        servicos.setText(Sessao.getCuidadorPerfil().getServico());
+        nome.setText(cuidador.getPessoa().getNome());
+        servicos.setText(cuidador.getServico());
     }
 
     private void contratar(){
         Agendamento agendamento = new Agendamento();
-        agendamento.setHorario(Sessao.getHorario());
-        agendamento.setCuidadorId(Sessao.getCuidadorPerfil().getUserId());
+        agendamento.setHorario(horario);
+        agendamento.setCuidadorId(cuidador.getUserId());
         agendamento.setPacienteId(Sessao.getUserId());
         agendamento.setSituacao(Situacao.PENDENTE);
         ConflitoHorarios.newAgendamento(agendamento);
@@ -77,8 +81,6 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 cuidador = dataSnapshot.getValue(Cuidador.class);
-                setTexts();
-//                setButtons();
                 setCuidador();
             }
 
@@ -88,19 +90,4 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-    private void setTexts(){
-        nome.setText(cuidador.getPessoa().getNome());
-        cidade.setText(cuidador.getPessoa().getEndereco().getCidade());
-        servicos.setText(cuidador.getServico());
-        setCuidador();
-    }
-
-
-    private void setButtons(){
-    }
-
-
 }

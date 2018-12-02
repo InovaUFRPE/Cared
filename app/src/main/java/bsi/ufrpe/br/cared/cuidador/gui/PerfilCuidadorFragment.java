@@ -32,7 +32,7 @@ public class PerfilCuidadorFragment extends Fragment {
         TextView nome = getView().findViewById(R.id.nomeCuidadorPerfilId);
         TextView cidade = getView().findViewById(R.id.enderecoCuidadoraId);
         TextView bairro = getView().findViewById(R.id.bairroCuidadorId);
-        TextView descricao = getView().findViewById(R.id.emailIdoso);
+        TextView descricao = getView().findViewById(R.id.descricao);
         Picasso.get()
                 .load(Sessao.getCuidador().getPessoa().getFoto())
                 .resize(300, 300)

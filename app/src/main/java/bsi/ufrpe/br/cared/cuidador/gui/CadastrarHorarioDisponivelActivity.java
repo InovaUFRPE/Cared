@@ -35,9 +35,9 @@ public class CadastrarHorarioDisponivelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastrar_horario_disponivel);
         dataInicio = findViewById(R.id.dataInicioId);
         dataFim = findViewById(R.id.dataFimId);
-        eInicio = findViewById(R.id.eInicio);
-        eFim = findViewById(R.id.eFim);
-        btCriar = findViewById(R.id.criar);
+        eInicio = findViewById(R.id.dInicio);
+        eFim = findViewById(R.id.dFim);
+        btCriar = findViewById(R.id.buscar);
         linearLayout = findViewById(R.id.layoutId);
         telaPadrao();
         mcv = findViewById(R.id.calerdarViewId);

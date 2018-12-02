@@ -1,11 +1,8 @@
 package bsi.ufrpe.br.cared.pessoa.gui;
 
-import android.content.Intent;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,10 +12,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import bsi.ufrpe.br.cared.R;
-import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
-import bsi.ufrpe.br.cared.usuario.gui.ComentariosActivity;
 
 public class PessoaPerfilActivity extends AppCompatActivity {
     private ImageView fotoIdoso;
@@ -36,7 +31,7 @@ public class PessoaPerfilActivity extends AppCompatActivity {
         fotoIdoso = findViewById(R.id.fotoPerfilIdoso);
         nomeIdoso = findViewById(R.id.nomeiIdosoPerfil);
         notaIdoso = findViewById(R.id.notaIdoso);
-        emailIdoso = findViewById(R.id.emailIdoso);
+        emailIdoso = findViewById(R.id.descricao);
         necessidades = findViewById(R.id.necessidadesUser);
         botaoComentarios = findViewById(R.id.btComentariosid);
     }

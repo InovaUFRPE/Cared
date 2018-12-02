@@ -60,7 +60,7 @@
 
 
     <TextView
-        android:id="@+id/emailIdoso"
+        android:id="@+id/descricao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -114,7 +114,7 @@
         android:textColor="@color/colorTextButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailIdoso" />
+        app:layout_constraintTop_toBottomOf="@+id/descricao" />
 
     <Button
         android:id="@+id/btComentariosid"
