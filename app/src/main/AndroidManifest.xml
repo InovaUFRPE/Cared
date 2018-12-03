@@ -39,8 +39,11 @@
         <activity android:name=".cuidador.gui.CuidadorMeusServicosActivity" />
         <activity android:name=".cuidador.gui.CuidadorAgendamentoActivity" />
         <activity android:name=".pessoa.gui.PessoaMeusServicosActivity" />
-        <activity android:name=".pessoa.gui.PessoaAgendamentoActivity"/>
-        <activity android:name=".usuario.gui.ComentariosActivity"></activity>
+        <activity android:name=".pessoa.gui.PessoaAgendamentoActivity" />
+        <activity android:name=".usuario.gui.ComentariosActivity" />
+        <activity android:name=".avaliacao.gui.FormularioActivity" />
+        <activity android:name=".adapterHistorico" />
+        <activity android:name=".pessoa.gui.PessoaHistoricoActivity"></activity>
     </application>
 
 </manifest>

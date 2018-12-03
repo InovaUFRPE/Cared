@@ -5,5 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".usuario.gui.ComentariosActivity">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Avaliações"
+                android:textSize="25dp"/>
+            <ListView
+                android:id="@+id/listViewAvaliacoes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
