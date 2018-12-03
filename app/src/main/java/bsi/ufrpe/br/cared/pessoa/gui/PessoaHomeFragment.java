@@ -38,5 +38,12 @@ public class PessoaHomeFragment extends Fragment {
                 ((HomeActivity)getActivity()).irParaPerfil();
             }
         });
+        Button btHistorico = getView().findViewById(R.id.btHistoricoCliente);
+        btHistorico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), PessoaHistoricoActivity.class));
+            }
+        });
     }
 }

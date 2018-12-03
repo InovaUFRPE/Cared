@@ -9,6 +9,8 @@ import android.widget.TextView;
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.avaliacao.dominio.AvaliacaoForm;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
+import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
+import bsi.ufrpe.br.cared.infra.Sessao;
 
 public class FormularioActivity extends AppCompatActivity {
     private RatingBar notaServico;
@@ -16,6 +18,7 @@ public class FormularioActivity extends AppCompatActivity {
     private Button enviar;
     private Cuidador cuidador;
     private AvaliacaoForm avaliacaoForm;
+    private Agendamento agendamento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,12 @@ public class FormularioActivity extends AppCompatActivity {
     }
 
     private void setFormulario(){
-
+        avaliacaoForm.setComentario(comentarioServico.getText().toString().trim());
+//        avaliacaoForm.setIdAgendamento();
+        avaliacaoForm.setNota(notaServico.getRating());
+        avaliacaoForm.setIdAvaliador(Sessao.getUserId());
+        //falta pegar o id do avaliado e pegar o id do agendamento
+        //setar o id avaliado como chave
 
     }
 

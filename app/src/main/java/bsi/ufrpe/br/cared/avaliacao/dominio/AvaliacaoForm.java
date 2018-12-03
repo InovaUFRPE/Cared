@@ -1,6 +1,7 @@
 package bsi.ufrpe.br.cared.avaliacao.dominio;
 
 public class AvaliacaoForm {
+    private String idAvaliacao;
     private double nota;
     private String comentario;
     private String idAvaliador;
@@ -9,12 +10,21 @@ public class AvaliacaoForm {
 
     public AvaliacaoForm(){}
 
-    public AvaliacaoForm(double nota, String comentario, String idAvaliador, String idAvaliado, String idAgendamento){
+    public AvaliacaoForm(double nota, String comentario, String idAvaliador, String idAvaliado, String idAgendamento, String idAvaliacao){
         this.nota = nota;
+        this.idAvaliacao = idAvaliacao;
         this.comentario = comentario;
         this.idAvaliador = idAvaliador;
         this.idAvaliado = idAvaliado;
         this.idAgendamento = idAgendamento;
+    }
+
+    public String getIdAvaliacao() {
+        return idAvaliacao;
+    }
+
+    public void setIdAvaliacao(String idAvaliacao) {
+        this.idAvaliacao = idAvaliacao;
     }
 
     public double getNota() {

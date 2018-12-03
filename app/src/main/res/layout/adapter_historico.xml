@@ -51,14 +51,6 @@
                     android:layout_height="100dp"
                     app:srcCompat="@drawable/profile" />
 
-                <TextView
-                    android:id="@+id/notaPrecoId"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="5.0"
-                    android:textSize="20dp" />
-
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
