@@ -60,7 +60,10 @@ public class CalendarTypeConverter {
     }
 
     public static Calendar getEmptyCalendar(){
-        return new GregorianCalendar();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(1970, 0, 1, 0, 0, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
     }
 
     public static Calendar setDayBegin(Calendar calendar){

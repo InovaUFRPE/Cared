@@ -13,30 +13,15 @@
             android:text="Horário de inicio: "
             android:textSize="15sp"
             android:gravity="center"/>
-        <LinearLayout
+        <Button
+            android:id="@+id/dInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <Button
-                android:id="@+id/dInicio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorButton"
-                android:textColor="@color/colorTextButton"
-                android:text="DD/MM/AAAA"
-                android:layout_weight="1"
-                android:layout_margin="5dp"/>
-            <Button
-                android:id="@+id/hInicio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorButton"
-                android:textColor="@color/colorTextButton"
-                android:text="HH:mm"
-                android:layout_weight="1"
-                android:layout_margin="5dp"/>
-        </LinearLayout>
+            android:background="@color/colorButton"
+            android:textColor="@color/colorTextButton"
+            android:text="DD/MM/AAAA  HH:mm"
+            android:layout_weight="1"
+            android:layout_margin="5dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,30 +29,15 @@
             android:textSize="15sp"
             android:layout_marginTop="20dp"
             android:gravity="center"/>
-        <LinearLayout
+        <Button
+            android:id="@+id/dFim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <Button
-                android:id="@+id/dFim"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorButton"
-                android:textColor="@color/colorTextButton"
-                android:text="DD/MM/AAAA"
-                android:layout_weight="1"
-                android:layout_margin="5dp"/>
-            <Button
-                android:id="@+id/hFim"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorButton"
-                android:textColor="@color/colorTextButton"
-                android:text="HH:mm"
-                android:layout_weight="1"
-                android:layout_margin="5dp"/>
-        </LinearLayout>
+            android:background="@color/colorButton"
+            android:textColor="@color/colorTextButton"
+            android:text="DD/MM/AAAA HH:mm"
+            android:layout_weight="1"
+            android:layout_margin="5dp"/>
         <Button
             android:id="@+id/buscar"
             android:layout_marginTop="50dp"
