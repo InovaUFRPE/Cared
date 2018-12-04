@@ -1,4 +1,4 @@
-package bsi.ufrpe.br.cared.usuario.gui;
+package bsi.ufrpe.br.cared.avaliacao.gui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

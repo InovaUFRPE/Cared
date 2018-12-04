@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.infra.Sessao;
-import bsi.ufrpe.br.cared.usuario.gui.ComentariosActivity;
+import bsi.ufrpe.br.cared.avaliacao.gui.ComentariosActivity;
 
 public class PerfilPessoaFragment extends Fragment {
     @Nullable
