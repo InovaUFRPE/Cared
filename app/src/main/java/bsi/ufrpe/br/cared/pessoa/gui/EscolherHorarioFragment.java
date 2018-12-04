@@ -131,7 +131,6 @@ public class EscolherHorarioFragment extends Fragment
             if (!(calendar1.getTimeInMillis() > calendar.getTimeInMillis())){
                 cFim.setTimeInMillis(calendar.getTimeInMillis());
                 date2.setTime(cFim.getTimeInMillis());
-                Toast.makeText(getActivity(), CalendarTypeConverter.getSdfdh().format(date2), Toast.LENGTH_SHORT).show();
                 dFim.setText(CalendarTypeConverter.getSdfdh().format(date2));
             }else {
                 cFim.setTimeInMillis(calendar1.getTimeInMillis());

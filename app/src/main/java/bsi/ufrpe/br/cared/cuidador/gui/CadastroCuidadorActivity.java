@@ -139,6 +139,7 @@ public class CadastroCuidadorActivity extends AppCompatActivity {
     private void inserirImagemBanco(){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Carregando...");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         final StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
         ref.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {

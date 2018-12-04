@@ -26,7 +26,7 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         if (Sessao.getFirebaseAuth().getCurrentUser() != null){
             dialog = new ProgressDialog(Main2Activity.this);
-            dialog.setMessage("Please wait...");
+            dialog.setMessage("Carregando...");
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             getUser();

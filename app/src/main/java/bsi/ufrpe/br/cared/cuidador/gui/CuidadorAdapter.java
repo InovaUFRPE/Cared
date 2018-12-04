@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import bsi.ufrpe.br.cared.R;
@@ -19,9 +20,11 @@ import bsi.ufrpe.br.cared.infra.MyApplication;
 
 public class CuidadorAdapter extends ArrayAdapter<Cuidador> {
     private List<Cuidador> elementos;
-    public CuidadorAdapter(@NonNull List<Cuidador> elementos) {
+    private BigDecimal tempo;
+    public CuidadorAdapter(@NonNull List<Cuidador> elementos, @NonNull double tempo) {
         super(MyApplication.getContext(), R.layout.adapter_cuidador, elementos);
         this.elementos = elementos;
+        this.tempo = new BigDecimal(tempo);
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -32,6 +35,7 @@ public class CuidadorAdapter extends ArrayAdapter<Cuidador> {
         TextView nomePessoa = rowView.findViewById(R.id.nomeCuidadorAdapter);
         TextView cidade = rowView.findViewById(R.id.cidadeCuidadorAdapter);
         TextView descricao = rowView.findViewById(R.id.descricaoCuidadorAdapter);
+        TextView valor = rowView.findViewById(R.id.valor);
         Picasso.get()
                 .load(elementos.get(position).getPessoa().getFoto())
                 .resize(300, 300)
@@ -40,8 +44,13 @@ public class CuidadorAdapter extends ArrayAdapter<Cuidador> {
         nomePessoa.setText(elementos.get(position).getPessoa().getNome());
         cidade.setText(elementos.get(position).getPessoa().getEndereco().getCidade());
         descricao.setText(elementos.get(position).getServico());
+        valor.setText("R$" + getPreco(elementos.get(position)));
         return rowView;
+    }
 
-        //no adapter ficou faltando a parte de pegar a posi do cuidador que fizeram no tutorial
+    private double getPreco(Cuidador cuidador){
+        BigDecimal pHora = new BigDecimal(cuidador.getValor());
+        BigDecimal valor = pHora.multiply(tempo);
+        return valor.doubleValue();
     }
 }

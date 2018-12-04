@@ -1,17 +1,21 @@
 package bsi.ufrpe.br.cared.cuidador.gui;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.math.BigDecimal;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
@@ -23,10 +27,12 @@ import bsi.ufrpe.br.cared.infra.servico.ConflitoHorarios;
 
 public class PerfilCuidadorActivity extends AppCompatActivity {
     private ImageView foto;
-    private TextView nome, servicos, nota;
+    private TextView nome, servicos, nota, valor;
     private Button botaoContratar, botaoComentarios;
     private Cuidador cuidador;
     private Horario horario;
+    private LinearLayout linearLayout;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +42,16 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
     }
 
     private void setTela(){
+        linearLayout = findViewById(R.id.linearLayout2);
+        linearLayout.setVisibility(View.GONE);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Carregando...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         foto = findViewById(R.id.fotoPerfilCuidadorActivity);
         nome = findViewById(R.id.nomeCuidadorPerfilId);
         servicos = findViewById(R.id.descricao);
+        valor = findViewById(R.id.valor);
         botaoContratar = findViewById(R.id.btContratarId);
         botaoContratar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +77,9 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
                 .into(foto);
         nome.setText(cuidador.getPessoa().getNome());
         servicos.setText(cuidador.getServico());
+        valor.setText("R$" + getPreco());
+        linearLayout.setVisibility(View.VISIBLE);
+        progressDialog.dismiss();
     }
 
     private void contratar(){
@@ -71,6 +87,7 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         agendamento.setHorario(horario);
         agendamento.setCuidadorId(cuidador.getUserId());
         agendamento.setPacienteId(Sessao.getUserId());
+        agendamento.setValor(getPreco());
         agendamento.setSituacao(Situacao.PENDENTE);
         ConflitoHorarios.newAgendamento(agendamento);
         finish();
@@ -89,5 +106,11 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private double getPreco(){
+        BigDecimal pHora = new BigDecimal(cuidador.getValor());
+        BigDecimal valor = pHora.multiply(new BigDecimal(ConflitoHorarios.getTempo(horario)));
+        return valor.doubleValue();
     }
 }
