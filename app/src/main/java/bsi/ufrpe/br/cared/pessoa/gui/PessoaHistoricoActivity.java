@@ -79,8 +79,15 @@ public class PessoaHistoricoActivity extends AppCompatActivity {
         Sessao.getDatabaseCuidador().child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean ok = true;
                 Cuidador cuidador = dataSnapshot.getValue(Cuidador.class);
-                cuidadores.add(cuidador);
+                for (Cuidador cuidador1: cuidadores) {
+                    if (cuidador.getUserId().equals(cuidador1.getUserId()))
+                    ok = false;
+                }
+                if (ok){
+                    cuidadores.add(cuidador);
+                }
                 adapter.notifyDataSetChanged();
             }
 

@@ -34,44 +34,47 @@ public class PessoaHistoricoAdapter extends ArrayAdapter<Agendamento> {
         this.agendamentos = agendamentos;
         this.cuidadores = cuidadores;
     }
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, final ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) MyApplication.getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_historico, parent, false);
-        TextView nome = rowView.findViewById(R.id.nomeCuidadorId);
-        TextView horarioInicio = rowView.findViewById(R.id.deId);
-        TextView horarioFim = rowView.findViewById(R.id.ateId);
-//        TextView valor = rowView.findViewById(R.id.precoId);
-        ImageView foto = rowView.findViewById(R.id.imageView2);
-        Button avaliar = rowView.findViewById(R.id.avaliarId);
-        Picasso.get()
-                .load(cuidadores.get(position).getPessoa().getFoto())
-                .resize(300, 300)
-                .centerCrop()
-                .into(foto);
+        Cuidador cuidador = escolherCuidador(agendamentos.get(position).getCuidadorId());
+        if (cuidador != null) {
+            TextView nome = rowView.findViewById(R.id.nomeCuidadorId);
+            TextView horarioInicio = rowView.findViewById(R.id.deId);
+            TextView horarioFim = rowView.findViewById(R.id.ateId);
+            TextView valor = rowView.findViewById(R.id.precoId);
+            ImageView foto = rowView.findViewById(R.id.imageView2);
+            Button avaliar = rowView.findViewById(R.id.avaliarId);
+            Picasso.get()
+                    .load(cuidador.getPessoa().getFoto())
+                    .resize(300, 300)
+                    .centerCrop()
+                    .into(foto);
 
-        nome.setText(escolherCuidador(agendamentos.get(position).getCuidadorId()));
-        horarioInicio.setText(textoHorarioInicio(agendamentos.get(position).getHorario()));
-        horarioFim.setText(textoHorarioFim(agendamentos.get(position).getHorario()));
-//        String aux = String.valueOf(cuidadores.get(position).getValor());
-//        valor.setText(aux);
-//        avaliar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getActivity(), FormularioActivity.class));
-//            }
-//        });
-
+            nome.setText(cuidador.getPessoa().getNome());
+            horarioInicio.setText(textoHorarioInicio(agendamentos.get(position).getHorario()));
+            horarioFim.setText(textoHorarioFim(agendamentos.get(position).getHorario()));
+            String aux = String.valueOf(cuidador.getValor());
+            valor.setText(aux);
+            avaliar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(parent.getContext(), FormularioActivity.class);
+                    parent.getContext().startActivity(intent);
+                }
+            });
+        }
         return rowView;
     }
 
-    private String escolherCuidador(String id){
+    private Cuidador escolherCuidador(String id){
         for (Cuidador cuidador: cuidadores){
             if (cuidador.getUserId().equals(id)){
-                return cuidador.getPessoa().getNome();
+                return cuidador;
             }
         }
-        return "";
+        return null;
     }
 
     private String textoHorarioInicio(Horario horario){
