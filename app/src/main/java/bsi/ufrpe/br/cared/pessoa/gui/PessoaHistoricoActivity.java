@@ -13,18 +13,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
+import bsi.ufrpe.br.cared.horario.dominio.Horario;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import java.text.SimpleDateFormat;
 
 public class PessoaHistoricoActivity extends AppCompatActivity {
     private ListView listView;
     private List<Agendamento> agendamentos = new ArrayList<>();
     private List<Cuidador> cuidadores = new ArrayList<>();
     private PessoaHistoricoAdapter adapter;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +62,12 @@ public class PessoaHistoricoActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     for (DataSnapshot dataSnapshot2: dataSnapshot1.getChildren()){
                         Agendamento agendamento = dataSnapshot2.getValue(Agendamento.class);
+//                        Agendamento agendamentoF = agendamento.getHorario().getFim();
+//                        java.util.Date dataUtil = new java.util.Date();
+//                        Date dataSql = new java.sql.Date(dataUtil.getTime());
+//                        dataSql.after(agendamento.getHorario());
                         if (agendamento.getPacienteId().equals(Sessao.getUserId())){
-                            //fazer aqui o if do filtro da data
+//                            if(agendamento.getHorario() <= dataSql ){
                             l1.add(agendamento);
                             getCuidadorAgendamento(agendamento.getCuidadorId());
                         }
@@ -96,5 +104,10 @@ public class PessoaHistoricoActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private String textoHorarioFim(Horario horario){
+        Date data2 = new Date(horario.getFim());
+        return sdf.format(data2);
     }
 }
