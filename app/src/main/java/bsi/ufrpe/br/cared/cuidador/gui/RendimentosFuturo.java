@@ -10,39 +10,37 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
-import bsi.ufrpe.br.cared.horario.dominio.Horario;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 
 public class RendimentosFuturo extends Fragment {
-
-    View v;
+    private View v;
+    private TextView val;
     private RecyclerView recyclerViewFuturo;
     private List<Agendamento> listFuturo = new ArrayList<>();
     private List<Pessoa> pessoaArrayListFuturo = new ArrayList<>();
-    RendimentosAdapter rendimentosAdapterFuturo;
-    Date dataAtual = new Date();
+    private RendimentosAdapter rendimentosAdapterFuturo;
+    private Date dataAtual = new Date();
 
     public RendimentosFuturo() {
     }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_rendimentos_mesatual,container,false);
-        recyclerViewFuturo = (RecyclerView)v.findViewById(R.id.recycler_mes_atual);
+        v = inflater.inflate(R.layout.fragment_rendimentos_futuro,container,false);
+        recyclerViewFuturo = (RecyclerView)v.findViewById(R.id.recycler_rendimentos_futuro);
         rendimentosAdapterFuturo = new RendimentosAdapter(getContext(), listFuturo, pessoaArrayListFuturo);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewFuturo.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -53,29 +51,21 @@ public class RendimentosFuturo extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //listFuturo = new ArrayList<Agendamento>();
-        //pessoaArrayListFuturo = new ArrayList<Pessoa>();
-
         Sessao.getDatabaseAgendamento().child(Sessao.getUserId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
                     Agendamento agendamento = dataSnapshot1.getValue(Agendamento.class);
-                    Pessoa pessoa = dataSnapshot.getValue(Pessoa.class);
-                    Horario horario = dataSnapshot1.getValue(Horario.class);
-
-                    SimpleDateFormat mesAnoFormatacao = new SimpleDateFormat("MM/yyyy");
-                    Date mesAnoAtual = new Date();
                     Date mesAnoAgendamento = new Date(agendamento.getHorario().getInicio());
                     if((String.valueOf(agendamento.getSituacao()).equals("ACEITO")) && (mesAnoAgendamento).after(dataAtual)){
                         listFuturo.add(agendamento);
                         getPessoaAgendamento(agendamento.getPacienteId());
                     }
                 }
-                //rendimentosAdapter = new RendimentosAdapter(RendimentosMesAtual.this,list,pessoaArrayList);
-                //recyclerView.setAdapter(rendimentosAdapter);
                 recyclerViewFuturo.setAdapter(rendimentosAdapterFuturo);
+                double valor = rendimentosAdapterFuturo.valorTotalRendimentos();
+                setTela();
+                getValor(valor);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -83,7 +73,12 @@ public class RendimentosFuturo extends Fragment {
             }
         });
     }
-
+    public void setTela(){
+        val = (TextView)v.findViewById(R.id.valorFuturo);
+    }
+    public void getValor(double valor){
+        val.setText(String.valueOf(valor)+"0");
+    }
     public void getPessoaAgendamento(String id){
         Sessao.getDatabasePessoa().child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -92,12 +87,10 @@ public class RendimentosFuturo extends Fragment {
                 pessoaArrayListFuturo.add(pessoa);
                 rendimentosAdapterFuturo.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
     }
-
 }

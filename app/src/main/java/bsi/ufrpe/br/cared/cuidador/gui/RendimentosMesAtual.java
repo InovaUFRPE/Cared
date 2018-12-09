@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,22 +23,20 @@ import java.util.List;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
-import bsi.ufrpe.br.cared.horario.dominio.Horario;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 
 public class RendimentosMesAtual extends Fragment {
-
-    View v;
+    private View v;
+    private TextView val;
     private RecyclerView recyclerViewMesAtual;
     private List<Agendamento> listMesAtual = new ArrayList<>();
     private List<Pessoa> pessoaArrayListMesAtual = new ArrayList<>();
-    RendimentosAdapter rendimentosAdapterMesAtual;
-    Date dataAtual = new Date();
+    private RendimentosAdapter rendimentosAdapterMesAtual;
+    private Date dataAtual = new Date();
 
     public RendimentosMesAtual() {
     }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,18 +52,11 @@ public class RendimentosMesAtual extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //listFuturo = new ArrayList<Agendamento>();
-        //pessoaArrayListFuturo = new ArrayList<Pessoa>();
-
         Sessao.getDatabaseAgendamento().child(Sessao.getUserId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
                     Agendamento agendamento = dataSnapshot1.getValue(Agendamento.class);
-                    Pessoa pessoa = dataSnapshot.getValue(Pessoa.class);
-                    Horario horario = dataSnapshot1.getValue(Horario.class);
-
                     SimpleDateFormat mesAnoFormatacao = new SimpleDateFormat("MM/yyyy");
                     Date mesAnoAtual = new Date();
                     Date mesAnoAgendamento = new Date(agendamento.getHorario().getInicio());
@@ -73,9 +65,10 @@ public class RendimentosMesAtual extends Fragment {
                         getPessoaAgendamento(agendamento.getPacienteId());
                     }
                 }
-                //rendimentosAdapter = new RendimentosAdapter(RendimentosMesAtual.this,list,pessoaArrayList);
-                //recyclerView.setAdapter(rendimentosAdapter);
                 recyclerViewMesAtual.setAdapter(rendimentosAdapterMesAtual);
+                double valor = rendimentosAdapterMesAtual.valorTotalRendimentos();
+                setTela();
+                getValor(valor);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -83,7 +76,12 @@ public class RendimentosMesAtual extends Fragment {
             }
         });
     }
-
+    public void setTela(){
+        val = (TextView)v.findViewById(R.id.valorMesAtual);
+    }
+    public void getValor(double valor){
+        val.setText(String.valueOf(valor)+"0");
+    }
     public void getPessoaAgendamento(String id){
         Sessao.getDatabasePessoa().child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -92,12 +90,10 @@ public class RendimentosMesAtual extends Fragment {
                 pessoaArrayListMesAtual.add(pessoa);
                 rendimentosAdapterMesAtual.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
     }
-
 }

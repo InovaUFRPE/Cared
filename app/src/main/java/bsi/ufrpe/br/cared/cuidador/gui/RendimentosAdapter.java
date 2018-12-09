@@ -39,8 +39,7 @@ public class RendimentosAdapter extends RecyclerView.Adapter<RendimentosAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
         myViewHolder.nomeIdoso.setText(nomePessoa(agendamentos.get(position).getPacienteId()));
         myViewHolder.dataTrabalho.setText(textoData(agendamentos.get(position).getHorario()));
-        myViewHolder.valorRendimento.setText(String.valueOf(agendamentos.get(position).getValor()));
-        //myViewHolder.valorTotal.setText(valorTotalRendimentos("nada"));
+        myViewHolder.valorRendimento.setText(String.valueOf(agendamentos.get(position).getValor())+"0");
     }
 
     private String nomePessoa(String id){
@@ -52,15 +51,14 @@ public class RendimentosAdapter extends RecyclerView.Adapter<RendimentosAdapter.
         return "";
     }
 
-    /*private String valorTotalRendimentos(String nada){
-        String da = nada;
-        int valorTotal;
+    public double valorTotalRendimentos(){
+        double valorTotal;
         valorTotal = 0;
         for (Agendamento agendamento: agendamentos){
-            valorTotal = valorTotal + (int) agendamento.getValor();
+            valorTotal = valorTotal + agendamento.getValor();
         }
-        return Integer.toString(valorTotal);
-    }*/
+        return valorTotal;
+    }
 
     private String textoData(Horario horario){
         Date data1 = new Date(horario.getInicio());
@@ -79,7 +77,6 @@ public class RendimentosAdapter extends RecyclerView.Adapter<RendimentosAdapter.
             nomeIdoso = (TextView)itemView.findViewById(R.id.nomeIdosoRendimentos);
             dataTrabalho = (TextView)itemView.findViewById(R.id.dataTrabalhoRendimentos);
             valorRendimento = (TextView)itemView.findViewById(R.id.valorRendimentos);
-            //valorTotal = (TextView)itemView.findViewById(R.id.valorTotalRendimentos);
         }
     }
 }
