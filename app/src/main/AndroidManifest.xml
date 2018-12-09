@@ -43,7 +43,11 @@
         <activity android:name=".avaliacao.gui.ComentariosActivity" />
         <activity android:name=".avaliacao.gui.FormularioActivity" />
         <activity android:name=".adapterHistorico" />
-        <activity android:name=".pessoa.gui.PessoaHistoricoActivity"></activity>
+        <activity android:name=".pessoa.gui.PessoaHistoricoActivity" />
+        <activity
+            android:name=".cuidador.gui.RendimentosCuidadorActivity"
+            android:label="@string/title_activity_rendimentos_cuidador"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

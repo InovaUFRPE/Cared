@@ -40,13 +40,13 @@ public class CuidadorHomeFragment extends Fragment {
                 ((HomeActivity)getActivity()).irParaPerfil();
             }
         });
-//        Button meusRendimentos = getView().findViewById(R.id.btMeusRendimentos);
-//        meusRendimentos.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getActivity(), xxx.class));
-//            }
-//        });
+        Button btMeusRendimentos = getView().findViewById(R.id.btMeusRendimentos);
+        btMeusRendimentos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), RendimentosCuidadorActivity.class));
+            }
+        });
 
     }
 }
