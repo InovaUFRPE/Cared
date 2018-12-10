@@ -48,6 +48,7 @@
             android:name=".cuidador.gui.RendimentosCuidadorActivity"
             android:label="@string/title_activity_rendimentos_cuidador"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".pessoa.gui.PessoaCalendarActivity"></activity>
     </application>
 
 </manifest>

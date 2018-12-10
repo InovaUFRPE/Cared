@@ -60,9 +60,7 @@ public class CalendarTypeConverter {
     }
 
     public static Calendar getEmptyCalendar(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(1970, 0, 1, 0, 0, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
+        Calendar calendar = new GregorianCalendar();
         return calendar;
     }
 

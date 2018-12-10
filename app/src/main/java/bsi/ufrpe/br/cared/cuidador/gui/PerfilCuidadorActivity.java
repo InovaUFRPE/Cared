@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -90,6 +91,7 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         agendamento.setValor(getPreco());
         agendamento.setSituacao(Situacao.PENDENTE);
         ConflitoHorarios.newAgendamento(agendamento);
+        Toast.makeText(this, "Cuidador contratado com sucesso", Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -110,7 +112,7 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
 
     private double getPreco(){
         BigDecimal pHora = new BigDecimal(cuidador.getValor());
-        BigDecimal valor = pHora.multiply(new BigDecimal(ConflitoHorarios.getTempo(horario)));
+        BigDecimal valor = pHora.multiply(new BigDecimal(ConflitoHorarios.getTempo(horario))).add(new BigDecimal(5));
         return valor.doubleValue();
     }
 }

@@ -23,6 +23,7 @@ import bsi.ufrpe.br.cared.cuidador.gui.PerfilCuidadorFragment;
 import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.infra.TipoUsuario;
 import bsi.ufrpe.br.cared.pessoa.gui.PerfilPessoaFragment;
+import bsi.ufrpe.br.cared.pessoa.gui.PessoaCalendarActivity;
 import bsi.ufrpe.br.cared.pessoa.gui.PessoaHomeFragment;
 import bsi.ufrpe.br.cared.pessoa.gui.PessoaMeusServicosActivity;
 
@@ -133,7 +134,7 @@ public class HomeActivity extends AppCompatActivity
             if (Sessao.getTipo().equals(TipoUsuario.CUIDADOR)) {
                 startActivity(new Intent(HomeActivity.this, CuidadorMeusServicosActivity.class));
             } else {
-                startActivity(new Intent( HomeActivity.this, PessoaMeusServicosActivity.class));
+                startActivity(new Intent( HomeActivity.this, PessoaCalendarActivity.class));
             }
         }
 

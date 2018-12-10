@@ -29,8 +29,7 @@ public class CuidadorMeusServicosActivity extends AppCompatActivity {
     private ListView listView;
     private List<Agendamento> agendamentos = new ArrayList<>();
     private List<Pessoa> pessoas = new ArrayList<>();
-    private long dayBegin;
-    private long dayEnd;
+    private long dayBegin, dayEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

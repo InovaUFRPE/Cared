@@ -38,7 +38,7 @@ public class ConflitoHorarios {
                     }
                 }
                 if (ok == true) {
-                    Sessao.getDatabaseHorarioDisponivel().child(Sessao.getUserId()  ).child(disponivel.getId()).setValue(disponivel);
+                    Sessao.getDatabaseHorarioDisponivel().child(Sessao.getUserId()).child(disponivel.getId()).setValue(disponivel);
                 }
             }
 
