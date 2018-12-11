@@ -39,7 +39,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Classificação"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/fotoPerfilIdoso"
         app:layout_constraintTop_toBottomOf="@+id/nomeiIdosoPerfil" />
@@ -50,8 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Nota"
+        android:layout_marginEnd="11dp"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
@@ -82,20 +80,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descricao" />
 
-    <Button
-        android:id="@+id/btComentariosid"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/colorButton"
-        android:text="Comentários"
-        android:textAllCaps="true"
-        android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/necessidadesUser" />
 
     <Button
         android:id="@+id/btEditarPerfilPessoa"
@@ -111,6 +95,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btComentariosid" />
+        app:layout_constraintTop_toBottomOf="@+id/necessidadesUser" />
 
 </android.support.constraint.ConstraintLayout>

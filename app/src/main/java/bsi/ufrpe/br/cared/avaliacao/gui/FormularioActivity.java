@@ -54,19 +54,20 @@ public class FormularioActivity extends AppCompatActivity {
     private void setFormulario(){
         avaliacaoForm = new AvaliacaoForm();
         getExtras();
+        String id = Sessao.getDatabaseAvaliacao().child(agendamento.getCuidadorId()).push().getKey();
         avaliacaoForm.setComentario(comentarioServico.getText().toString().trim());
         avaliacaoForm.setIdAgendamento(agendamento.getId());
         avaliacaoForm.setNota(notaServico.getRating());
         avaliacaoForm.setIdAvaliador(Sessao.getUserId());
         avaliacaoForm.setIdAvaliado(agendamento.getCuidadorId());
-        Sessao.getDatabaseAvaliacao().child(avaliacaoForm.getIdAvaliacao()).child(agendamento.getCuidadorId()).setValue(avaliacaoForm);
+        Sessao.getDatabaseAvaliacao().child(agendamento.getCuidadorId()).child(id).setValue(avaliacaoForm);
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }
 
 
     private void getAgendamento(){
-        Sessao.getDatabaseAgendamento().child(Sessao.getUserId()).child(getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+        Sessao.getDatabaseAgendamento().child(agendamento.getCuidadorId()).child(getId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 agendamento = dataSnapshot.getValue(Agendamento.class);
@@ -93,7 +94,7 @@ public class FormularioActivity extends AppCompatActivity {
             }
         });
     }
-
+//
     private String getId(){
         Bundle extra = getIntent().getExtras();
         return extra.getString("id");

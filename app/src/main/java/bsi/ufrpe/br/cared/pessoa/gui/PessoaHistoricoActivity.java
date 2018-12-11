@@ -62,14 +62,14 @@ public class PessoaHistoricoActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     for (DataSnapshot dataSnapshot2: dataSnapshot1.getChildren()){
                         Agendamento agendamento = dataSnapshot2.getValue(Agendamento.class);
-//                        Agendamento agendamentoF = agendamento.getHorario().getFim();
-//                        java.util.Date dataUtil = new java.util.Date();
-//                        Date dataSql = new java.sql.Date(dataUtil.getTime());
-//                        dataSql.after(agendamento.getHorario());
+                        Date dataFinal = new java.sql.Date(agendamento.getHorario().getFim());;
+                        Boolean datasT = testeData(dataFinal);
+
                         if (agendamento.getPacienteId().equals(Sessao.getUserId())){
-//                            if(agendamento.getHorario() <= dataSql ){
-                            l1.add(agendamento);
-                            getCuidadorAgendamento(agendamento.getCuidadorId());
+                            if (datasT ==  Boolean.TRUE){
+                                l1.add(agendamento);
+                                getCuidadorAgendamento(agendamento.getCuidadorId());
+                            }
                         }
                     }
                 }
@@ -109,5 +109,12 @@ public class PessoaHistoricoActivity extends AppCompatActivity {
     private String textoHorarioFim(Horario horario){
         Date data2 = new Date(horario.getFim());
         return sdf.format(data2);
+    }
+
+    public Boolean testeData(Date data){
+        java.util.Date dataUtil = new java.util.Date();
+        Date dataSql = new java.sql.Date(dataUtil.getTime());
+        Boolean datasx = data.before(dataSql);
+        return datasx;
     }
 }

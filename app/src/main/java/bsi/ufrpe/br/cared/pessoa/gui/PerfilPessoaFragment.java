@@ -32,7 +32,7 @@ public class PerfilPessoaFragment extends Fragment {
         TextView nomeIdoso = getView().findViewById(R.id.nomeiIdosoPerfil);
         TextView notaIdoso = getView().findViewById(R.id.notaIdoso);
         TextView necessidades = getView().findViewById(R.id.necessidadesUser);
-        Button botaoComentarios = getView().findViewById(R.id.btComentariosid);
+//        Button botaoComentarios = getView().findViewById(R.id.btComentariosid);
         Button btEditar = getView().findViewById(R.id.btEditarPerfilPessoa);
 
         Picasso.get()
@@ -44,12 +44,12 @@ public class PerfilPessoaFragment extends Fragment {
         necessidades.setText(Sessao.getPessoa().getNecessidades());
 //        notaIdoso;
 
-        botaoComentarios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), ComentariosActivity.class));
-            }
-        });
+//        botaoComentarios.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(getActivity(), ComentariosActivity.class));
+//            }
+//        });
         btEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
