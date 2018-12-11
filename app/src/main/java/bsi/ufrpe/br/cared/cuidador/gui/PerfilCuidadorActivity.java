@@ -1,6 +1,7 @@
 package bsi.ufrpe.br.cared.cuidador.gui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import java.math.BigDecimal;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.avaliacao.dominio.AvaliacaoForm;
+import bsi.ufrpe.br.cared.avaliacao.gui.ComentariosActivity;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
 import bsi.ufrpe.br.cared.horario.dominio.Horario;
@@ -61,7 +63,14 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
                 contratar();
             }
         });
+        botaoComentarios = findViewById(R.id.btComentariosid);
         getExtras();
+        botaoComentarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                comentarios();
+            }
+        });
     }
     private void getExtras(){
         Bundle extra = getIntent().getExtras();
@@ -80,8 +89,8 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         nome.setText(cuidador.getPessoa().getNome());
         servicos.setText(cuidador.getServico());
         valor.setText("R$" + getPreco());
-        double notinha = mediaNota();
-        nota.setText(String.valueOf(notinha));
+//        double notinha = mediaNota();
+//        nota.setText(String.valueOf(notinha));
         linearLayout.setVisibility(View.VISIBLE);
         progressDialog.dismiss();
     }
@@ -130,4 +139,10 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
 //        }
 //        return media/notas;
 //    }
+
+    private void comentarios(){
+        Intent intent = new Intent(this, ComentariosActivity.class);
+        intent.putExtra("id", cuidador.getUserId());
+        startActivity(intent);
+    }
 }

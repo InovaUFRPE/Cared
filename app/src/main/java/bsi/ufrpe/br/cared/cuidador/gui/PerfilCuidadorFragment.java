@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import bsi.ufrpe.br.cared.R;
+import bsi.ufrpe.br.cared.avaliacao.gui.ComentariosActivity;
 import bsi.ufrpe.br.cared.infra.Sessao;
 
 public class PerfilCuidadorFragment extends Fragment {
@@ -80,6 +81,13 @@ public class PerfilCuidadorFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), EditarPerfilCuidadorActivity.class));
+            }
+        });
+        Button btComentarios = getView().findViewById(R.id.btComentariosid);
+        btComentarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ComentariosActivity.class));
             }
         });
     }

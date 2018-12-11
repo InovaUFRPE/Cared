@@ -24,12 +24,12 @@ import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 
 public class ComentariosAdapter extends ArrayAdapter<AvaliacaoForm> {
     private List<AvaliacaoForm> avaliacaoForms;
-    private List<Pessoa> pessoa;
+    private List<Pessoa> pessoas;
 
-    public ComentariosAdapter(@NonNull List<AvaliacaoForm> agendamentos, @NonNull List<Pessoa> pessoa) {
-        super(MyApplication.getContext(), R.layout.adapter_comentarios, agendamentos);
+    public ComentariosAdapter(@NonNull List<AvaliacaoForm> avaliacaoForms, @NonNull List<Pessoa> pessoas) {
+        super(MyApplication.getContext(), R.layout.adapter_comentarios, avaliacaoForms);
         this.avaliacaoForms = avaliacaoForms;
-        this.pessoa = pessoa;
+        this.pessoas = pessoas;
     }
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) MyApplication.getContext()
@@ -37,25 +37,37 @@ public class ComentariosAdapter extends ArrayAdapter<AvaliacaoForm> {
         View rowView = inflater.inflate(R.layout.adapter_comentarios, parent, false);
 
         AvaliacaoForm avaliacaoForm =  avaliacaoForms.get(position);
-        TextView nome = rowView.findViewById(R.id.nomePessoaId);
-        TextView nota = rowView.findViewById(R.id.notaDadaId);
-        ImageView foto = rowView.findViewById(R.id.fotoCuidadorLinha);
-        TextView comentario = rowView.findViewById(R.id.comentarioId);
+        Pessoa pessoa = escolherPessoa(avaliacaoForm.getIdAvaliador());
+        if (pessoa != null) {
+            TextView nome = rowView.findViewById(R.id.nomePessoaId);
+            TextView nota = rowView.findViewById(R.id.notaDadaId);
+            ImageView foto = rowView.findViewById(R.id.fotoCuidadorLinha);
+            TextView comentario = rowView.findViewById(R.id.comentarioId);
 
-        comentario.setText(avaliacaoForm.getComentario());
-        String aux = String.valueOf(avaliacaoForm.getNota());
-        nota.setText(aux);
-        //falta setar o nome da pessoa
+            comentario.setText(avaliacaoForm.getComentario());
+            String aux = String.valueOf(avaliacaoForm.getNota());
+            nota.setText(aux);
+            nome.setText(pessoa.getNome());
+            //falta setar o nome da pessoa
 
 
-
-        Picasso.get()
-                .load(pessoa.get(position).getFoto())
-                .resize(300, 300)
-                .centerCrop()
-                .into(foto);
+            Picasso.get()
+                    .load(pessoa.getFoto())
+                    .resize(300, 300)
+                    .centerCrop()
+                    .into(foto);
+        }
 
     return rowView;
+    }
+
+    private Pessoa escolherPessoa(String id){
+        for (Pessoa pessoa: pessoas){
+            if (pessoa.getUserId().equals(id)){
+                return pessoa;
+            }
+        }
+        return null;
     }
 
 

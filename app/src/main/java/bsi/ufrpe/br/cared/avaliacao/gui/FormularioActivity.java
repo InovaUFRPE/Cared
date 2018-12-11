@@ -54,6 +54,7 @@ public class FormularioActivity extends AppCompatActivity {
         avaliacaoForm = new AvaliacaoForm();
         getExtras();
         String id = Sessao.getDatabaseAvaliacao().child(agendamento.getCuidadorId()).push().getKey();
+        avaliacaoForm.setIdAvaliacao(id);
         avaliacaoForm.setComentario(comentarioServico.getText().toString().trim());
         avaliacaoForm.setIdAgendamento(agendamento.getId());
         avaliacaoForm.setNota(notaServico.getRating());

@@ -20,7 +20,7 @@ import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 public class ComentariosActivity extends AppCompatActivity {
     private ListView listView;
     private List<AvaliacaoForm> avaliacaoForms = new ArrayList<>();
-    private List <Pessoa> pessoa = new ArrayList<>();
+    private List <Pessoa> pessoas = new ArrayList<>();
     private ComentariosAdapter adapter;
 
     @Override
@@ -32,32 +32,50 @@ public class ComentariosActivity extends AppCompatActivity {
 
     private void setTela(){
         listView = findViewById(R.id.listViewAvaliacoes);
-        adapter = new ComentariosAdapter(avaliacaoForms, pessoa);
+        adapter = new ComentariosAdapter(avaliacaoForms, pessoas);
         listView.setAdapter(adapter);
     }
 
-//    private void getAvaliacoes(){
-//        Sessao.getDatabaseAvaliacao().addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                List<AvaliacaoForm> ll = new ArrayList<>();
-//                pessoa.clear();
-//                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-//                    for (DataSnapshot dataSnapshot2: dataSnapshot1.getChildren()){
-//                        AvaliacaoForm avaliacaoForm = dataSnapshot2.getValue(AvaliacaoForm.class);
-//                        if (avaliacaoForm.getIdAvaliado().equals(avaliacaoForm.)
-//                    }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        })
-//
-//    }
-//
-//    private void getPessoa(){
-//
-//    }
-//        }
+    private void getAvaliacoes(){
+        Sessao.getDatabaseAvaliacao().child(getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    AvaliacaoForm avaliacaoForm = dataSnapshot1.getValue(AvaliacaoForm.class);
+                    avaliacaoForms.add(avaliacaoForm);
+                    getPessoa(avaliacaoForm.getIdAvaliador());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void getPessoa(String id){
+        Sessao.getDatabasePessoa().child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                pessoas.add(dataSnapshot.getValue(Pessoa.class));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private String getId(){
+        try{
+            Bundle b = getIntent().getExtras();
+            return b.getString("id");
+        }catch (NullPointerException n){
+            return Sessao.getUserId();
+        }
+    }
 }
