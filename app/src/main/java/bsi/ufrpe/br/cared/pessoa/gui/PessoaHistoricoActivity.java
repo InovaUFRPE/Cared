@@ -39,20 +39,20 @@ public class PessoaHistoricoActivity extends AppCompatActivity {
         listView = findViewById(R.id.listViewHistorico);
         adapter = new PessoaHistoricoAdapter(agendamentos, cuidadores);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                clickAgendamento(i);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+////                clickAgendamento(i);
+//            }
+//        });
         getAgedamentos();
     }
-    private void clickAgendamento(int position){
-        Intent intent = new Intent(this, PessoaAgendamentoActivity.class);
-        intent.putExtra("id", agendamentos.get(position).getId());
-        intent.putExtra("idC", agendamentos.get(position).getCuidadorId());
-        startActivity(intent);
-    }
+//        private void clickAgendamento(int position){
+//        Intent intent = new Intent(this, PessoaAgendamentoActivity.class);
+//        intent.putExtra("id", agendamentos.get(position).getId());
+//        intent.putExtra("idC", agendamentos.get(position).getCuidadorId());
+//        startActivity(intent);
+//    }
     private void getAgedamentos(){
         Sessao.getDatabaseAgendamento().addValueEventListener(new ValueEventListener() {
             @Override

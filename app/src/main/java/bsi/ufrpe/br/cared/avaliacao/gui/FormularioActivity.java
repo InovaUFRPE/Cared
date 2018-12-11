@@ -48,7 +48,7 @@ public class FormularioActivity extends AppCompatActivity {
         notaServico = findViewById(R.id.notaServicoId);
         comentarioServico = findViewById(R.id.comentariosServico);
         enviar = findViewById(R.id.enviarAvaliacao);
-//        setFormulario();
+        setFormulario();
     }
 
     private void setFormulario(){
@@ -59,7 +59,7 @@ public class FormularioActivity extends AppCompatActivity {
         avaliacaoForm.setNota(notaServico.getRating());
         avaliacaoForm.setIdAvaliador(Sessao.getUserId());
         avaliacaoForm.setIdAvaliado(agendamento.getCuidadorId());
-        Sessao.getDatabaseAvaliacao().child(agendamento.getCuidadorId()).setValue(avaliacaoForm);
+        Sessao.getDatabaseAvaliacao().child(avaliacaoForm.getIdAvaliacao()).child(agendamento.getCuidadorId()).setValue(avaliacaoForm);
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }

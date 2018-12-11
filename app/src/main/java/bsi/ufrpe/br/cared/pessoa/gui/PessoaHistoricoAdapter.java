@@ -38,7 +38,8 @@ public class PessoaHistoricoAdapter extends ArrayAdapter<Agendamento> {
         LayoutInflater inflater = (LayoutInflater) MyApplication.getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_historico, parent, false);
-        Cuidador cuidador = escolherCuidador(agendamentos.get(position).getCuidadorId());
+        final Agendamento agendamento = agendamentos.get(position);
+        Cuidador cuidador = escolherCuidador(agendamento.getCuidadorId());
         if (cuidador != null) {
             TextView nome = rowView.findViewById(R.id.nomeCuidadorId);
             TextView horarioInicio = rowView.findViewById(R.id.deId);
@@ -53,14 +54,16 @@ public class PessoaHistoricoAdapter extends ArrayAdapter<Agendamento> {
                     .into(foto);
 
             nome.setText(cuidador.getPessoa().getNome());
-            horarioInicio.setText(textoHorarioInicio(agendamentos.get(position).getHorario()));
-            horarioFim.setText(textoHorarioFim(agendamentos.get(position).getHorario()));
+            horarioInicio.setText(textoHorarioInicio(agendamento.getHorario()));
+            horarioFim.setText(textoHorarioFim(agendamento.getHorario()));
             String aux = String.valueOf(cuidador.getValor());
             valor.setText(aux);
             avaliar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(parent.getContext(), FormularioActivity.class);
+                    intent.putExtra("id", agendamento.getId());
+                    intent.putExtra("idC", agendamento.getCuidadorId());
                     parent.getContext().startActivity(intent);
                 }
             });
