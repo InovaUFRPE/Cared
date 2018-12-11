@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 
 import bsi.ufrpe.br.cared.R;
+import bsi.ufrpe.br.cared.avaliacao.dominio.AvaliacaoForm;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
 import bsi.ufrpe.br.cared.horario.dominio.Horario;
@@ -34,6 +35,10 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
     private Horario horario;
     private LinearLayout linearLayout;
     private ProgressDialog progressDialog;
+    private AvaliacaoForm avaliacaoForm;
+
+    public PerfilCuidadorActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,8 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         nome.setText(cuidador.getPessoa().getNome());
         servicos.setText(cuidador.getServico());
         valor.setText("R$" + getPreco());
+        double notinha = mediaNota();
+        nota.setText(String.valueOf(notinha));
         linearLayout.setVisibility(View.VISIBLE);
         progressDialog.dismiss();
     }
@@ -111,4 +118,16 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         BigDecimal valor = pHora.multiply(new BigDecimal(ConflitoHorarios.getTempo(horario))).add(new BigDecimal(5));
         return valor.doubleValue();
     }
+
+//    public double mediaNota(){
+//        double media;
+//        int notas;
+//        media = 0;
+//        notas = 0;
+//        for (AvaliacaoForm avaliacaoForm: avaliacaoForm){
+//            media = media + avaliacaoForm.getNota();
+//            notas +=1;
+//        }
+//        return media/notas;
+//    }
 }

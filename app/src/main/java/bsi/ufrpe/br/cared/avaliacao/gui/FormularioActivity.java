@@ -48,7 +48,6 @@ public class FormularioActivity extends AppCompatActivity {
         notaServico = findViewById(R.id.notaServicoId);
         comentarioServico = findViewById(R.id.comentariosServico);
         enviar = findViewById(R.id.enviarAvaliacao);
-        setFormulario();
     }
 
     private void setFormulario(){
@@ -65,40 +64,6 @@ public class FormularioActivity extends AppCompatActivity {
         finish();
     }
 
-
-    private void getAgendamento(){
-        Sessao.getDatabaseAgendamento().child(agendamento.getCuidadorId()).child(getId()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                agendamento = dataSnapshot.getValue(Agendamento.class);
-                getPessoa(agendamento.getCuidadorId());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-
-    private void getPessoa(String id){
-        Sessao.getDatabasePessoa().child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                pessoa = dataSnapshot.getValue(Pessoa.class);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-//
-    private String getId(){
-        Bundle extra = getIntent().getExtras();
-        return extra.getString("id");
-    }
 
     private void getExtras(){
         Bundle extra = getIntent().getExtras();
