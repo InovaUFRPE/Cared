@@ -48,7 +48,11 @@
             android:name=".cuidador.gui.RendimentosCuidadorActivity"
             android:label="@string/title_activity_rendimentos_cuidador"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".pessoa.gui.PessoaCalendarActivity"></activity>
+        <activity android:name=".pessoa.gui.PessoaCalendarActivity" />
+        <activity
+            android:name=".cuidador.gui.EditarPerfilComplementoCuidadorActivity"
+            android:label="@string/title_activity_editar_perfil_complemento_cuidador"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -3,12 +3,15 @@ package bsi.ufrpe.br.cared.cuidador.gui;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -74,6 +78,7 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         startActivityForResult(intent.createChooser(intent, "Selecione Foto"), PICK_IMAGE_REQUEST);
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
@@ -139,6 +144,11 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
 
     private void setCuidador(){
         Cuidador cuidador = Sessao.getCuidador();
+        Picasso.get()
+                .load(cuidador.getPessoa().getFoto())
+                .resize(300, 300)
+                .centerCrop()
+                .into(fotoCuidadorEditar);
         nomeEditar.setText(cuidador.getPessoa().getNome());
         telefoneEditar.setText(cuidador.getPessoa().getTelefone());
         ruaEditar.setText(cuidador.getPessoa().getEndereco().getRua());
@@ -172,6 +182,7 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         cuidador.getPessoa().setEndereco(endereco);
         Sessao.setPessoa(TipoUsuario.CUIDADOR, cuidador);
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(Sessao.getCuidador());
+        startActivity(new Intent(this, EditarPerfilComplementoCuidadorActivity.class));
         finish();
     }
 

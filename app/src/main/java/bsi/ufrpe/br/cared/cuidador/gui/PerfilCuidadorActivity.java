@@ -45,10 +45,6 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
     private void setTela(){
         linearLayout = findViewById(R.id.linearLayout2);
         linearLayout.setVisibility(View.GONE);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Carregando...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
         foto = findViewById(R.id.fotoPerfilCuidadorActivity);
         nome = findViewById(R.id.nomeCuidadorPerfilId);
         servicos = findViewById(R.id.descricao);
