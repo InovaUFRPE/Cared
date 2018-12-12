@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.avaliacao.dominio.AvaliacaoForm;
@@ -38,6 +39,7 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
     private ProgressDialog progressDialog;
     private AvaliacaoForm avaliacaoForm;
+    private List<AvaliacaoForm> avaliacaoFormList;
 
     public PerfilCuidadorActivity() {
     }
@@ -56,6 +58,7 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         nome = findViewById(R.id.nomeCuidadorPerfilId);
         servicos = findViewById(R.id.descricao);
         valor = findViewById(R.id.valor);
+        nota = findViewById(R.id.notaCuidador);
         botaoContratar = findViewById(R.id.btContratarId);
         botaoContratar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +95,7 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
 //        double notinha = mediaNota();
 //        nota.setText(String.valueOf(notinha));
         linearLayout.setVisibility(View.VISIBLE);
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
     }
 
     private void contratar(){
@@ -128,17 +131,17 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         return valor.doubleValue();
     }
 
-//    public double mediaNota(){
-//        double media;
-//        int notas;
-//        media = 0;
-//        notas = 0;
-//        for (AvaliacaoForm avaliacaoForm: avaliacaoForm){
-//            media = media + avaliacaoForm.getNota();
-//            notas +=1;
-//        }
-//        return media/notas;
-//    }
+    public double mediaNota(){
+        double notas;
+        int quantidade;
+        notas = 0;
+        quantidade = 0;
+        for (AvaliacaoForm avaliacaoForm: avaliacaoFormList);{
+            notas = notas + avaliacaoForm.getNota();
+            quantidade +=1;
+        }
+        return notas/quantidade;
+    }
 
     private void comentarios(){
         Intent intent = new Intent(this, ComentariosActivity.class);
