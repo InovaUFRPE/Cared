@@ -48,7 +48,7 @@ public class ComentariosAdapter extends ArrayAdapter<AvaliacaoForm> {
             String aux = String.valueOf(avaliacaoForm.getNota());
             nota.setText(aux);
             nome.setText(pessoa.getNome());
-            //falta setar o nome da pessoa
+
 
 
             Picasso.get()

@@ -34,6 +34,7 @@ public class ComentariosActivity extends AppCompatActivity {
         listView = findViewById(R.id.listViewAvaliacoes);
         adapter = new ComentariosAdapter(avaliacaoForms, pessoas);
         listView.setAdapter(adapter);
+        getAvaliacoes();
     }
 
     private void getAvaliacoes(){

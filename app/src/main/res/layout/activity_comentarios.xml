@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".avaliacao.gui.ComentariosActivity">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".avaliacao.gui.ComentariosActivity">
-    <ScrollView
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Avaliações"
-                android:textSize="25dp"/>
-            <ListView
-                android:id="@+id/listViewAvaliacoes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
-        </LinearLayout>
-    </ScrollView>
-</android.support.constraint.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:text="Avaliações"
+        android:textSize="20dp"/>
+    <ListView
+        android:id="@+id/listViewAvaliacoes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+</LinearLayout>
+
+</LinearLayout>
