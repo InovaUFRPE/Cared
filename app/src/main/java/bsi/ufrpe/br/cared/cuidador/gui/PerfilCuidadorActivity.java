@@ -33,7 +33,7 @@ import bsi.ufrpe.br.cared.infra.servico.ConflitoHorarios;
 
 public class PerfilCuidadorActivity extends AppCompatActivity {
     private ImageView foto;
-    private TextView nome, servicos, nota, valor;
+    private TextView nome, descricao, classificacao, endereco, bairro, nota, valor, disponivelDormir, dormirSimNao, possuiCurso, cursoSimNao, listaCurso, possuiExperiencia, experienciaSimNao, listaExperiencia;
     private Button botaoContratar, botaoComentarios;
     private Cuidador cuidador;
     private Horario horario;
@@ -58,9 +58,20 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         linearLayout.setVisibility(View.GONE);
         foto = findViewById(R.id.fotoPerfilCuidadorActivity);
         nome = findViewById(R.id.nomeCuidadorPerfilId);
-        servicos = findViewById(R.id.descricao);
+        descricao = findViewById(R.id.descricao);
+        classificacao = findViewById(R.id.classificacaoCuidador);
+        endereco = findViewById(R.id.enderecoCuidador);
+        bairro = findViewById(R.id.bairroCuidador);
         valor = findViewById(R.id.valor);
-//        nota = findViewById(R.id.notaCuidador);
+        nota = findViewById(R.id.notaCuidador);
+        disponivelDormir = findViewById(R.id.disponibilidadeDormir);
+        dormirSimNao = findViewById(R.id.dormirSimouNao);
+        possuiCurso = findViewById(R.id.possuiCurso);
+        cursoSimNao = findViewById(R.id.cursoSimouNao);
+        listaCurso = findViewById(R.id.listaCurso);
+        possuiExperiencia = findViewById(R.id.possuiExperiencia);
+        experienciaSimNao = findViewById(R.id.experienciaSimouNao);
+        listaExperiencia = findViewById(R.id.listaExperiencia);
         botaoContratar = findViewById(R.id.btContratarId);
         botaoContratar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,8 +103,34 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
                 .centerCrop()
                 .into(foto);
         nome.setText(cuidador.getPessoa().getNome());
-        servicos.setText(cuidador.getServico());
+        descricao.setText(cuidador.getServico());
+        //classificacao.setText(cuidador.get);
+        endereco.setText(cuidador.getPessoa().getEndereco().getCidade());
+        bairro.setText(cuidador.getPessoa().getEndereco().getBairro());
         valor.setText("R$" + getPreco());
+        //nota.setText(cuidador.get);
+        dormirSimNao.setText(cuidador.getDisponivelDormir());
+        possuiCurso.setText(cuidador.getPossuiCurso());
+        possuiExperiencia.setText(cuidador.getExperiencia());
+        if((String.valueOf(Sessao.getCuidador().getDisponivelDormir())) == "SIM"){
+            dormirSimNao.setText("Sim");
+        } else {
+            dormirSimNao.setText("Não");
+        }
+        if ((String.valueOf(Sessao.getCuidador().getPossuiCurso())) == "SIM") {
+            cursoSimNao.setText("Sim");
+            listaCurso.setText(Sessao.getCuidador().getCurso());
+        } else {
+            cursoSimNao.setText("Não");
+            listaCurso.setText("Não possui cursos");
+        }
+        if ((String.valueOf(Sessao.getCuidador().getExperiencia())) == "SIM"){
+            experienciaSimNao.setText("Sim");
+            listaExperiencia.setText((Sessao.getCuidador().getResumoExperiencia()));
+        } else{
+            experienciaSimNao.setText("Não");
+            listaExperiencia.setText("Não possui experiência");
+        }
         getAvaliacoes();
         linearLayout.setVisibility(View.VISIBLE);
 //        progressDialog.dismiss();

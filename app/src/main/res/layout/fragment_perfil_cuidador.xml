@@ -35,7 +35,7 @@
 
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/classificacaoCuidador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -89,7 +89,7 @@
         android:layout_marginTop="4dp"
         android:text="Bairro"
         app:layout_constraintStart_toEndOf="@+id/enderecoCuidadoraId"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/classificacaoCuidador" />
 
     <TextView
         android:id="@+id/textView7"
@@ -171,7 +171,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="12dp"
-        android:text="Lista de Experiencia"
+        android:text="Lista de Experiência"
         app:layout_constraintBottom_toTopOf="@+id/btContratarId"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />

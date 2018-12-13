@@ -28,7 +28,7 @@ import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 
 public class PerfilCuidadorFragment extends Fragment {
-//    private List<AvaliacaoForm> avaliacaoFormList;
+    //private List<AvaliacaoForm> avaliacaoFormList;
     private List<AvaliacaoForm> avaliacaoFormList = new ArrayList<>();
     double notas;
     int quantidade;
@@ -52,7 +52,7 @@ public class PerfilCuidadorFragment extends Fragment {
         TextView listaCurso = getView().findViewById(R.id.listaCursos);
         TextView experiencia = getView().findViewById(R.id.possuiExperiencia);
         TextView listaExperiencia =getView().findViewById(R.id.listaExperiencia);
-//        TextView nota = getView().findViewById(R.id.notaCuidador);
+//      TextView nota = getView().findViewById(R.id.notaCuidador);
         Picasso.get()
                 .load(Sessao.getCuidador().getPessoa().getFoto())
                 .resize(300, 300)
