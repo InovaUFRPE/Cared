@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import bsi.ufrpe.br.cared.R;
@@ -38,8 +39,9 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
     private Horario horario;
     private LinearLayout linearLayout;
     private ProgressDialog progressDialog;
-    private AvaliacaoForm avaliacaoForm;
-    private List<AvaliacaoForm> avaliacaoFormList;
+    private List<AvaliacaoForm> avaliacaoFormList = new ArrayList<>();
+    double notas;
+    int quantidade;
 
     public PerfilCuidadorActivity() {
     }
@@ -58,7 +60,7 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         nome = findViewById(R.id.nomeCuidadorPerfilId);
         servicos = findViewById(R.id.descricao);
         valor = findViewById(R.id.valor);
-        nota = findViewById(R.id.notaCuidador);
+//        nota = findViewById(R.id.notaCuidador);
         botaoContratar = findViewById(R.id.btContratarId);
         botaoContratar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,8 +94,7 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         nome.setText(cuidador.getPessoa().getNome());
         servicos.setText(cuidador.getServico());
         valor.setText("R$" + getPreco());
-//        double notinha = mediaNota();
-//        nota.setText(String.valueOf(notinha));
+        getAvaliacoes();
         linearLayout.setVisibility(View.VISIBLE);
 //        progressDialog.dismiss();
     }
@@ -131,16 +132,15 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         return valor.doubleValue();
     }
 
-    public double mediaNota(){
-        double notas;
-        int quantidade;
+    public void mediaNota(){
         notas = 0;
-        quantidade = 0;
-        for (AvaliacaoForm avaliacaoForm: avaliacaoFormList);{
+        for (AvaliacaoForm avaliacaoForm: avaliacaoFormList){
             notas = notas + avaliacaoForm.getNota();
-            quantidade +=1;
         }
-        return notas/quantidade;
+        quantidade = avaliacaoFormList.size();
+        notas = notas/quantidade;
+        nota = findViewById(R.id.notaCuidador);
+        nota.setText(String.valueOf(notas));
     }
 
     private void comentarios(){
@@ -148,4 +148,25 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         intent.putExtra("id", cuidador.getUserId());
         startActivity(intent);
     }
+
+    private void getAvaliacoes(){
+        Sessao.getDatabaseAvaliacao().child(cuidador.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    AvaliacaoForm avaliacaoForm = dataSnapshot1.getValue(AvaliacaoForm.class);
+                    avaliacaoFormList.add(avaliacaoForm);
+                }
+                mediaNota();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 }
