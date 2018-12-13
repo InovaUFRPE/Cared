@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bsi.ufrpe.br.cared.R;
@@ -27,8 +28,10 @@ import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.pessoa.dominio.Pessoa;
 
 public class PerfilCuidadorFragment extends Fragment {
-    private AvaliacaoForm avaliacaoForm;
-    private List<AvaliacaoForm> avaliacaoFormList;
+//    private List<AvaliacaoForm> avaliacaoFormList;
+    private List<AvaliacaoForm> avaliacaoFormList = new ArrayList<>();
+    double notas;
+    int quantidade;
 
     @Nullable
     @Override
@@ -49,7 +52,7 @@ public class PerfilCuidadorFragment extends Fragment {
         TextView listaCurso = getView().findViewById(R.id.listaCursos);
         TextView experiencia = getView().findViewById(R.id.possuiExperiencia);
         TextView listaExperiencia =getView().findViewById(R.id.listaExperiencia);
-        TextView nota = getView().findViewById(R.id.notaCuidador);
+//        TextView nota = getView().findViewById(R.id.notaCuidador);
         Picasso.get()
                 .load(Sessao.getCuidador().getPessoa().getFoto())
                 .resize(300, 300)
@@ -59,8 +62,8 @@ public class PerfilCuidadorFragment extends Fragment {
         cidade.setText(Sessao.getCuidador().getPessoa().getEndereco().getCidade());
         bairro.setText(Sessao.getCuidador().getPessoa().getEndereco().getBairro());
         descricao.setText(Sessao.getCuidador().getServico());
-//        double notinha = mediaNota();
-//        nota.setText(String.valueOf(notinha));
+        getAvaliacoes();
+//        nota.setText(String.valueOf(notas));
         if((String.valueOf(Sessao.getCuidador().getDisponivelDormir())) == "SIM"){
             dormir.setText("Sim");
         } else {
@@ -105,17 +108,15 @@ public class PerfilCuidadorFragment extends Fragment {
     }
 
 
-    public double mediaNota(){
-        getAvaliacoes();
-        double notas;
-        int quantidade;
+    public void mediaNota(){
         notas = 0;
-        quantidade = 0;
-        for (AvaliacaoForm avaliacaoForm: avaliacaoFormList);{
+        for (AvaliacaoForm avaliacaoForm: avaliacaoFormList){
             notas = notas + avaliacaoForm.getNota();
-            quantidade +=1;
         }
-        return notas/quantidade;
+        quantidade = avaliacaoFormList.size();
+        notas = notas/quantidade;
+        TextView nota = getView().findViewById(R.id.notaCuidador);
+        nota.setText(String.valueOf(notas));
     }
 
     private void getAvaliacoes(){
@@ -127,6 +128,7 @@ public class PerfilCuidadorFragment extends Fragment {
                     AvaliacaoForm avaliacaoForm = dataSnapshot1.getValue(AvaliacaoForm.class);
                     avaliacaoFormList.add(avaliacaoForm);
                 }
+                mediaNota();
             }
 
             @Override

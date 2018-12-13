@@ -51,7 +51,7 @@ public class FormularioActivity extends AppCompatActivity {
         enviar = findViewById(R.id.enviarAvaliacao);
     }
 
-    private void setFormulario(){
+    private void setFormulario() {
         avaliacaoForm = new AvaliacaoForm();
         getExtras();
         String id = Sessao.getDatabaseAvaliacao().child(agendamento.getCuidadorId()).push().getKey();
@@ -67,10 +67,26 @@ public class FormularioActivity extends AppCompatActivity {
     }
 
 
-    private void getExtras(){
+    private void getExtras() {
         Bundle extra = getIntent().getExtras();
         agendamento = new Agendamento();
         agendamento.setId(extra.getString("id"));
         agendamento.setCuidadorId(extra.getString("idC"));
     }
+
+    private Boolean getHorarios() {
+        Boolean result = true;
+        Sessao.getDatabaseAvaliacao().child(agendamento.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return result;
+    }
+
 }
