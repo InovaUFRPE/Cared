@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.squareup.picasso.Picasso;
+
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.cuidador.dominio.Cuidador;
 import bsi.ufrpe.br.cared.infra.Sessao;
@@ -30,6 +32,7 @@ public class EditarPerfilComplementoCuidadorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil_complemento_cuidador);
         setEditarTelaComplementos();
+        setCuidadorComplemento();
         editarInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,27 +56,49 @@ public class EditarPerfilComplementoCuidadorActivity extends AppCompatActivity {
         editarInfoButton = findViewById(R.id.editarComplementoButton);
     }
 
+    private void setCuidadorComplemento() {
+        Cuidador cuidador = Sessao.getCuidador();
+        if (cuidador.getDisponivelDormir() == "SIM"){
+            editarDormirDisponivel.setChecked(true);
+        } else {
+            editarDormirIndisponivel.setChecked(true);
+        }
+        if (cuidador.getPossuiCurso() == "SIM"){
+            editarPossuiCurso.setChecked(true);
+        } else {
+            editarNaoPossuiCurso.setChecked(true);
+        }
+        if (cuidador.getExperiencia() == "SIM"){
+            editarPossuiExperiencia.setChecked(true);
+        } else {
+            editarNaoPossuiExperiencia.setChecked(true);
+        }
+        editarListaCursos.setText(cuidador.getCurso());
+        editarExperienciaCuidador.setText(cuidador.getResumoExperiencia());
+
+    }
+
     private void setEditarInfoCuidador() {
         Cuidador cuidador = Sessao.getCuidador();
         String SIM = "SIM";
         String NAO = "NÃO";
-        if (editarDormirDisponivel.isSelected()) {
+        if (editarDormirDisponivel.isChecked()) {
             cuidador.setDisponivelDormir(SIM);
-        } else if (editarDormirIndisponivel.isSelected()) {
+        } else if (editarDormirIndisponivel.isChecked()) {
             cuidador.setDisponivelDormir(NAO);
         }
-        if (editarPossuiCurso.isSelected()) {
+        if (editarPossuiCurso.isChecked()) {
             cuidador.setPossuiCurso(SIM);
             String cursos = editarListaCursos.getText().toString().trim();
             cuidador.setCursosInformado(cursos);
-        } else if (editarNaoPossuiCurso.isSelected()) {
+        } else if (editarNaoPossuiCurso.isChecked()) {
             cuidador.setPossuiCurso(NAO);
         }
-        if (editarPossuiExperiencia.isSelected()) {
+        if (editarPossuiExperiencia.isChecked()) {
             cuidador.setPossuiExperiencia(SIM);
             String resumoExperiencia = editarExperienciaCuidador.getText().toString().trim();
             cuidador.setResumoExperiencia(resumoExperiencia);
-        } else if (editarNaoPossuiExperiencia.isSelected()) {
+        } else if (editarNaoPossuiExperiencia.isChecked()) {
             cuidador.setPossuiExperiencia(NAO);
         }
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(Sessao.getCuidador());

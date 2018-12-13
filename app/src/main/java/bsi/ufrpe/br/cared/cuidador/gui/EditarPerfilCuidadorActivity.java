@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -28,6 +29,9 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.UUID;
 
 import bsi.ufrpe.br.cared.R;
@@ -43,6 +47,7 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
     private ServicoValidacao servicoValidacao = new ServicoValidacao();
     private Button alterarDados, fotoAlterarCuidador;
     private String urlFoto;
+    private Bitmap fotoPerfil, fotoAlterada;
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -64,8 +69,10 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!vericarCampos()) {
                     return;
-                } else {
+                } else if(fotoPerfil != fotoAlterada){
                     inserirImagemBanco();
+                } else{
+                    alterarMesmaFoto();
                 }
             }
         });
@@ -78,6 +85,21 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         startActivityForResult(intent.createChooser(intent, "Selecione Foto"), PICK_IMAGE_REQUEST);
     }
 
+    public Bitmap doInBackground(String urlFotos) {
+        Bitmap map = null;
+        try {
+            URL url = new URL(urlFotos);
+            HttpURLConnection connection =(HttpURLConnection)url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            map= BitmapFactory.decodeStream(input);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -87,6 +109,7 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
             filePath = data.getData();
             try{
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
+                fotoAlterada = bitmap;
                 fotoCuidadorEditar.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -149,6 +172,7 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
                 .resize(300, 300)
                 .centerCrop()
                 .into(fotoCuidadorEditar);
+        fotoPerfil = doInBackground(cuidador.getPessoa().getFoto());
         nomeEditar.setText(cuidador.getPessoa().getNome());
         telefoneEditar.setText(cuidador.getPessoa().getTelefone());
         ruaEditar.setText(cuidador.getPessoa().getEndereco().getRua());
@@ -157,6 +181,32 @@ public class EditarPerfilCuidadorActivity extends AppCompatActivity {
         cidadeEditar.setText(cuidador.getPessoa().getEndereco().getCidade());
         valorEditar.setText(String.valueOf(cuidador.getValor()));
         descricaoEditar.setText(cuidador.getServico());
+    }
+
+    private void alterarMesmaFoto(){
+        Cuidador cuidador = Sessao.getCuidador();
+        String nome = nomeEditar.getText().toString().trim();
+        String telefone = telefoneEditar.getText().toString().trim();
+        String rua = ruaEditar.getText().toString().trim();
+        String numero = numeroEditar.getText().toString().trim();
+        String bairro = bairroEditar.getText().toString().trim();
+        String cidade = cidadeEditar.getText().toString().trim();
+        String valor = valorEditar.getText().toString().trim();
+        String descricao = descricaoEditar.getText().toString().trim();
+        Endereco endereco = cuidador.getPessoa().getEndereco();
+        cuidador.setServico(descricao);
+        cuidador.setValor(Double.parseDouble(valor));
+        cuidador.getPessoa().setNome(nome);
+        cuidador.getPessoa().setTelefone(telefone);
+        endereco.setBairro(bairro);
+        endereco.setCidade(cidade);
+        endereco.setNumero(numero);
+        endereco.setRua(rua);
+        cuidador.getPessoa().setEndereco(endereco);
+        Sessao.setPessoa(TipoUsuario.CUIDADOR, cuidador);
+        Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(Sessao.getCuidador());
+        startActivity(new Intent(this, EditarPerfilComplementoCuidadorActivity.class));
+        finish();
     }
 
     private void setAlterar(){

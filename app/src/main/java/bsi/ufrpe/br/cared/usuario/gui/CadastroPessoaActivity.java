@@ -229,7 +229,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             campoNecessidades.setError("Campo vazio");
             return false;
         } else if (servicoValidacao.verificarTamanhoData(dataNascimento)) {
-            campoNecessidades.setError("Data Invalida");
+            campoDataNasc.setError("Data Invalida");
             return false;
         } else {
             return true;

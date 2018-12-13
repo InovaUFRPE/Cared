@@ -3,6 +3,7 @@ package bsi.ufrpe.br.cared.pessoa.gui;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -22,8 +23,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.UUID;
 
 import bsi.ufrpe.br.cared.R;
@@ -39,6 +44,7 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
     private ImageView fotoPessoaAlterar;
     private ServicoValidacao servicoValidacao = new ServicoValidacao();
     private String urlFoto;
+    private Bitmap fotoPerfil, fotoAlterada;
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -60,9 +66,10 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!vericarCampos()) {
                     return;
-                } else {
+                } else if (fotoPerfil != fotoAlterada){
                     inserirImagemBanco();
                 }
+                    setAlterarMesmaFoto();
             }
         });
     }
@@ -74,6 +81,21 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
         startActivityForResult(intent.createChooser(intent, "Selecione Foto"), PICK_IMAGE_REQUEST);
     }
 
+    public Bitmap doInBackground(String urlFotos) {
+        Bitmap map = null;
+        try {
+            URL url = new URL(urlFotos);
+            HttpURLConnection connection =(HttpURLConnection)url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            map= BitmapFactory.decodeStream(input);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
@@ -82,6 +104,7 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
             filePath = data.getData();
             try{
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
+                fotoAlterada = bitmap;
                 fotoPessoaAlterar.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -134,9 +157,28 @@ public class EditarPerfilPessoaActivity extends AppCompatActivity {
 
     private void setPessoa(){
         Pessoa pessoa = Sessao.getPessoa();
+        Picasso.get()
+                .load(pessoa.getFoto())
+                .resize(300, 300)
+                .centerCrop()
+                .into(fotoPessoaAlterar);
+        fotoPerfil = doInBackground(pessoa.getFoto());
         nomePessoaEditar.setText(pessoa.getNome());
         telefonePessoaEditar.setText(pessoa.getTelefone());
         necessidadesPessoaEditar.setText(pessoa.getNecessidades());
+    }
+
+    private void setAlterarMesmaFoto(){
+        Pessoa pessoa = Sessao.getPessoa();
+        String nome = nomePessoaEditar.getText().toString().trim();
+        String telefone = telefonePessoaEditar.getText().toString().trim();
+        String necessidades = necessidadesPessoaEditar.getText().toString().trim();
+        pessoa.setNome(nome);
+        pessoa.setTelefone(telefone);
+        pessoa.setNecessidades(necessidades);
+        Sessao.setPessoa(TipoUsuario.PESSOA, pessoa);
+        Sessao.getDatabasePessoa().child(Sessao.getUserId()).setValue(Sessao.getPessoa());
+        finish();
     }
 
     private void setAlterar(){

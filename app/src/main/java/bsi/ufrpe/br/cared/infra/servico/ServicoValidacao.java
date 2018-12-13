@@ -23,7 +23,7 @@ public class ServicoValidacao {
         }
     }
     public boolean verificarTamanhoData(String campo){
-        if (campo.length() < 6 || campo.length() > 8){
+        if (campo.length() < 8 || campo.length() > 8){
             return true;
         } else{
             return false;

@@ -54,23 +54,23 @@ public class ComplementoCadastroActivity extends AppCompatActivity {
         Cuidador cuidador = Sessao.getCuidador();
         String SIM = "SIM";
         String NAO = "NÃO";
-        if (dormirDisponivel.isSelected()){
+        if (dormirDisponivel.isChecked()){
             cuidador.setDisponivelDormir(SIM);
-        } else if(dormirIndisponivel.isSelected()){
+        } else if(dormirIndisponivel.isChecked()){
             cuidador.setDisponivelDormir(NAO);
         }
-        if (possuiCurso.isSelected()){
+        if (possuiCurso.isChecked()){
             cuidador.setPossuiCurso(SIM);
             String cursos = listaCursos.getText().toString().trim();
             cuidador.setCursosInformado(cursos);
-        } else if(naoPossuiCurso.isSelected()) {
+        } else if(naoPossuiCurso.isChecked()) {
             cuidador.setPossuiCurso(NAO);
         }
-        if (possuiExperiencia.isSelected()){
+        if (possuiExperiencia.isChecked()){
             cuidador.setPossuiExperiencia(SIM);
             String resumoExperiencia = experienciaCuidador.getText().toString().trim();
             cuidador.setResumoExperiencia(resumoExperiencia);
-        } else if (naoPossuiExperiencia.isSelected()) {
+        } else if (naoPossuiExperiencia.isChecked()) {
             cuidador.setPossuiExperiencia(NAO);
         }
         Sessao.getDatabaseCuidador().child(Sessao.getUserId()).setValue(Sessao.getCuidador());
