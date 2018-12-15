@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
@@ -7,225 +7,195 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
-    <ImageView
-        android:id="@+id/fotoPerfilCuidadorActivity"
-        android:layout_width="150px"
-        android:layout_height="150px"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/profile" />
-
-
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_margin="8dp">
+        <ImageView
+            android:id="@+id/fotoPerfilCuidadorActivity"
+            android:layout_width="150px"
+            android:layout_height="150px"
+            app:srcCompat="@drawable/profile" />
 
-    <TextView
-        android:id="@+id/nomeCuidadorPerfilId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:gravity="center"
-        android:text="Nome do cabra"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fotoPerfilCuidadorActivity"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/nomeCuidadorPerfilId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Nome do cabra"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="5dp"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
 
+                <TextView
+                    android:id="@id/descricao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descrição"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:layout_marginStart="5dp"/></LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Classificação:"
+                    android:textSize="12sp"
+                    android:layout_marginStart="5dp" />
+
+                <TextView
+                    android:id="@+id/notaCuidador"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nota"
+                    android:textSize="12sp"
+                    android:layout_marginStart="2dp"/></LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/descvalor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Valor:"
+                    android:textSize="12sp"
+                    android:layout_marginStart="5dp" />
+
+                <TextView
+                    android:id="@+id/valor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R$"
+                    android:textSize="12sp"
+                    android:layout_marginStart="2dp"/></LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
-
-    <TextView
-        android:id="@+id/descricao"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/enderecoCuidador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Endereço"
+            android:layout_marginStart="8dp"/>
+        <TextView
+            android:id="@+id/bairroCuidador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bairro"
+            android:layout_marginStart="8dp"/></LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
-        android:text="Descrição"
-        app:layout_constraintStart_toEndOf="@+id/fotoPerfilCuidadorActivity"
-        app:layout_constraintTop_toBottomOf="@+id/nomeCuidadorPerfilId" />
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/classificacaoCuidador"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/disponibilidadeDormir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Disponibilidade para Dormir?"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dormirSimouNao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sim ou Não"
+            android:layout_marginStart="8dp"/></LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
-        android:text="Classificação"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/descricao"
-        app:layout_constraintTop_toBottomOf="@+id/nomeCuidadorPerfilId" />
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/enderecoCuidador"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="4dp"
-        android:text="Endereço"
-        app:layout_constraintStart_toEndOf="@+id/fotoPerfilCuidadorActivity"
-        app:layout_constraintTop_toBottomOf="@+id/descricao" />
+        <TextView
+            android:id="@+id/possuiCurso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Possui cursos profissionalizantes?"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/bairroCuidador"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
-        android:text="Bairro"
-        app:layout_constraintStart_toEndOf="@+id/enderecoCuidador"
-        app:layout_constraintTop_toBottomOf="@+id/classificacaoCuidador" />
-
-    <TextView
-        android:id="@+id/notaCuidador"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="4dp"
-        android:text="Nota"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/fotoPerfilCuidadorActivity"
-        app:layout_constraintTop_toBottomOf="@+id/enderecoCuidador" />
-
-    <TextView
-        android:id="@+id/Valor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:text="Valor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fotoPerfilCuidadorActivity" />
-
-    <TextView
-        android:id="@+id/valor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="R$20,00"
-        app:layout_constraintStart_toEndOf="@+id/Valor"
-        app:layout_constraintTop_toBottomOf="@+id/fotoPerfilCuidadorActivity" />
-
-
-    <TextView
-        android:id="@+id/disponibilidadeDormir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:text="Disponibilidade para dormir?"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Valor" />
-
-    <TextView
-        android:id="@+id/experienciaSimouNao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:text="Sim ou Não"
-        app:layout_constraintStart_toEndOf="@+id/possuiExperiencia"
-        app:layout_constraintTop_toBottomOf="@+id/listaCurso" />
-
-    <TextView
-        android:id="@+id/possuiCurso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:text="Possui cursos profissionalizantes?"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/disponibilidadeDormir" />
-
-    <TextView
-        android:id="@+id/cursoSimouNao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:text="Sim ou Não"
-        app:layout_constraintStart_toEndOf="@+id/possuiCurso"
-        app:layout_constraintTop_toBottomOf="@+id/dormirSimouNao" />
+        <TextView
+            android:id="@+id/cursoSimouNao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sim ou Não"
+            android:layout_marginStart="8dp"/></LinearLayout>
 
     <TextView
         android:id="@+id/listaCurso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
         android:text="Lista de Cursos"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/possuiCurso" />
-
-    <TextView
-        android:id="@+id/possuiExperiencia"
-        android:layout_width="wrap_content"
+        android:layout_marginStart="8dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:text="Possui Experiencia?"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listaCurso" />
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/dormirSimouNao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:text="Sim ou Não"
-        app:layout_constraintStart_toEndOf="@+id/disponibilidadeDormir"
-        app:layout_constraintTop_toBottomOf="@+id/valor" />
+        <TextView
+            android:id="@+id/possuiExperiencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Possui Experiencia?"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/experienciaSimouNao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sim ou não"
+            android:layout_marginStart="8dp"/></LinearLayout>
 
     <TextView
         android:id="@+id/listaExperiencia"
         android:layout_width="wrap_content"
-        android:layout_height="17dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:text="Lista de Experiência"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/possuiExperiencia" />
+        android:layout_height="wrap_content"
+        android:text="Lista de Experiencia"
+        android:layout_marginStart="8dp"/>
 
     <Button
         android:id="@+id/btContratarId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="12dp"
         android:background="@color/colorButton"
         android:text="Contratar"
         android:textAllCaps="true"
         android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listaExperiencia" />
+        android:layout_margin="8dp"/>
 
     <Button
         android:id="@+id/btComentariosid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="12dp"
         android:background="@color/colorButton"
         android:text="Comentários"
         android:textAllCaps="true"
         android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btContratarId" />
+        android:layout_margin="8dp"/>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

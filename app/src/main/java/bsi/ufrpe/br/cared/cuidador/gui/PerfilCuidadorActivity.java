@@ -33,7 +33,7 @@ import bsi.ufrpe.br.cared.infra.servico.ConflitoHorarios;
 
 public class PerfilCuidadorActivity extends AppCompatActivity {
     private ImageView foto;
-    private TextView nome, descricao, classificacao, endereco, bairro, nota, valor, disponivelDormir, dormirSimNao, possuiCurso, cursoSimNao, listaCurso, possuiExperiencia, experienciaSimNao, listaExperiencia;
+    private TextView nome, descricao, endereco, bairro, nota, valor, disponivelDormir, dormirSimNao, possuiCurso, cursoSimNao, listaCurso, possuiExperiencia, experienciaSimNao, listaExperiencia;
     private Button botaoContratar, botaoComentarios;
     private Cuidador cuidador;
     private Horario horario;
@@ -59,7 +59,6 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         foto = findViewById(R.id.fotoPerfilCuidadorActivity);
         nome = findViewById(R.id.nomeCuidadorPerfilId);
         descricao = findViewById(R.id.descricao);
-        classificacao = findViewById(R.id.classificacaoCuidador);
         endereco = findViewById(R.id.enderecoCuidador);
         bairro = findViewById(R.id.bairroCuidador);
         valor = findViewById(R.id.valor);
@@ -104,29 +103,27 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
                 .into(foto);
         nome.setText(cuidador.getPessoa().getNome());
         descricao.setText(cuidador.getServico());
-        //classificacao.setText(cuidador.get);
         endereco.setText(cuidador.getPessoa().getEndereco().getCidade());
         bairro.setText(cuidador.getPessoa().getEndereco().getBairro());
         valor.setText("R$" + getPreco());
-        //nota.setText(cuidador.get);
-        dormirSimNao.setText(cuidador.getDisponivelDormir());
-        possuiCurso.setText(cuidador.getPossuiCurso());
-        possuiExperiencia.setText(cuidador.getExperiencia());
-        if((String.valueOf(Sessao.getCuidador().getDisponivelDormir())) == "SIM"){
+//        dormirSimNao.setText(cuidador.getDisponivelDormir());
+//        possuiCurso.setText(cuidador.getPossuiCurso());
+//        possuiExperiencia.setText(cuidador.getExperiencia());
+        if((String.valueOf(cuidador.getDisponivelDormir())) == "SIM"){
             dormirSimNao.setText("Sim");
         } else {
             dormirSimNao.setText("Não");
         }
-        if ((String.valueOf(Sessao.getCuidador().getPossuiCurso())) == "SIM") {
+        if ((String.valueOf(cuidador.getPossuiCurso())) == "SIM") {
             cursoSimNao.setText("Sim");
-            listaCurso.setText(Sessao.getCuidador().getCurso());
+            listaCurso.setText(cuidador.getCurso());
         } else {
             cursoSimNao.setText("Não");
             listaCurso.setText("Não possui cursos");
         }
-        if ((String.valueOf(Sessao.getCuidador().getExperiencia())) == "SIM"){
+        if ((String.valueOf(cuidador.getExperiencia())) == "SIM"){
             experienciaSimNao.setText("Sim");
-            listaExperiencia.setText((Sessao.getCuidador().getResumoExperiencia()));
+            listaExperiencia.setText((cuidador.getResumoExperiencia()));
         } else{
             experienciaSimNao.setText("Não");
             listaExperiencia.setText("Não possui experiência");
