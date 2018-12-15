@@ -142,7 +142,7 @@ public class PerfilCuidadorActivity extends AppCompatActivity {
         agendamento.setSituacao(Situacao.PENDENTE);
         ConflitoHorarios.newAgendamento(agendamento);
         Toast.makeText(this, "Cuidador contratado com sucesso", Toast.LENGTH_SHORT).show();
-        finish();
+        //finish();
     }
 
     private void getCuidador(String id){
