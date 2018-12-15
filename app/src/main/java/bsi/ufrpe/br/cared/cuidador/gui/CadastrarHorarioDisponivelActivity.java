@@ -8,11 +8,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
+import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import bsi.ufrpe.br.cared.R;
 import bsi.ufrpe.br.cared.horario.dominio.Horario;
@@ -21,100 +24,157 @@ import bsi.ufrpe.br.cared.infra.Sessao;
 import bsi.ufrpe.br.cared.infra.servico.CalendarTypeConverter;
 import bsi.ufrpe.br.cared.infra.servico.ConflitoHorarios;
 
-public class CadastrarHorarioDisponivelActivity extends AppCompatActivity {
-    private MaterialCalendarView mcv;
-    private TextView dataInicio, dataFim, eInicio, eFim;
-    private Button btCriar;
-    private CalendarDay day1, day2;
-    private LinearLayout linearLayout;
-    private Calendar calendar = CalendarTypeConverter.getTodayStart();
+public class CadastrarHorarioDisponivelActivity extends AppCompatActivity
+        implements CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener{
+    private Button dInicio, dFim, btCriar;
+    private boolean dInicioClicked = false;
+    private Calendar cInicio = CalendarTypeConverter.getEmptyCalendar(), cFim = CalendarTypeConverter.getEmptyCalendar();
+    private Date date1 = new Date(), date2 = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_horario_disponivel);
-        dataInicio = findViewById(R.id.dataInicioId);
-        dataFim = findViewById(R.id.dataFimId);
-        eInicio = findViewById(R.id.eInicio);
-        eFim = findViewById(R.id.eFim);
-        btCriar = findViewById(R.id.criar);
-        linearLayout = findViewById(R.id.layoutId);
-        telaPadrao();
-        mcv = findViewById(R.id.calerdarViewId);
+        dInicio = findViewById(R.id.dInicio);
+        dFim = findViewById(R.id.dFim);
+        btCriar = findViewById(R.id.buscar);
+
         btCriar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HorarioDisponivel horarioDisponivel = new HorarioDisponivel();
-                horarioDisponivel.setUserId(Sessao.getUserId());
-                Calendar temp2 = CalendarTypeConverter.setDayEnd(CalendarTypeConverter.calendarDayToCalendar(day2));
-                Calendar temp = CalendarTypeConverter.setDayBegin(CalendarTypeConverter.calendarDayToCalendar(day1));
-                horarioDisponivel.setHorario(new Horario(CalendarTypeConverter.calendarToLong(temp), CalendarTypeConverter.calendarToLong(temp2)));
-                String id = Sessao.getDatabaseHorarioDisponivel().push().getKey();
-                horarioDisponivel.setId(id);
-                ConflitoHorarios.newHorarioDisponivel(horarioDisponivel);
-                finish();
+                clickCriar();
             }
         });
-        eInicio.setOnClickListener(new View.OnClickListener() {
+        dInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                linearLayout.setVisibility(View.GONE);
-                mcv.setVisibility(View.VISIBLE);
-                mcv.state().edit().setMinimumDate(CalendarTypeConverter.calendarToCalendarDay(calendar)).commit();
-                escolherInicio();
+                clickDInicio();
             }
         });
-        eFim.setOnClickListener(new View.OnClickListener() {
+        dFim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                linearLayout.setVisibility(View.GONE);
-                mcv.setVisibility(View.VISIBLE);
-                mcv.state().edit().setMinimumDate(day1).commit();
-                escolherFim();
+                clickDFim();
             }
         });
-    }
 
-    private void escolherInicio(){
-        mcv.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView, @NonNull CalendarDay calendarDay, boolean b) {
-                day1 = calendarDay;
-                dataInicio.setText(day1.getDay()+"/"+day1.getMonth()+"/"+day1.getYear());
-                day2 = day1;
-                dataFim.setText(day2.getDay()+"/"+day2.getMonth()+"/"+day2.getYear());
-                mcv.setVisibility(View.GONE);
-                linearLayout.setVisibility(View.VISIBLE);
-            }
-        });
-    }
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.add(Calendar.HOUR_OF_DAY, 1);
+        cInicio.setTimeInMillis(calendar.getTimeInMillis());
+        calendar.add(Calendar.HOUR_OF_DAY,1);
+        cFim.setTimeInMillis(calendar.getTimeInMillis());
 
-    private void escolherFim(){
-        mcv.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView, @NonNull CalendarDay calendarDay, boolean b) {
-                day2 = calendarDay;
-                dataFim.setText(day2.getDay()+"/"+day2.getMonth()+"/"+day2.getYear());
-                mcv.setVisibility(View.GONE);
-                linearLayout.setVisibility(View.VISIBLE);
-            }
-        });
-    }
-
-    private void telaPadrao(){
-        day1 = CalendarTypeConverter.calendarToCalendarDay(CalendarTypeConverter.getTodayStart());
-        day2 = day1;
-        dataInicio.setText(day1.getDay()+"/"+day1.getMonth()+"/"+day1.getYear());
-        dataFim.setText(day2.getDay()+"/"+day2.getMonth()+"/"+day2.getYear());
+        date1.setTime(cInicio.getTimeInMillis());
+        date2.setTime(cFim.getTimeInMillis());
+        dInicio.setText(CalendarTypeConverter.getSdfdh().format(date1));
+        dFim.setText(CalendarTypeConverter.getSdfdh().format(date2));
     }
 
     @Override
-    public void onBackPressed() {
-        if (mcv.getVisibility() == View.VISIBLE){
-            mcv.setVisibility(View.GONE);
-            linearLayout.setVisibility(View.VISIBLE);
+    public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
+        if (dInicioClicked) {
+            cInicio.set(year, monthOfYear, dayOfMonth);
+            date1.setTime(cInicio.getTimeInMillis());
+            dInicio.setText(CalendarTypeConverter.getSdfdh().format(date1));
+            Calendar calendar = CalendarTypeConverter.getEmptyCalendar();
+            calendar.setTimeInMillis(cInicio.getTimeInMillis());
+            calendar.add(Calendar.HOUR_OF_DAY, 1);
+            if (calendar.getTimeInMillis() > cFim.getTimeInMillis()){
+                cFim.setTimeInMillis(cInicio.getTimeInMillis() + 3600000L);
+                date2.setTime(cFim.getTimeInMillis());
+                dFim.setText(CalendarTypeConverter.getSdfdh().format(date2));
+            }
+            clickHInicio();
         }else {
-            super.onBackPressed();
+            cFim.set(year, monthOfYear, dayOfMonth);
+            date2.setTime(cFim.getTimeInMillis());
+            dFim.setText(CalendarTypeConverter.getSdfdh().format(date2));
+            clickHFim();
         }
+    }
+
+    @Override
+    public void onTimeSet(RadialTimePickerDialogFragment dialog, int hourOfDay, int minute) {
+        if (dInicioClicked){
+            cInicio.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            cInicio.set(Calendar.MINUTE, minute);
+            date1.setTime(cInicio.getTimeInMillis());
+            dInicio.setText(CalendarTypeConverter.getSdfdh().format(date1));
+            Calendar calendar = CalendarTypeConverter.getEmptyCalendar();
+            calendar.setTimeInMillis(cInicio.getTimeInMillis());
+            calendar.add(Calendar.HOUR_OF_DAY, 1);
+            if (calendar.getTimeInMillis() > cFim.getTimeInMillis()){
+                cFim.setTimeInMillis(calendar.getTimeInMillis());
+                date2.setTime(cFim.getTimeInMillis());
+                dFim.setText(CalendarTypeConverter.getSdfdh().format(date2));
+            }
+        }else {
+            Calendar calendar = CalendarTypeConverter.getEmptyCalendar();
+            calendar.setTimeInMillis(cFim.getTimeInMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calendar.set(Calendar.MINUTE, minute);
+            Calendar calendar1 = CalendarTypeConverter.getEmptyCalendar();
+            calendar1.setTimeInMillis(cInicio.getTimeInMillis());
+            calendar1.add(Calendar.HOUR_OF_DAY, 1);
+            if (!(calendar1.getTimeInMillis() > calendar.getTimeInMillis())){
+                cFim.setTimeInMillis(calendar.getTimeInMillis());
+                date2.setTime(cFim.getTimeInMillis());
+                dFim.setText(CalendarTypeConverter.getSdfdh().format(date2));
+            }else {
+                cFim.setTimeInMillis(calendar1.getTimeInMillis());
+                date2.setTime(cFim.getTimeInMillis());
+                dFim.setText(CalendarTypeConverter.getSdfdh().format(date2));
+            }
+
+        }
+    }
+
+    private void clickDInicio(){
+        dInicioClicked = true;
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, 1);
+        CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment()
+                .setOnDateSetListener(CadastrarHorarioDisponivelActivity.this)
+                .setFirstDayOfWeek(Calendar.SUNDAY)
+                .setPreselectedDate(cInicio.get(Calendar.YEAR), cInicio.get(Calendar.MONTH), cInicio.get(Calendar.DAY_OF_MONTH))
+                .setDateRange(CalendarTypeConverter.calendarToCalendarDay2(calendar), null);
+        cdp.show(getSupportFragmentManager(), null);
+    }
+
+    private void clickDFim(){
+        dInicioClicked = false;
+        Calendar calendar = CalendarTypeConverter.getEmptyCalendar();
+        calendar.setTimeInMillis(cInicio.getTimeInMillis());
+        calendar.add(Calendar.HOUR_OF_DAY, 1);
+        CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment()
+                .setOnDateSetListener(CadastrarHorarioDisponivelActivity.this)
+                .setFirstDayOfWeek(Calendar.SUNDAY)
+                .setPreselectedDate(cFim.get(Calendar.YEAR), cFim.get(Calendar.MONTH), cFim.get(Calendar.DAY_OF_MONTH))
+                .setDateRange(CalendarTypeConverter.calendarToCalendarDay2(calendar), null);
+        cdp.show(getSupportFragmentManager(), null);
+    }
+
+    private void clickHInicio(){
+        RadialTimePickerDialogFragment rtp = new RadialTimePickerDialogFragment()
+                .setOnTimeSetListener(CadastrarHorarioDisponivelActivity.this);
+        rtp.show(getSupportFragmentManager(), null);
+    }
+
+    private void clickHFim(){
+        RadialTimePickerDialogFragment rtp = new RadialTimePickerDialogFragment()
+                .setOnTimeSetListener(CadastrarHorarioDisponivelActivity.this);
+        rtp.show(getSupportFragmentManager(), null);
+    }
+
+    private void clickCriar(){
+        HorarioDisponivel horarioDisponivel = new HorarioDisponivel();
+        horarioDisponivel.setUserId(Sessao.getUserId());
+        horarioDisponivel.setHorario(new Horario(cInicio.getTimeInMillis(), cFim.getTimeInMillis()));
+        String id = Sessao.getDatabaseHorarioDisponivel().child(Sessao.getUserId()).push().getKey();
+        horarioDisponivel.setId(id);
+        ConflitoHorarios.newHorarioDisponivel(horarioDisponivel);
+        finish();
     }
 }

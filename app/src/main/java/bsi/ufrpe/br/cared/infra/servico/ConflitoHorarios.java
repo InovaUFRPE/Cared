@@ -6,6 +6,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.math.BigDecimal;
+
 import bsi.ufrpe.br.cared.horario.dominio.Agendamento;
 import bsi.ufrpe.br.cared.horario.dominio.Horario;
 import bsi.ufrpe.br.cared.horario.dominio.HorarioDisponivel;
@@ -92,7 +94,6 @@ public class ConflitoHorarios {
                 String aId = Sessao.getDatabaseAgendamento().child(agendamento.getCuidadorId()).push().getKey();
                 agendamento.setId(aId);
                 Sessao.getDatabaseAgendamento().child(agendamento.getCuidadorId()).child(agendamento.getId()).setValue(agendamento);
-                Sessao.getDatabaseAgendamento().child(agendamento.getPacienteId()).child(agendamento.getId()).setValue(agendamento);
             }
 
             @Override
@@ -100,5 +101,13 @@ public class ConflitoHorarios {
 
             }
         });
+    }
+
+    public static double getTempo(Horario horario){
+        long tempo = horario.getFim() - horario.getInicio();
+        BigDecimal tempoB = new BigDecimal(tempo);
+        BigDecimal tempoU = new BigDecimal(3600000L);
+        BigDecimal tempoR = tempoB.divide(tempoU);
+        return tempoR.doubleValue();
     }
 }

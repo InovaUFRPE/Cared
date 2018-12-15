@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">Cared</string>
+    <string name="app_name">Cuide</string>
     <string name="desc">Cuidado na palma da mão</string>
     <string name="home_contratante">Quero contratar um cuidador</string>
     <string name="home_cuidador">Sou um cuidador</string>
     <string name="home_login">Já possui conta? Fazer Login</string>
+
+    <!--Cadastro-->
+    <string name="cadastro_cuidador_dados">Dados Pessoais</string>
+    <string name="cadastro_cuidador_nome">Nome Completo</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -11,4 +15,18 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="prompt_data">Data de nascimento</string>
+    <string name="title_activity_rendimentos_cuidador">RendimentosCuidadorActivity</string>
+    <string name="tab_text_1">GERAL</string>
+    <string name="tab_text_2">MÊS ATUAL</string>
+    <string name="tab_text_3">FUTUROS</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_rendimentos_fragment">RendimentosFragment</string>
+    <string name="title_activity_editar_perfil_complemento_cuidador">
+        EditarPerfilComplementoCuidadorActivity
+    </string>
+
 </resources>

@@ -1,5 +1,6 @@
 package bsi.ufrpe.br.cared.cuidador.gui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,6 +34,7 @@ public class MeusHorariosAgendadosFragment extends Fragment {
     private EventDecorator eventDecorator;
     private List<CalendarDay> calendarDayList = new ArrayList<>();
     private List<Agendamento> agendamentoList = new ArrayList<>();
+    private Button button;
 
     @Nullable
     @Override
@@ -41,7 +45,9 @@ public class MeusHorariosAgendadosFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getView().findViewById(R.id.button).setVisibility(View.GONE);
+        button = getView().findViewById(R.id.button);
+        button.setText("ver todos os agendamentos");
+        clickButton();
         mcv = getView().findViewById(R.id.calendarView);
         eventDecorator = new EventDecorator(Color.BLACK, calendarDayList) {
             @Override
@@ -57,6 +63,7 @@ public class MeusHorariosAgendadosFragment extends Fragment {
         mcv.addDecorator(eventDecorator);
         mcv.setCurrentDate(CalendarTypeConverter.calendarToCalendarDay(Calendar.getInstance()));
         getHorarios();
+        clickDay();
     }
 
     private void getHorarios(){
@@ -95,5 +102,25 @@ public class MeusHorariosAgendadosFragment extends Fragment {
         };
         mcv.removeDecorators();
         mcv.addDecorator(eventDecorator);
+    }
+
+    private void clickDay(){
+        mcv.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView, @NonNull CalendarDay calendarDay, boolean b) {
+                Intent intent = new Intent(getActivity(), CuidadorMeusServicosActivity.class);
+                intent.putExtra("day", calendarDay);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void clickButton(){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), CuidadorMeusServicosActivity.class));
+            }
+        });
     }
 }

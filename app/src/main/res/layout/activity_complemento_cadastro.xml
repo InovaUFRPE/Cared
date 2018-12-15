@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".cuidador.gui.ComplementoCadastroActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="» Disponibilidade para dormir?"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="40px" />
+
+            <RadioGroup
+                android:id="@+id/radioGrupoDormir"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <RadioButton
+                    android:id="@+id/dormirSim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="SIM"
+                    android:checked="true"/>
+                <RadioButton
+                    android:id="@+id/dormirNão"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="NÃO" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="» Possui cursos profissionalizantes?"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="40px"
+                tools:layout_editor_absoluteX="29dp"
+                tools:layout_editor_absoluteY="111dp" />
+
+            <RadioGroup
+                android:id="@+id/radioGrupoCurso"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <RadioButton
+                    android:id="@+id/cursoSim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="SIM"
+                    android:checked="true"/>
+                <RadioButton
+                    android:id="@+id/cursoNão"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="NÃO" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/cursoCuidador"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Se sim, informe separado por vírgula"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="» Possui experiência?"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="40px" />
+
+            <RadioGroup
+                android:id="@+id/radioGrupoExperiencia"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <RadioButton
+                    android:id="@+id/experienciaSim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="SIM"
+                    android:checked="true"/>
+                <RadioButton
+                    android:id="@+id/experienciaNão"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="NÃO" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/resumoExperiencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Faça um resumo da sua experiência"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/complementoButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorButton"
+                android:text="Confirmar informações"
+                android:textColor="@color/colorTextButton"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

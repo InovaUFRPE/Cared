@@ -6,15 +6,17 @@ public class Agendamento {
     private String pacienteId;
     private double valor;
     private String id;
+    private Situacao situacao;
 
     public Agendamento() {}
 
-    public Agendamento(Horario horario, String cuidadorId, String pacienteId, double valor, String id) {
+    public Agendamento(Horario horario, String cuidadorId, String pacienteId, double valor, String id, Situacao situacao) {
         this.horario = horario;
         this.cuidadorId = cuidadorId;
         this.pacienteId = pacienteId;
         this.valor = valor;
         this.id = id;
+        this.situacao = situacao;
     }
 
     public Horario getHorario() {
@@ -55,5 +57,13 @@ public class Agendamento {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Situacao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(Situacao situacao) {
+        this.situacao = situacao;
     }
 }

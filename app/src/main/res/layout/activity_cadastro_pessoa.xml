@@ -13,59 +13,119 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dados Pessoais"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"/>
+            <ImageView
+                android:id="@+id/mostrarFoto"
+                android:layout_gravity="center"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimaryDark" />
+
+            <Button
+                android:id="@+id/escolherFotoUser"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorButton"
+                android:text="Escolher foto"
+                android:textColor="@color/colorTextButton" />
+
             <EditText
-                android:id="@+id/nomeId"
+                android:id="@+id/nomeUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nome Completo"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="10dp"/>
             <EditText
-                android:id="@+id/cpfId"
+                android:id="@+id/editTextDataNasc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="@string/prompt_data"
+                android:inputType="date"/>
+            <EditText
+                android:id="@+id/cpfUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="CPF"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:inputType="number"/>
             <EditText
-                android:id="@+id/telefoneId"
+                android:id="@+id/necessidadesUser"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:maxLines="5"
+                android:hint="Descreva sua rotina e necessidades a serem executadas"
+                android:layout_marginTop="10dp"
+                android:inputType="textMultiLine"/>
+
+            <EditText
+                android:id="@+id/telefoneUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Telefone"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:inputType="number|phone"/>
             <EditText
-                android:id="@+id/emailId"
+                android:id="@+id/emailUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="E-mail"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:inputType="textEmailAddress"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Senha"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="10dp"/>
             <EditText
-                android:id="@+id/senhaId"
+                android:id="@+id/senhaUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Senha"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:inputType="textPassword"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Endereço"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"/>
+            <EditText
+                android:id="@+id/ruaUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Rua"
+                android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/numeroUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Número"
+                android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/bairroUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bairro"
+                android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/cidadeUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cidade"
+                android:layout_marginTop="10dp"/>
             <Button
-                android:id="@+id/confirmarId"
+                android:id="@+id/confirmarUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Confirmar cadastro"

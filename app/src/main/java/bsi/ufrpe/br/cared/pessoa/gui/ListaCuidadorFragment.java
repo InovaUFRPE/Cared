@@ -1,5 +1,6 @@
 package bsi.ufrpe.br.cared.pessoa.gui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,12 +26,14 @@ import bsi.ufrpe.br.cared.cuidador.gui.PerfilCuidadorActivity;
 import bsi.ufrpe.br.cared.horario.dominio.Horario;
 import bsi.ufrpe.br.cared.horario.dominio.HorarioDisponivel;
 import bsi.ufrpe.br.cared.infra.Sessao;
+import bsi.ufrpe.br.cared.infra.servico.ConflitoHorarios;
 
 public class ListaCuidadorFragment extends Fragment {
     private List<Cuidador> cuidadorList = new ArrayList<>();
     private ListView listView;
     private CuidadorAdapter adapter;
     private Horario horario;
+    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -41,20 +44,28 @@ public class ListaCuidadorFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        horario = Sessao.getHorario();
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Carregando...");
+        progressDialog.setCanceledOnTouchOutside(false);
         listView = getView().findViewById(R.id.listView);
-        adapter = new CuidadorAdapter(cuidadorList);
+        adapter = new CuidadorAdapter(cuidadorList, ConflitoHorarios.getTempo(horario));
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Sessao.setCuidadorPerfil(cuidadorList.get(i));
-                startActivity(new Intent(getActivity(), PerfilCuidadorActivity.class));
+                Intent intent = new Intent(getActivity(), PerfilCuidadorActivity.class);
+                intent.putExtra("id", cuidadorList.get(i).getUserId());
+                intent.putExtra("inicio", horario.getInicio());
+                intent.putExtra("fim", horario.getFim());
+                startActivity(intent);
             }
         });
-        Sessao.getDatabaseHorarioDisponivel().addListenerForSingleValueEvent(new ValueEventListener() {
+        Sessao.getDatabaseHorarioDisponivel().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                progressDialog.show();
+                cuidadorList.clear();
+                adapter.notifyDataSetChanged();
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     for (DataSnapshot dataSnapshot2: dataSnapshot1.getChildren()){
                         HorarioDisponivel disponivel = dataSnapshot2.getValue(HorarioDisponivel.class);
@@ -64,6 +75,7 @@ public class ListaCuidadorFragment extends Fragment {
                         }
                     }
                 }
+
             }
 
             @Override
@@ -78,8 +90,23 @@ public class ListaCuidadorFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Cuidador cuidador = dataSnapshot.getValue(Cuidador.class);
-                cuidadorList.add(cuidador);
-                adapter.notifyDataSetChanged();
+                boolean ok = true;
+                for (Cuidador cuidador1: cuidadorList){
+                    if (cuidador1.getUserId() == cuidador.getUserId()){
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok) {
+                    cuidadorList.add(cuidador);
+                    adapter.notifyDataSetChanged();
+                    if (progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                    }
+                }
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
             }
 
             @Override
@@ -87,5 +114,9 @@ public class ListaCuidadorFragment extends Fragment {
 
             }
         });
+    }
+
+    public void setHorario(Horario horario){
+        this.horario = horario;
     }
 }

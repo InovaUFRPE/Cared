@@ -18,8 +18,8 @@ public class Sessao {
     private static DatabaseReference databaseCuidador;
     private static DatabaseReference databaseHorarioDisponivel;
     private static DatabaseReference databaseAgendamento;
+    private static DatabaseReference databaseAvaliacao;
     private static final Map<String, Object> values = new HashMap<>();
-    private static Horario horario;
 
     private Sessao(){}
 
@@ -58,6 +58,13 @@ public class Sessao {
         return databaseAgendamento;
     }
 
+    public static DatabaseReference getDatabaseAvaliacao(){
+        if(databaseAvaliacao==null){
+            databaseAvaliacao = FirebaseDatabase.getInstance().getReference("avaliacao");
+        }
+        return databaseAvaliacao;
+    }
+
     public static FirebaseAuth getFirebaseAuth(){
         if(firebaseAuth == null){
             firebaseAuth = FirebaseAuth.getInstance();
@@ -73,12 +80,16 @@ public class Sessao {
         values.put(key, value);
     }
 
-    public static void setPessoa(int tipo, Object object){
-        if(tipo == 0){
-            setValue("conta", 0);
+    public static void setPessoa(TipoUsuario usuario, Object object){
+        if(usuario.equals(TipoUsuario.PESSOA)){
+            setValue("conta", usuario);
             setValue("pessoa", object);
+        }else if (usuario.equals(TipoUsuario.CUIDADOR)){
+            setValue("conta", usuario);
+            setValue("cuidador", object);
         }else{
-            setValue("conta", 1);
+            setValue("conta", usuario);
+            setValue("pessoa", object);
             setValue("cuidador", object);
         }
     }
@@ -91,28 +102,12 @@ public class Sessao {
         return (Cuidador) values.get("cuidador");
     }
 
-    public static int getTipo(){
-        return (int) values.get("conta");
+    public static TipoUsuario getTipo(){
+        return (TipoUsuario) values.get("conta");
     }
 
     public static void logout(){
-        setPessoa(2, null);
+        setPessoa(TipoUsuario.NONE, null);
         getFirebaseAuth().signOut();
-    }
-
-    public static void setCuidadorPerfil(Cuidador cuidador){
-        setValue("cuidadorPerfil", cuidador);
-    }
-
-    public static Cuidador getCuidadorPerfil(){
-        return (Cuidador) values.get("cuidadorPerfil");
-    }
-
-    public static Horario getHorario() {
-        return horario;
-    }
-
-    public static void setHorario(Horario horario) {
-        Sessao.horario = horario;
     }
 }
